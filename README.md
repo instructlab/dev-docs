@@ -1,8 +1,9 @@
 # InstructLab Architecture
 
-This repository contains design artifacts that define the architecture and
-design of cross-component interactions in the Instruct Lab project. The repo
-also serves as a home for technical policies that apply across all components.
+This repository contains developer docs and design artifacts that define the
+architecture and design of cross-component interactions in the Instruct Lab
+project. The repo also serves as a home for technical policies that apply
+across all components.
 
 ## Governance
 
@@ -25,6 +26,8 @@ decide what constitutes appropriate approval on a case-by-case basis.
 ## Formatting Guidelines
 
 Design documents should be placed in `docs/`.
+
+Developer docs should be placed in `dev-docs/`.
 
 ### Text
 
