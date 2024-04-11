@@ -37,9 +37,33 @@ Team membership for triagers of the Taxonomy repository is managed using the
 [taxonomy-triagers GitHub
 team](https://github.com/orgs/instruct-lab/teams/taxonomy-triagers).
 
-The bot commands can be configured to only run if a specified lab is present
-on the PR. This will allow us to block the automation from running on PRs until
-a triager has done an initial check and determined it is safe to proceed.
+The bot should allow configuring a list of GitHub teams that are allowed to
+enable its functionality on a PR. The first command will only be accessible to
+the following teams:
+
+- Taxonomy Triagers
+- Taxonomy Maintainers
+- Backend Maintainers
+- Instruct Lab Org Admins
+
+This first command is used to indicate that a PR has been reviewed enough to determine
+that it is safe to run automated tasks against it. This is to help avoid abuse
+of our backend resources with malicious PRs.
+
+```
+@instruct-lab-bot enable
+```
+
+If the bot determines the author of this command is in one of the required
+teams, it will set a [commit
+status](https://docs.github.com/en/rest/commits/statuses) on the PR indicating
+that the bot functionality is turned on. The use of commit status here is
+important because commit status will automatically be reset if the author of
+the PR makes further changes. Any changes should require another check by a
+triager or maintainer for the bot to be re-enabled.
+
+At this point, the bot should respond with a welcome message including a list of
+commands that have been enabled for this PR (`precheck`, `generate`, for example).
 
 * [Bot PR adding gating label support](https://github.com/instruct-lab/instruct-lab-bot/pull/120)
 
