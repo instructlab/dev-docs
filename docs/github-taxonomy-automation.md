@@ -12,7 +12,7 @@ This document describes the GitHub automation used with the
 There is a [GitHub bot](https://github.com/instruct-lab/instruct-lab-bot) used
 to facilitate this automation. This bot receives GitHub events and performs
 actions on behalf of different components within Instruct Lab. More details on
-the architectecture of the bot itself can be found in its repository.
+the architecture of the bot itself can be found in its repository.
 
 ### GitHub Actions
 
