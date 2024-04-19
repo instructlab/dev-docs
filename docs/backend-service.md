@@ -132,6 +132,14 @@ review these principles to ensure we make a decision that aligns with them.
 We should also consider these principles to be open to change as we learn more,
 but they will always serve as a guide.
 
+Summarized, these principles are:
+
+- Vendor Agnostic
+- Scalable
+- Service Oriented
+- Reusable
+- Small Iterations
+
 ### Vendor Agnostic
 
 The Backend Service should be able to run on any Kubernetes cluster. While we
@@ -197,12 +205,32 @@ the backend pipeline.
 
 ![High Level Service Diagram](./images/backend/backend-service-high-level.png)
 
-## Backend Service API Resources
+### Reusable
 
-We have a working backend pipeline. We can take that and think about how we
-would model it as a set of resources managed through an API.
+The Backend Service was envisioned from the beginning as a pipeline of distinct
+steps (data generation, training, evaluation, and publishing). This separation
+of concerns should be maintained in a future service-oriented architecture. While
+the diagram under [Serivce Oriented](#service-oriented) shows a high-level diagram
+with a single "InstructLab Service API," in practice, this should be broken down
+into multiple services with a more focused set of concerns.
 
-... TODO ...
+Within InstructLab, we could have a top-level application that implements the
+entire backend pipeline workflow and does so by making use of each of these
+services. However, in the future, we could also envision these services being
+used in other contexts.
+
+![Service Breakdown](./images/backend/backend-service-breakdown.png)
+
+### Small Iterations
+
+While we may cast a vision for the future, we desire to get there via a series
+of small iterations. We have a working backend pipeline already and will
+continue to run it every week. In parallel, we can work to evolve it through a
+series of small iterations that evolve it over time, gradually evolving the
+execution process that occurs each week.
+
+We do not want a new effort happening in parallel to what is already working
+today.
 
 ## Key Technology Decisions
 
@@ -218,6 +246,10 @@ environment, we expect one of the single-node Kubernetes distributions to be
 used. One example is [Microshift](https://github.com/openshift/microshift/), but
 there are others.
 
+A development environment capable of running within
+[kind](https://kind.sigs.k8s.io/) would also be incredibly convenient, though not
+as a production target environment.
+
 ### Programming Languages
 
 Python is the primary language used in the current backend. It is also the
@@ -232,6 +264,25 @@ is in Go, and the Go client libraries are the most mature.
 To best support the full scope of the project, we will use both Python and Go,
 depending on the specific needs of the component in question.
 
-# ...
+## An Example Service - Data Generation
 
-...
+The Data Generation step is the first piece of the backend pipeline. To help
+illustrate this future direction in more detail, we can use it as an example to
+discuss in more detail. The [current SDG](#current-sdg) section provides a
+high-level overview of how SDG works today.
+
+Moving to a services-based architecture can be done mostly a wrapper around what
+exists today. While today, we have:
+
+- Developer generates manifests
+- Developer launches manifests on a cluster
+
+Instead, we would have a Data Generation Service running in a cluster.
+
+- Developer issues a request to the Data Generation Service via its API
+  directly, a CLI that uses that API, or some other UI that uses this API.
+
+We could implement this evolution of SDG without any impact to the rest of the
+existing pipeline implementation.
+
+![SDG Service](./images/backend/backend-sdg-service.png)
