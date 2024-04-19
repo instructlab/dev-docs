@@ -50,7 +50,7 @@ This first command is used to indicate that a PR has been reviewed enough to det
 that it is safe to run automated tasks against it. This is to help avoid abuse
 of our backend resources with malicious PRs.
 
-```
+```text
 @instruct-lab-bot enable
 ```
 
@@ -65,12 +65,12 @@ triager or maintainer for the bot to be re-enabled.
 At this point, the bot should respond with a welcome message including a list of
 commands that have been enabled for this PR (`precheck`, `generate`, for example).
 
-* [Bot PR adding gating label support](https://github.com/instruct-lab/instruct-lab-bot/pull/120)
+- [Bot PR adding gating label support](https://github.com/instruct-lab/instruct-lab-bot/pull/120)
 
 Two labels will be used:
 
-* `skill` - This label indicates that the bot can run automation intended for skills PRs.
-* `knowledge` - This label indicates that the bot can run automation intended for knowledge PRs.
+- `skill` - This label indicates that the bot can run automation intended for skills PRs.
+- `knowledge` - This label indicates that the bot can run automation intended for knowledge PRs.
 
 ### Pre-Check Using the Existing Model
 
@@ -89,7 +89,7 @@ answers.
 When the process is complete, the bot will post a comment with instructions on
 how to access the results.
 
-* <https://github.com/instruct-lab/instruct-lab-bot/issues/85>
+- <https://github.com/instruct-lab/instruct-lab-bot/issues/85>
 
 ### Post-Check Using the Trained Model
 
@@ -111,7 +111,7 @@ backend infrastructure.
 When the process is complete, the bot will post a comment with instructions on
 how to access the results.
 
-* <https://github.com/instruct-lab/instruct-lab-bot/issues/127>
+- <https://github.com/instruct-lab/instruct-lab-bot/issues/127>
 
 ### Synthetic Data Generation Check
 
@@ -129,7 +129,7 @@ proposed addition is reasonable.
 When the process is complete, the bot will post a comment with instructions on
 how to access the results.
 
-* Working, but still needs remote endpoint support added:
+- Working, but still needs remote endpoint support added:
   <https://github.com/instruct-lab/instruct-lab-bot/issues/116>
 
 ### Publishing Benchmark Results
@@ -143,8 +143,8 @@ pipeline.
 
 The orchestrator is responsible for running the benchmarking process. Afterwards, a triager will run a script that publishes the results back to PRs. This script will use the triager's own GitHub credentials to post the results.
 
-* <https://github.com/instruct-lab/orchestrator/issues/42>
-* <https://github.com/instruct-lab/orchestrator/pull/72>
+- <https://github.com/instruct-lab/orchestrator/issues/42>
+- <https://github.com/instruct-lab/orchestrator/pull/72>
 
 #### Future
 
