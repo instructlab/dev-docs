@@ -25,7 +25,11 @@ wandb server start
 
 ### Click "Login", create an account. 
 
-Use a personal email and don't forget the password!
+Add your fullname, email, username, and a password.
+
+Use a valid email and don't forget username and password.
+
+### Click on "Get a free license"
 
 ![image info](./screenshots/screenshot-wandb-local-3.png)
 
@@ -33,55 +37,51 @@ Use a personal email and don't forget the password!
 
 ![image info](./screenshots/screenshot-wandb-local-4.png)
 
-### Click on "Get a free license"
+### Click on "Continue"
 
 ![image info](./screenshots/screenshot-wandb-local-5.png)
 
-### Click on "Continue"
+### Click on "New Organization"
 
 ![image info](./screenshots/screenshot-wandb-local-6.png)
 
-### Click on "New Organization"
+### Add an Organization Name then click "Next"
 
 ![image info](./screenshots/screenshot-wandb-local-7.png)
 
-### Add an Organization Name then click "Next"
+### Click "Generate License Key"
 
 ![image info](./screenshots/screenshot-wandb-local-8.png)
 
-### Click "Generate License Key"
+### Click "Copy License"
 
 ![image info](./screenshots/screenshot-wandb-local-9.png)
 
-### Click "Copy License"
+### Click "Copy"
 
 ![image info](./screenshots/screenshot-wandb-local-10.png)
 
-### Click "Copy"
-
-![image info](./screenshots/screenshot-wandb-local-11.png)
-
 ### Go back to localhost:8080, click on "Add license"
 
-![image info](./screenshots/screenshot-wandb-local-12.png)
+![image info](./screenshots/screenshot-wandb-local-11.png)
 
 ### Paste license into text box
 
 The page should go from this:
 
-![image info](./screenshots/screenshot-wandb-local-13-1.png)
+![image info](./screenshots/screenshot-wandb-local-12-1.png)
 
 To this:
 
-![image info](./screenshots/screenshot-wandb-local-13-2.png)
+![image info](./screenshots/screenshot-wandb-local-12-2.png)
 
 ### Click "Update settings"
 
-![image info](./screenshots/screenshot-wandb-local-14.png)
+![image info](./screenshots/screenshot-wandb-local-13.png)
 
 ### Go back to localhost:8080, copy API key
 
-![image info](./screenshots/screenshot-wandb-local-15.png)
+![image info](./screenshots/screenshot-wandb-local-14.png)
 
 ### Use key in below python program called wb-run.py
 
@@ -89,7 +89,7 @@ To this:
 import wandb
 
 WANDB_BASE_URL = "http://localhost:8080"
-WANDB_API_KEY = "local-ca43659ee79c59fbf3b5f551218c659766038799"
+WANDB_API_KEY = <WANDB API KEY GOES HERE>
 wandb.login(host=WANDB_BASE_URL, key=WANDB_API_KEY)
 run = wandb.init(project="foo-project",group="foo-group",job_type='foo-job-type')
 run.finish()
@@ -103,7 +103,7 @@ python wb-run.py
 
 ### See run under My projects
 
-![image info](./screenshots/screenshot-wandb-local-16.png)
+![image info](./screenshots/screenshot-wandb-local-15.png)
 
 
 ### The End. You now are ready to integrate wandb into your code and see what you've done locally!
