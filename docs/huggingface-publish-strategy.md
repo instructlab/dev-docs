@@ -3,7 +3,7 @@
 This document describes the publishing strategy used for all models in the [InstructLab](https://huggingface.co/instructlab) organization.
 
 ## What are we publishing and why?
-The InstructLab team will be periodically training the full unquantized model with new Pull Requests to the [taxonomy](https://github.com/instructlab/taxonomy) repository. When the evaluation shows that the model has improved, the team will be converting and quantizing that model and publishing it to a platform called HuggingFace.
+The InstructLab team will be periodically training the full unquantized model with new Pull Requests to the [taxonomy](https://github.com/instructlab/taxonomy) repository. When the evaluation shows that the model has improved, the team will be publishing an unquantized model and a 4-bit quantized GGUF form model to a platform called HuggingFace.
 
 ## What is HuggingFace?
 [HuggingFace](https://huggingface.co/) is a centralized web service platform, similar to GitHub, for hosting Git-based repositories related to data science and machine learning. In the context of InstructLab, HuggingFace is the platform where we will be publishing releases of our model for consumption by the community.
