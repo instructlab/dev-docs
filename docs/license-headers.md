@@ -1,9 +1,9 @@
-# Policy on License Headers in Source Files
+# Guidance for License Headers in Source Files
 
 ## Code Originating from InstructLab
 
-* We prefer not to have a license header at the top of every file. We feel it is
-  unnecessary.
+* We prefer not to have a traditional full license header at the top of every
+  file. We feel it is unnecessary.
 
 * We prefer to have a single-line license identifier at the top of our source
   files, though it is not strictly required.
