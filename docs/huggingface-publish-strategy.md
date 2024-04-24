@@ -29,10 +29,10 @@ The specific schemes that will be published are detailed below:
 
 | Model Family, Size, Alignment, etc. | Release Branch Format | Purpose |
 | --- | --- | --- |
-| [`merlinite-7b-lab`](https://huggingface.co/instructlab/merlinite-7b-lab) | `release-mmddyy` | Where the full precision Merlinite safetensors live |
-| [`merlinite-7b-lab-GGUF`](https://huggingface.co/instructlab/merlinite-7b-lab-GGUF) | `release-mmddyy` | Where the full precision and quantized Merlinite GGUFs live |
-| [`granite-7b-lab`](https://huggingface.co/instructlab/granite-7b-lab) | `release-mmddyy` | Where the full precision Granite safetensors live |
-| [`granite-7b-lab-GGUF`](https://huggingface.co/instructlab/granite-7b-lab-GGUF) | `release-mmddyy` | Where the full precision and quantized Granite GGUFs live |
+| [`merlinite-7b-lab`](https://huggingface.co/instructlab/merlinite-7b-lab) | `release-yyyymmdd` | Where the full precision Merlinite safetensors live |
+| [`merlinite-7b-lab-GGUF`](https://huggingface.co/instructlab/merlinite-7b-lab-GGUF) | `release-yyyymmdd` | Where the full precision and quantized Merlinite GGUFs live |
+| [`granite-7b-lab`](https://huggingface.co/instructlab/granite-7b-lab) | `release-yyyymmdd` | Where the full precision Granite safetensors live |
+| [`granite-7b-lab-GGUF`](https://huggingface.co/instructlab/granite-7b-lab-GGUF) | `release-yyyymmdd` | Where the full precision and quantized Granite GGUFs live |
 
 ## Retention Policy
 The InstructLab team will maintain the most recent **10** published versions of the respective models.
