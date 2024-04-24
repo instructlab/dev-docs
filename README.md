@@ -1,13 +1,13 @@
-# InstructLab Architecture
+# InstructLab Developer Documentation
 
 This repository contains design artifacts that define the architecture and
-design of cross-component interactions in the Instruct Lab project. The repo
+design of cross-component interactions in the InstructLab project. The repo
 also serves as a home for technical policies that apply across all components.
 
 ## Governance
 
 Governance for InstructLab overall is documented in the [community
-repository](https://github.com/instruct-lab/community/blob/main/governance.md).
+repository](https://github.com/instructlab/community/blob/main/governance.md).
 
 There is not (yet) a group that provides technical oversight across all of
 InstructLab. If such a group exists in the future, that group would assume
