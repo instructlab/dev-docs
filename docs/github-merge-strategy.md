@@ -17,7 +17,7 @@ Additional checks might be required for repositories on a case-by-case basis.
 
 ### Approvals from Project Maintainers
 
-At least one Project Maintainer should need to have an approving review on a Pull Request for it to be considered for merge. The definition of a Project Maintainer can be found [here](https://github.com/instruct-lab/community/blob/main/governance.md#project-maintainers-overview).
+At least one Project Maintainer should need to have an approving review on a Pull Request for it to be considered for merge. Requiring more reviews is left up to the discretion and consensus of the application maintainers team for a repository. The definition of a Project Maintainer can be found [here](https://github.com/instruct-lab/community/blob/main/governance.md#project-maintainers-overview).
 
 Project Maintainers are given access permissions via [GitHub Teams](https://github.com/orgs/instruct-lab/teams) - you can see more details on the specific responsibilities of these teams [here](https://github.com/instruct-lab/community/blob/main/MAINTAINERS.md).
 
