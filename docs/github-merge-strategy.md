@@ -9,6 +9,7 @@ Every Pull Request that is made to an InstructLab repository should meet the bel
 ### CI checks
 
 We should require that all CI checks pass on a Pull Request before it can be considered for merge. Every repository should have at mimimum the following checks:
+
 - Linting
 - Testing (Unit, Functional, etc)
 - DCO Commit Signoff via a `Signed-off-by` header. There is a DCO check enabled for all repositories in this GitHub organization.
@@ -30,4 +31,3 @@ We use the default merge method of creating merge commits for PRs. This is to en
 This requires project maintainers to include commit messages and the overall structure of the commit series as part of their review. When multiple commits are present, they should represent a logical series of changes that implement the overall change proposed in the PR. The commit message for each should clearly explain that step of the progression.
 
 It is common that a PR author may need to do a final rebase to clean up their proposed commit series before a PR can be merged. It is also fine for a project maintainer to perform this step when the changes necessary are straight forward enough to do so.  This includes doing a final rebase on `main` if necessary. The PR itself should NOT include any merge commits of `main` back into the developer's branch. We expect the proposed commit series to be a clean set of commits against `main` without conflicts or merge commit history. We only use a merge commit to record the PR's inclusion into `main`.
-
