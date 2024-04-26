@@ -41,16 +41,16 @@ The bot should allow configuring a list of GitHub teams that are allowed to
 enable its functionality on a PR. The first command will only be accessible to
 the following teams:
 
-- Taxonomy Triagers
-- Taxonomy Maintainers
-- Backend Maintainers
-- Instruct Lab Org Admins
+* Taxonomy Triagers
+* Taxonomy Maintainers
+* Backend Maintainers
+* Instruct Lab Org Admins
 
 This first command is used to indicate that a PR has been reviewed enough to determine
 that it is safe to run automated tasks against it. This is to help avoid abuse
 of our backend resources with malicious PRs.
 
-```
+```text
 @instruct-lab-bot enable
 ```
 
