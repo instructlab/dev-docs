@@ -16,13 +16,13 @@ We will be publishing two different kinds of model families - Merlinite and Gran
 
 The Merlinite model family is based off the [Mistral](https://mistral.ai/) model family and uses the [Large-scale Alignment for chatBots (LAB)](https://arxiv.org/abs/2403.01081) alignment. You can read more about it [here](https://huggingface.co/instructlab/merlinite-7b-lab).
 
-The InstructLab organzation will be publishing a community version of the Merlinite 7B size model, in both unquantized and 4-bit quantized GGUF form.
+The InstructLab organization will be publishing a community version of the Merlinite 7B size model, in both unquantized and 4-bit quantized GGUF form.
 
 ## Granite
 
 The Granite model family is the [foundational model family](https://www.ibm.com/downloads/cas/X9W4O6BM) for the IBM watsonx AI platform, designed for usage in a business environment. You can read more about it [here](https://huggingface.co/instructlab/granite-7b-lab).
 
-The InstructLab organzation will be publishing a community version of the Granite 7B size model using the [Large-scale Alignment for chatBots (LAB)](https://arxiv.org/abs/2403.01081) alignment, in both unquantized and 4-bit quantized GGUF form.
+The InstructLab organization will be publishing a community version of the Granite 7B size model using the [Large-scale Alignment for chatBots (LAB)](https://arxiv.org/abs/2403.01081) alignment, in both unquantized and 4-bit quantized GGUF form.
 
 ## Naming Scheme
 
