@@ -20,6 +20,7 @@ cuBLAS
 CUDA
 dataset
 DCO
+Dependabot
 dev
 ditaa
 dr
@@ -27,7 +28,10 @@ Dropdown
 env
 Eval
 Excalidraw
+exfiltrate
+exfiltrating
 Finetuning
+formedness
 GFX
 GGUF
 GGUFs
@@ -101,7 +105,7 @@ tatsu
 TBD
 Tesla
 th
-th
+tj
 tl
 tox
 triager
