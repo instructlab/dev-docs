@@ -20,6 +20,7 @@ cuBLAS
 CUDA
 dataset
 DCO
+Dependabot
 dev
 ditaa
 dr
@@ -27,7 +28,10 @@ Dropdown
 env
 Eval
 Excalidraw
+exfiltrate
+exfiltrating
 Finetuning
+formedness
 GFX
 GGUF
 GGUFs
@@ -53,6 +57,7 @@ llms
 LLVM
 lora
 md
+Markdownlint
 Mergify
 Merlinite
 mimimum
@@ -89,6 +94,7 @@ RX
 safetensors
 Salawu
 SDG
+Sigstore
 sexualized
 SHA
 Shivchander
@@ -100,7 +106,6 @@ Taj
 tatsu
 TBD
 Tesla
-th
 th
 tl
 tox
