@@ -31,3 +31,13 @@ We use the default merge method of creating merge commits for PRs. This is to en
 This requires project maintainers to include commit messages and the overall structure of the commit series as part of their review. When multiple commits are present, they should represent a logical series of changes that implement the overall change proposed in the PR. The commit message for each should clearly explain that step of the progression.
 
 It is common that a PR author may need to do a final rebase to clean up their proposed commit series before a PR can be merged. It is also fine for a project maintainer to perform this step when the changes necessary are straight forward enough to do so.  This includes doing a final rebase on `main` if necessary. The PR itself should NOT include any merge commits of `main` back into the developer's branch. We expect the proposed commit series to be a clean set of commits against `main` without conflicts or merge commit history. We only use a merge commit to record the PR's inclusion into `main`.
+
+## Merge Automation
+
+Repositories may use [Mergify](https://mergify.io/) to automate the merge
+process and enforcement of merge policies. Using this tool allows us to encode
+the merge requirements in a file stored in the git repository itself. Once all
+requirements are met, Mergify will automatically merge the PR.
+
+An example configuration can be found in the [instructlab-bot
+repo](https://github.com/instructlab/instructlab-bot/blob/main/.github/.mergify.yml).
