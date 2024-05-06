@@ -1,4 +1,3 @@
-
 # SPDX-License-Identifier: Apache-2.0
 
 matrix:
@@ -9,7 +8,7 @@ matrix:
     camel-case: true
     mode: markdown
   sources:
-  - "**/*.md|!REVIEWERS.md|!build/**|!.tox/**"
+  - "**/*.md|!.tox/**"
   dictionary:
     wordlists:
     - .spellcheck-en-custom.txt
