@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+
 config:
   line-length: false
   no-emphasis-as-header: false
@@ -8,6 +10,7 @@ config:
 globs:
   - "**/*.md"
 ignores:
+  - ".github/**"
   - ".tox/**"
   - "venv/**"
   - ".venv/**"
