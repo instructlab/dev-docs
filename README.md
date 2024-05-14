@@ -9,18 +9,23 @@ also serves as a home for technical policies that apply across all components.
 Governance for InstructLab overall is documented in the [community
 repository](https://github.com/instructlab/community/blob/main/governance.md).
 
-There is not (yet) a group that provides technical oversight across all of
-InstructLab. If such a group exists in the future, that group would assume
-ownership over the contents of this repository, with input from maintainers of
-all components within InstructLab.
+The [InstructLab Oversight
+Committee](https://github.com/instructlab/community/blob/main/MAINTAINERS.md) is
+responsible for the contents of this repository.
 
-In the meantime, ownership of this repository is shared collectively by the
-maintainers of all components within InstructLab. Required approval is loosely
-defined and depends on the scope of each proposal. In general, maintainers from
-all affected components should be sought for approval. The broader the scope or
-more controversial the topic, the more broad consensus is required to proceed.
-We expect the collective group of maintainers to use their best judgment to
-decide what constitutes appropriate approval on a case-by-case basis.
+The rules for merging depend on the type of change in question and its scope of impact.
+
+* Trivial changes may be merged with 1 review from any InstructLab maintainer.
+* Non-trivial changes have more loosely defined requirements. Input should be sought
+  out from maintainers of relevant components. The broader the scope or more
+  controversial the change, the more broad the consensus should be required for
+  merging. The final approval and merge falls to a member of the Oversight Committee.
+  This final review is to ensure that adequate opportunity and attention has
+  been given by the affected parties.
+* Any maintainer or oversight committee member may request that a change receive
+  a full vote from the Oversight Committee. More substantial policy changes or a
+  proposed new project under InstructLab are examples of when this may be
+  appropriate.
 
 ## Formatting Guidelines
 
