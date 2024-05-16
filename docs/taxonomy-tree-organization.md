@@ -26,7 +26,7 @@ that it will be a special rare case, while lower left nodes of
 the tree as long as they are put in logical place is empowered
 by the contributor.
 The side effect leveraging using this we can verify where the
-knowledge is placed on Wikipedia and re-enforce the location
+knowledge is placed on Wikipedia and reinforce the location
 in the taxonomy tree.
 
 ## Conflicts and Resolutions
