@@ -33,7 +33,6 @@ Status:
 | <https://www.senate.gov/> | proposed |
 | <https://www.irs.gov/> | proposed |
 
-
 ### Next steps
 
 1. We have to find the correct legal person to find a way to be the correct point person for this project.
