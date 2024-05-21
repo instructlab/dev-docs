@@ -33,11 +33,11 @@ Status:
 | <https://www.senate.gov/> | proposed |
 | <https://www.irs.gov/> | proposed |
 | NASA<br/>https://www.nasa.gov/ | proposed | See guidelines: https://www.nasa.gov/nasa-brand-center/images-and-media/ |
-| Smithsonian Libraries<br/>https://library.si.edu/ | proposed | For any material marked \"No Copyright - United States" or "CC0" as described here: https://library.si.edu/copyright |
-| European Union (EU)<br/>https://european-union.europa.eu/ | proposed | Specificaly documents submitted under "public registrars": https://european-union.europa.eu/principles-countries-history/principles-and-values/access-information_en |
-| Project Gutenberg<br/>https://www.gutenberg.org/ | proposed | Pre-1927 works; public domain under US copyright law |
-| Internet Archive<br/>https://archive.org/ | proposed | Pre-1927 works; public domain under US copyright law |
-| Wikisource (library)<br/>https://en.wikisource.org/ | proposed | |
+| Smithsonian Libraries: <https://library.si.edu/>| proposed | For any material marked \"No Copyright - United States" or "CC0" as described here: https://library.si.edu/copyright |
+| European Union (EU): <https://european-union.europa.eu/> | proposed | Specifically documents submitted under "public registrars": https://european-union.europa.eu/principles-countries-history/principles-and-values/access-information_en |
+| Project Gutenberg: <https://www.gutenberg.org/> | proposed | Pre-1927 works; public domain under US copyright law |
+| Internet Archive: <https://archive.org/> | proposed | Pre-1927 works; public domain under US copyright law |
+| Wikisource (library): <https://en.wikisource.org/> | proposed | "free library that anyone can improve" |
 
 ### Next steps
 
