@@ -112,6 +112,7 @@ unquantized
 USM
 venv
 watsonx
+Wikisource
 wikisql
 WSL
 xcode
