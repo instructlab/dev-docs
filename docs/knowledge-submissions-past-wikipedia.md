@@ -37,7 +37,7 @@ Status:
 | European Union (EU)<br/>https://european-union.europa.eu/ | proposed | Specificaly documents submitted under "public registrars": https://european-union.europa.eu/principles-countries-history/principles-and-values/access-information_en |
 | Project Gutenberg<br/>https://www.gutenberg.org/ | proposed | Pre-1927 works; public domain under US copyright law |
 | Internet Archive<br/>https://archive.org/ | proposed | Pre-1927 works; public domain under US copyright law |
-|Wikisource (library)<br/>https://en.wikisource.org/ | proposed | |
+| Wikisource (library)<br/>https://en.wikisource.org/ | proposed | |
 
 ### Next steps
 
