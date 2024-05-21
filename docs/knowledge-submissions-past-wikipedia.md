@@ -25,13 +25,19 @@ Status:
 - `submitted`: Sent to the legal team for review
 - `proposed`: The community would like to propose this as a possible place to take knowledge submissions from.
 
-| Domain name | Status |
-| ----------  | -----  |
+| Domain name | Status | Notes |
+| :--  | :--  | :-- |
 | <https://en.wikipedia.org/wiki/Main_Page> | approved |
 | <https://www.congress.gov/> | proposed |
 | <https://www.whitehouse.gov/> | proposed |
 | <https://www.senate.gov/> | proposed |
 | <https://www.irs.gov/> | proposed |
+| NASA<br/>https://www.nasa.gov/ | proposed | See guidelines: https://www.nasa.gov/nasa-brand-center/images-and-media/ |
+| Smithsonian Libraries<br/>https://library.si.edu/ | proposed | For any material marked \"No Copyright - United States" or "CC0" as described here: https://library.si.edu/copyright |
+| European Union (EU)<br/>https://european-union.europa.eu/ | proposed | Specificaly documents submitted under "public registrars": https://european-union.europa.eu/principles-countries-history/principles-and-values/access-information_en |
+| Project Gutenberg<br/>https://www.gutenberg.org/ | proposed | Pre-1927 works; public domain under US copyright law |
+| Internet Archive<br/>https://archive.org/ | proposed | Pre-1927 works; public domain under US copyright law |
+|Wikisource (library)<br/>https://en.wikisource.org/ | proposed | |
 
 ### Next steps
 
