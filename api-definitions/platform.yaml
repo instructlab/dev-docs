@@ -1,0 +1,6 @@
+openapi: '3.0.2'
+info:
+  title: AI Platform (We need a name for the IL-agnostic platform!)
+  version: '0.1.0'
+# TODO
+paths: {}
