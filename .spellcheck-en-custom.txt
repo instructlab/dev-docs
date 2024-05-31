@@ -3,6 +3,8 @@
 Abhishek
 Akash
 AMDGPU
+API
+api
 arge
 arXiv
 backend
@@ -37,6 +39,7 @@ Eval
 Excalidraw
 exfiltrate
 exfiltrating
+extensibility
 Finetuning
 formedness
 GFX
@@ -135,3 +138,4 @@ XT
 XTX
 Xu
 YAML
+yaml
