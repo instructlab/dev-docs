@@ -103,6 +103,7 @@ safetensors
 Salawu
 SDG
 Sigstore
+sdg
 sexualized
 SHA
 Shivchander
