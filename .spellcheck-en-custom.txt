@@ -74,6 +74,8 @@ MLX
 mlx
 NVidia
 Nvidia
+ollama
+Ollama
 orchestrator
 ots
 Pareja
