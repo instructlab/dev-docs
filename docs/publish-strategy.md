@@ -8,7 +8,7 @@ The InstructLab team will be periodically training the full unquantized model wi
 
 ## What is Ollama?
 
-[Ollama](https://ollama.com/) is a platform that allows users to run open-source large language models locally on their machines. Ollama covers a broad spectrum of users, from seasoned AI professionals to people looking to explore the potential of AI and makes it easier for users to leverage the power of LLMs without having to rely on a cloud infrastructure. Since Ollama only supports publishing GGUF models, we will only be publishing the 4-bit quantized versions of our merlinite and granite models to the InstructLab Ollama user account.
+[Ollama](https://ollama.com/) is a platform that allows users to run open-source large language models locally on their machines. Ollama covers a broad spectrum of users, from seasoned AI professionals to people looking to explore the potential of AI and makes it easier for users to leverage the power of LLMs without having to rely on a cloud infrastructure. Since Ollama only supports publishing GGUF models, we will only be publishing the 4-bit quantized versions of our Merlinite and Granite models to the InstructLab Ollama user account.
 
 ## What is HuggingFace?
 
