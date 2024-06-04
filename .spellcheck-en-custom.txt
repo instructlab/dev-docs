@@ -25,6 +25,7 @@ CUDA
 CWD
 dataset
 DCO
+de
 Dependabot
 dev
 ditaa
@@ -37,6 +38,7 @@ Eval
 Excalidraw
 exfiltrate
 exfiltrating
+facto
 Finetuning
 formedness
 GFX
@@ -63,10 +65,12 @@ LLM
 llms
 LLVM
 lora
-md
 Markdownlint
+md
 Mergify
 Merlinite
+microservice
+Microshift
 mimimum
 Miniforge
 Mixtral
@@ -74,8 +78,8 @@ MLX
 mlx
 NVidia
 Nvidia
-ollama
 Ollama
+ollama
 orchestrator
 ots
 Pareja
@@ -103,13 +107,14 @@ RTX
 RX
 safetensors
 Salawu
+Scalable
 SDG
-Sigstore
 sdg
 sexualized
 SHA
 Shivchander
 Signoff
+Sigstore
 Srivastava
 subdirectory
 Sudalairaj
@@ -124,6 +129,7 @@ triager
 Triagers
 triager's
 triagers
+UI
 unquantized
 USM
 UX
