@@ -1,0 +1,10 @@
+pull_request_rules:
+- name: label-backend
+  description: Automatically apply backend label
+  conditions:
+    - or:
+      - files~=docs/backend/.*
+  actions:
+    label:
+      add:
+        - backend
