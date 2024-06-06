@@ -13,8 +13,8 @@ The `InstructLab APIs` are essential for hosting `InstructLab` as a service in a
 
 ## How will service APIs be defined?
 
-Service APIs will be defined using [OpenAPI](https://www.openapis.org/) format in [YAML](https://yaml.org/). For structural and style guidelines, see [api-definitions](../api-definitions/README.md).
+Service APIs will be defined using [OpenAPI](https://www.openapis.org/) format in [YAML](https://yaml.org/). For structural and style guidelines, see [api-definitions](../../api-definitions/README.md).
 
 ## Where will service API definitions live?
 
-Service API definitions will live in [api-definitions](../api-definitions) within this repo.
+Service API definitions will live in [api-definitions](../../api-definitions) within this repo.
