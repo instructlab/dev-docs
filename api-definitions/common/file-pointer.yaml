@@ -1,0 +1,35 @@
+################################################################################
+# This schema defines the common ways to reference files and directories held in
+# the various supported storage media.
+################################################################################
+
+schemas:
+  LocalPath:
+    required: ['path']
+    properties:
+      path:
+        type: string
+        description: The name of the file on disk
+
+  S3Path:
+    allOf:
+      - $ref: './s3-connection.yaml#/schemas/Bucket'
+      - type: object
+        description: 'Pointer to a path within an s3 bucket'
+        required: ['path']
+        properties:
+          path:
+            type: string
+            description: The path within the bucket
+
+  FilePointer:
+    description: Pointer to an individual file
+    oneOf:
+      - $ref: '#/schemas/LocalPath'
+      - $ref: '#/schemas/S3Path'
+
+  DirectoryPointer:
+    description: Pointer to a directory
+    oneOf:
+      - $ref: '#/schemas/LocalPath'
+      - $ref: '#/schemas/S3Path'

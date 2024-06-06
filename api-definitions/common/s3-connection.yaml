@@ -1,0 +1,51 @@
+################################################################################
+# This schema defines the common components used to reference content held in a
+# cloud object store using an S3 interface.
+################################################################################
+
+schemas:
+  HMACCredentials:
+    type: object
+    properties:
+      access_key_id:
+        type: string
+        description: The public Access Key ID
+      secret_key:
+        type: string
+        description: The private Secret Key
+
+  IAMCredentials:
+    type: object
+    properties:
+      # TODO: What else goes here?
+      apikey:
+        type: string
+        description: The IAM apikey
+
+
+  Service:
+    type: object
+    description: Pointer to an s3 service
+    required: ['endpoint', 'credentials']
+    properties:
+      endpoint:
+        type: string
+        description: The qualified endpoint of the s3 service (http://, https://)
+      credentials:
+        oneOf:
+          - $ref: '#/schemas/HMACCredentials'
+          - $ref: '#/schemas/IAMCredentials'
+      region:
+        type: string
+        description: The region qualifier for this service
+
+  Bucket:
+    allOf:
+      - $ref: '#/schemas/Service'
+      - type: object
+        description: Pointer to an s3 bucket
+        required: ['bucket']
+        properties:
+          bucket:
+            type: string
+            description: The name of the bucket

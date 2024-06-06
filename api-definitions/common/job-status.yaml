@@ -1,0 +1,29 @@
+################################################################################
+# This schema defines the common elements of a Job Status response. Individual
+# job types may extend this model with task-specific properties, but these
+# common properties must be present in the response to all job status queries.
+################################################################################
+
+schemas:
+  JobStatus:
+    type: object
+    description: The status of a job in the system
+    properties:
+      job_id:
+        type: string
+        description: Unique identifier for a single job
+      status:
+        type: string
+        enum:
+          - QUEUED
+          - RUNNING
+          - COMPLETED
+          - CANCELED
+          - ERRORED
+        description: >
+          Status of the job in the system:
+            * QUEUED: The job has not started and is waiting to be scheduled
+            * RUNNING: The job is actively running as expected
+            * COMPLETED: The job has completed successfully
+            * CANCELED: The job was canceled by user action
+            * ERRORED: The job terminated in an error state and is not running
