@@ -1,0 +1,104 @@
+openapi: '3.0.2'
+info:
+  title: Synthetic Data Generation
+  version: '0.1.0'
+
+paths:
+  /synthetic-data-generations:
+    post:
+      summary: Initialize a Synthetic Data Generation job
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SDGJobBody'
+      responses:
+        "200":
+          description: A successfully submitted job
+          content:
+            application/json:
+              schema:
+                $ref: '../common/job-status.yaml#/schemas/JobStatus'
+  /synthetic-data-generations/{job_id}:
+    get:
+      summary: Retrieve the status of a Synthetic Data Generation job
+      responses:
+        "200":
+          description: The status for the job
+          content:
+            application/json:
+              schema:
+                $ref: '../common/job-status.yaml#/schemas/JobStatus'
+
+    delete:
+      summary: Cancel a running Synthetic Data Generation job
+      responses:
+        "200":
+          description: The status for the job after cancellation
+          content:
+            application/json:
+              schema:
+                $ref: '../common/job-status.yaml#/schemas/JobStatus'
+
+  /synthetic-data-generations/tasks:
+    get:
+      summary: List the currently supported SDG tasks
+      responses:
+        "200":
+          description: The set of currently supported SDG tasks
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SDGTaskDefinition'
+
+components:
+  schemas:
+    SDGJobBody:
+      type: object
+      required: ['output_directory', 'tasks', 'seed_data']
+      properties:
+        output_directory:
+          description: Location to place the output in
+          $ref: '../common/file-pointer.yaml#/schemas/DirectoryPointer'
+
+        tasks:
+          description: Mapping from task name to task config. The config will be validated against the task's config schema.
+          type: object
+          additionalProperties:
+            type: object
+            description: Config for the given task. This will be deep-merged over the default values.
+
+        seed_data:
+          description: The file or directory containing the seed data
+          oneOf:
+            - $ref: '../common/file-pointer.yaml#/schemas/FilePointer'
+            - $ref: '../common/file-pointer.yaml#/schemas/DirectoryPointer'
+
+    SDGTaskDefinition:
+      type: object
+      required: ['name', 'data_json_schema', 'config_json_schema']
+      properties:
+        name:
+          type: string
+          description: The name of the task
+        data_json_schema:
+          type: object
+          description: The json schema for input data files for this task
+          # TODO: This doesn't render cleanly for some reason, but the body here
+          # must be a valid JSON Schema
+          # $ref: 'https://json-schema.org/draft-04/schema#'
+        data_example:
+          type: string
+          description: Example of an input data file for this task
+        config_json_schema:
+          type: object
+          description: The json schema for the config of this task
+          # TODO: This doesn't render cleanly for some reason, but the body here
+          # must be a valid JSON Schema
+          # $ref: 'https://json-schema.org/draft-04/schema#'
+        config_defaults:
+          type: object
+          description: Default values for all config values
