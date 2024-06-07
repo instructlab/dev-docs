@@ -8,6 +8,7 @@ API's
 api
 arge
 arXiv
+ascii
 backend
 backends
 benchmarking
@@ -127,6 +128,7 @@ triager's
 triagers
 unquantized
 USM
+utf
 UX
 venv
 watsonx
