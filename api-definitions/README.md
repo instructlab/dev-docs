@@ -5,8 +5,15 @@ The common abstract interface for the service APIs is defined by [REST APIs](htt
 ## Style Guidelines
 
 * Use `kebab-case` for path elements
+  * All characters must be in the [ascii](https://www.ascii-code.com/) character set to avoid percent encoding in URIs
+  * All letters must be lowercase
+  * Words are separated by the `-` (dash) character
 * Use `snake_case` for properties
+  * All characters must be in the [utf-8](https://www.w3schools.com/charsets/ref_html_utf8.asp) character set for simple `json` encoding
+  * Words are separated by the `_` (underscore) character
 * Use `UpperCamelCase` for internal reusable schema names
+  * These are internal names, so the character set is not limited
+  * Words are capitalized and concatenated with no separator
 
 ## API Layout
 
