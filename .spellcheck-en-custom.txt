@@ -114,7 +114,9 @@ Shivchander
 Signoff
 Srivastava
 subdirectory
+submodule
 Sudalairaj
+sync'ed
 Taj
 tatsu
 TBD
