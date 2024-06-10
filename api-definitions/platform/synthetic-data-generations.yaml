@@ -14,7 +14,7 @@ paths:
             schema:
               $ref: '#/components/schemas/SDGJobBody'
       responses:
-        "200":
+        "201":
           description: A successfully submitted job
           content:
             application/json:
@@ -62,7 +62,7 @@ components:
       properties:
         output_directory:
           description: Location to place the output in
-          $ref: '../common/file-pointer.yaml#/schemas/DirectoryPointer'
+          $ref: '../common/file-path.yaml#/schemas/DirectoryPath'
 
         tasks:
           description: Mapping from task name to task config. The config will be validated against the task's config schema.
@@ -74,8 +74,8 @@ components:
         seed_data:
           description: The file or directory containing the seed data
           oneOf:
-            - $ref: '../common/file-pointer.yaml#/schemas/FilePointer'
-            - $ref: '../common/file-pointer.yaml#/schemas/DirectoryPointer'
+            - $ref: '../common/file-path.yaml#/schemas/FilePath'
+            - $ref: '../common/file-path.yaml#/schemas/DirectoryPath'
 
     SDGTaskDefinition:
       type: object

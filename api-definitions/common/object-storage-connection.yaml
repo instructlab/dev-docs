@@ -25,12 +25,12 @@ schemas:
 
   Service:
     type: object
-    description: Pointer to an s3 service
+    description: Pointer to an object storage service
     required: ['endpoint', 'credentials']
     properties:
       endpoint:
         type: string
-        description: The qualified endpoint of the s3 service (http://, https://)
+        description: The qualified endpoint of the object storage service (http://, https://)
       credentials:
         oneOf:
           - $ref: '#/schemas/HMACCredentials'
@@ -43,7 +43,7 @@ schemas:
     allOf:
       - $ref: '#/schemas/Service'
       - type: object
-        description: Pointer to an s3 bucket
+        description: Pointer to an object storage bucket
         required: ['bucket']
         properties:
           bucket:

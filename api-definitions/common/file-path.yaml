@@ -11,25 +11,25 @@ schemas:
         type: string
         description: The name of the file on disk
 
-  S3Path:
+  ObjectStoragePath:
     allOf:
-      - $ref: './s3-connection.yaml#/schemas/Bucket'
+      - $ref: './object-storage-connection.yaml#/schemas/Bucket'
       - type: object
-        description: 'Pointer to a path within an s3 bucket'
+        description: 'Path within an object storage bucket'
         required: ['path']
         properties:
           path:
             type: string
             description: The path within the bucket
 
-  FilePointer:
-    description: Pointer to an individual file
+  FilePath:
+    description: Path to an individual file
     oneOf:
       - $ref: '#/schemas/LocalPath'
-      - $ref: '#/schemas/S3Path'
+      - $ref: '#/schemas/ObjectStoragePath'
 
-  DirectoryPointer:
-    description: Pointer to a directory
+  DirectoryPath:
+    description: Path to a directory
     oneOf:
       - $ref: '#/schemas/LocalPath'
-      - $ref: '#/schemas/S3Path'
+      - $ref: '#/schemas/ObjectStoragePath'
