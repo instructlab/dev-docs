@@ -63,8 +63,8 @@ LLM
 llms
 LLVM
 lora
-md
 Markdownlint
+md
 Mergify
 Merlinite
 mimimum
@@ -74,8 +74,8 @@ MLX
 mlx
 NVidia
 Nvidia
-ollama
 Ollama
+ollama
 orchestrator
 ots
 Pareja
@@ -104,12 +104,13 @@ RX
 safetensors
 Salawu
 SDG
-Sigstore
 sdg
 sexualized
 SHA
+Shellcheck
 Shivchander
 Signoff
+Sigstore
 Srivastava
 subdirectory
 Sudalairaj
