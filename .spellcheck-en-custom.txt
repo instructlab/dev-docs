@@ -37,14 +37,17 @@ Eval
 Excalidraw
 exfiltrate
 exfiltrating
+Eyceoz
 Finetuning
 formedness
+Gaudi
 GFX
 GGUF
 GGUFs
 GiB
 Gmail
 gpu
+Habana
 hipBLAS
 ilab
 impactful
@@ -58,6 +61,7 @@ Kaggle
 Kaggle's
 Kai
 Kubernetes
+Kunstle
 lignment
 LLM
 llms
@@ -72,8 +76,12 @@ Miniforge
 Mixtral
 MLX
 mlx
+MPS
+Mustafa
+NCCL
 NVidia
 Nvidia
+Oleg
 ollama
 Ollama
 orchestrator
@@ -98,6 +106,7 @@ RDNA
 README
 rebase
 repo
+repos
 ROCm
 RTX
 RX
@@ -110,6 +119,7 @@ sexualized
 SHA
 Shivchander
 Signoff
+Silkin
 Srivastava
 subdirectory
 Sudalairaj
