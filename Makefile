@@ -28,3 +28,8 @@ endif
 md-lint: ## Lint markdown files
 	$(ECHO_PREFIX) printf "  %-12s ./...\n" "[MD LINT]"
 	$(CMD_PREFIX) podman run --rm -v $(CURDIR):/workdir --security-opt label=disable docker.io/davidanson/markdownlint-cli2:latest > /dev/null
+
+.PHONY: md-lint-fix
+md-lint-fix: ## Fixes all fixable linting errors
+	$(ECHO_PREFIX) printf "  %-12s ./...\n" "[MD LINT]"
+	$(CMD_PREFIX) podman run --rm -v $(CURDIR):/workdir --security-opt label=disable docker.io/davidanson/markdownlint-cli2:latest --fix > /dev/null
