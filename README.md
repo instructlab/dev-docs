@@ -46,4 +46,4 @@ easily updated in the future as needed. Some options include:
 
 ### API Specifications
 
-API definitions use [OpenAPI](https://www.openapis.org/) format in [YAML](https://yaml.org/).
+API definitions use the [OpenAPI Specification](https://www.openapis.org/) (OAS) written in [YAML](https://yaml.org/).
