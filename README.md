@@ -29,7 +29,7 @@ The rules for merging depend on the type of change in question and its scope of 
 
 ## Formatting Guidelines
 
-Design documents should be placed in [docs/](./docs). API Specifications should be placed in [api-definitions/](./api-definitions).
+Design documents should be placed in [docs/](./docs).
 
 ### Text
 
