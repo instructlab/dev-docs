@@ -110,6 +110,7 @@ SDG
 sdg
 sexualized
 SHA
+Shellcheck
 Shivchander
 Signoff
 Sigstore
