@@ -29,7 +29,7 @@ The rules for merging depend on the type of change in question and its scope of 
 
 ## Formatting Guidelines
 
-Design documents should be placed in [docs/](./docs). API Specifications should be placed in [api-definitions/](./api-definitions).
+Design documents should be placed in `docs/`.
 
 ### Text
 
@@ -43,7 +43,3 @@ easily updated in the future as needed. Some options include:
 * [Mermaid](https://github.com/mermaid-js/mermaid#readme)
 * [Excalidraw](https://excalidraw.com/)
 ** Be sure to leave "Embed Scene" turned on when exporting the PNG.
-
-### API Specifications
-
-API definitions use [OpenAPI](https://www.openapis.org/) format in [YAML](https://yaml.org/).
