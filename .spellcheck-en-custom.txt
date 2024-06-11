@@ -25,6 +25,7 @@ CUDA
 CWD
 dataset
 DCO
+de
 Dependabot
 dev
 ditaa
@@ -38,6 +39,7 @@ eval
 Excalidraw
 exfiltrate
 exfiltrating
+facto
 Finetuning
 formedness
 GFX
@@ -69,6 +71,8 @@ Markdownlint
 md
 Mergify
 Merlinite
+microservice
+Microshift
 mimimum
 Miniforge
 Mixtral
@@ -106,6 +110,7 @@ RTX
 RX
 safetensors
 Salawu
+Scalable
 SDG
 sdg
 sexualized
@@ -128,6 +133,7 @@ triager
 Triagers
 triager's
 triagers
+UI
 unquantized
 USM
 UX
