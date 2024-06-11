@@ -3,8 +3,12 @@
 Abhishek
 Akash
 AMDGPU
+API
+API's
+api
 arge
 arXiv
+ascii
 backend
 backends
 benchmarking
@@ -38,6 +42,7 @@ eval
 Excalidraw
 exfiltrate
 exfiltrating
+extensibility
 Finetuning
 formedness
 GFX
@@ -116,7 +121,9 @@ Signoff
 Sigstore
 Srivastava
 subdirectory
+submodule
 Sudalairaj
+sync'ed
 Taj
 tatsu
 TBD
@@ -130,6 +137,7 @@ triager's
 triagers
 unquantized
 USM
+utf
 UX
 venv
 watsonx
@@ -142,3 +150,4 @@ XT
 XTX
 Xu
 YAML
+yaml

@@ -1,0 +1,21 @@
+openapi: '3.0.2'
+info:
+  title: InstructLab Backend Platform
+  version: '0.1.0'
+
+paths:
+  ## Inference #################################################################
+
+  ## Customization #############################################################
+
+  ## Data Jobs #################################################################
+
+  #########
+  ## SDG ##
+  #########
+  /synthetic-data-generations:
+    $ref: './platform/synthetic-data-generations.yaml#/paths/~1synthetic-data-generations'
+  /synthetic-data-generations/{job_id}:
+    $ref: './platform/synthetic-data-generations.yaml#/paths/~1synthetic-data-generations~1{job_id}'
+  /synthetic-data-generations/tasks:
+    $ref: './platform/synthetic-data-generations.yaml#/paths/~1synthetic-data-generations~1tasks'
