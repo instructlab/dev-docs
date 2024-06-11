@@ -7,8 +7,10 @@ arge
 arXiv
 backend
 backends
+BASEURL
 benchmarking
 Bhandwaldar
+CDN
 CLI
 CLI
 cli
@@ -47,6 +49,7 @@ GiB
 Gmail
 gpu
 hipBLAS
+https
 ilab
 impactful
 Inferencing
@@ -110,6 +113,10 @@ SDG
 sdg
 sexualized
 SHA
+sharded
+SHARDEDGITHASH
+qna
+sharding
 Shivchander
 Signoff
 Sigstore
@@ -118,7 +125,9 @@ subdirectory
 Sudalairaj
 Taj
 tatsu
+TAXONOMYPATH
 TBD
+TCS
 Tesla
 th
 tl
@@ -141,3 +150,4 @@ XT
 XTX
 Xu
 YAML
+yaml
