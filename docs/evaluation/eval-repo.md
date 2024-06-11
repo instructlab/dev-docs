@@ -16,8 +16,8 @@ closest implementation currently in `instructlab/instructlab` via the `ilab test
 a JSON Lines file and a LoRA adapter to compare output of a given model before and after
 LoRA training with MLX, thus the macOS M-series dependency.
 
-We desire to build out an implementation closer to the described evaluation in the paper,
-using more high-level evaluation schemes such as
+We desire to build out a library for methods that satisfy the evaluation described in the
+paper, using more high-level evaluation schemes such as
 [Multi-turn Benchmark](https://arxiv.org/abs/2306.05685) for skills and
 [Massive Multitask Language Understanding](https://arxiv.org/abs/2009.03300) (MMLU) for
 knowledge. We propose a new repository to house this code that publishes a new Python
