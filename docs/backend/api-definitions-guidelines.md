@@ -17,7 +17,7 @@ Service APIs will be defined using [OpenAPI](https://www.openapis.org/) format i
 
 ## Where will service API definitions live?
 
-Service API definitions will live a new repository github.com/instructlab/service-api-definitions. This repo will have two primary responsibilities:
+Service API definitions will live a new repository github.com/instructlab/openapi. This repo will have two primary responsibilities:
 
 1. House the static service API definitions
 2. Build and publish any language-specific generated packages for consumption by service implementation projects (see below)
@@ -26,9 +26,9 @@ Service API definitions will live a new repository github.com/instructlab/servic
 
 When a project chooses to implement one or more service APIs, there are three acceptable methods for doing so, listed in order of preference:
 
-1. Consume a supported language-specific package. The `service-api-definitions` repo will build consumable packages with generated code for supported languages. This is the preferred method of consumption as it avoids repository references and code duplication.
-2. For languages without a supported package, the `service-api-definitions` repo may be held as a [git submodule](https://www.git-scm.com/book/en/v2/Git-Tools-Submodules).
 3. It is also acceptable for an implementation to copy the relevant API definitions to the local project repository. Any changes made in the central repository will need to be sync'ed by the project owners, and any new APIs added in the project will not be considered usable until they have been integrated into the central API definitions.
+1. Consume a supported language-specific package. The `openapi` repo will build/publish/tag consumable packages with generated code for supported languages based on standard package distribution channels for the given language. This is the preferred method of consumption as it avoids repository references and code duplication.
+2. For languages without a supported package, the `openapi` repo may be held as a [git submodule](https://www.git-scm.com/book/en/v2/Git-Tools-Submodules).
 
 ## Style Guidelines
 
