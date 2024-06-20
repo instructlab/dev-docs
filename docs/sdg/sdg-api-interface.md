@@ -25,7 +25,7 @@ We propose the following structure for the SDG library. There will be config fil
 
 ## CLI
 
-The CLI client uses the instructlab SDG library and provides it a run configuration with input parameters.
+The CLI client uses the instructlab SDG library and provides it a run configuration with input parameters. The following represents a sample of what Library usage could look like.
 
 ```python
 # cli_driver.py
@@ -40,14 +40,27 @@ cli_sdg = SDG(run_config, client)  # run config has all the variables like num_s
 generated_samples = cli_sdg.generate()
 ```
 
-The run configuration contains the parameters needed to run the SDG code library as well as points to the templates needed to run the SDG code as well as the prompt template and the default model system prompt template.
+As an initial integration milestone, we will modify the `generate_data` function in `instructlab.sdg.generate_data` to make use of the updated SDG API. This is the function the `ilab` CLI already uses, so modifying this implementation will allow us to get the updated SDG API in place without disrupting the CLI integration.
+
+CLI integration will require additional changes later to allow passing in customizations to the SDG pipeline, but we will treat that as a follow-up implementation milestone.
+
+The run configuration includes the necessary parameters for executing the SDG code library. It specifies the templates required for running the SDG code, the prompt template, and the default model system prompt template.
 
 * `num_samples` is the number of synthetic samples that you wish to generate per seed example.
+* `num_procs` is the number of parallel processes that you want to run
 * `max_retry` is the maximum number of non-greedy retries you want to make if the `num_samples` is not reached. The number of samples in the generated output will be the samples achieved until `max_retry` is reached.
 * Pipeline steps contains the steps that you want to invoke in the SDG pipeline and the prompt configurations per step. The variable names of the blocks can be anything and the prompt configurations must be compatible with the teacher model.
 * `max_new_tokens` is the maximum number of tokens we want to generate. In other words, the size of the output sequence, not including the tokens in the prompt.
-* `model_name` is the teacher model we would want to use to generate the synthetic data.
-* `model_template` and `stop_token` are the parameters for generation template.
+* `model` is the name of the served up teacher model we would want to use to generate the synthetic data.
+* `model_prompt`: the default model prompt for the model.
+* `client` points to an OpenAI client used to interface with the model. Example of a client:
+  
+  ```python
+  client = OpenAI(
+      api_key=openai_api_key,
+      base_url=openai_api_base,
+  )
+  ```
 
 ```yaml
 # run_config.yaml
@@ -61,9 +74,8 @@ pipeline_steps:
    prompt_template: "configs/filter_q.yaml" 
 max_new_tokens: 10000 
 # model parameters for generation
-model_name: mistralai/Mixtral-8x7B-Instruct-v0.1
-# generation template
-model_template: <s> [INST] {sys_prompt} {prompt} [/INST]
-stop_token: </s>
-
+model_name: mixtral-model
+model_prompt: '<s> [INST] {prompt} [/INST]'
+client: client
+num_procs: 8
 ```
