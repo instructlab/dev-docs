@@ -49,6 +49,7 @@ GiB
 Gmail
 gpu
 Guang
+hardcoded
 hipBLAS
 ilab
 impactful
@@ -124,6 +125,8 @@ Shivchander
 Signoff
 Sigstore
 Srivastava
+subcommand
+subcommands
 subdirectory
 Sudalairaj
 Taj
@@ -145,6 +148,7 @@ USM
 UX
 venv
 Vishnoi
+vllm
 watsonx
 Wikisource
 wikisql
