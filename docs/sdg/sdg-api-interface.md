@@ -31,12 +31,17 @@ The CLI client uses the instructlab SDG library and provides it a run configurat
 # cli_driver.py
 
 from sdg import SDG
+from run_config import SynthDataFlow
+from pipeline import Pipeline
 import yaml
 
 client = openai_client(endpoint)
-with open('run_config.yaml', 'r') as file:
-    run_config = yaml.safe_load(file)
-cli_sdg = SDG(run_config, client)  # run config has all the variables like num_samples, pipelinesteps etc
+model = "model-version"
+
+synth_skills_flow = SynthDataFlow(client, model).get_flow()
+skills_pipe = Pipeline(synth_skills_flow)
+
+cli_sdg = SDG([synth_skills_flow])  # run config has all the variables like num_samples, pipelinesteps etc
 generated_samples = cli_sdg.generate()
 ```
 
@@ -62,20 +67,35 @@ The run configuration includes the necessary parameters for executing the SDG co
   )
   ```
 
-```yaml
-# run_config.yaml
+```python
+# run_config.py
+class Flow(ABC):
+    def __init__(self, client, model_id) -> None:
+        self.client = client
+        self.model_id = model_id
+    
+    @abstractmethod
+    def get_flow(self) -> list:
+        pass
 
-num_samples : 30
-max_retry : 5
-pipeline_steps:
-  gen_q:
-    prompt_template: "configs/gen_q.yaml"
-  filter_q:
-   prompt_template: "configs/filter_q.yaml" 
-max_new_tokens: 10000 
-# model parameters for generation
-model_name: mixtral-model
-model_prompt: '<s> [INST] {prompt} [/INST]'
-client: client
-num_procs: 8
+
+class SynthDataFlow(Flow):
+    def get_flow(self) -> list:
+        return [
+            {
+                'block_type': LLMBlock,
+                'block_config': {
+                    'block_name': "gen_q",
+                    'config_path': "configs/gen_q.yaml",
+                    'client': self.client,
+                    'model_id': self.model_id,
+                    'model_prompt': '<s> [INST] {prompt} [/INST]',
+                    'output_cols': ['question'],
+                    'batch_kwargs': {
+                        'num_procs': 8,
+                        'num_samples': 30,
+                        'batched': True,
+                    },
+                    'max_retry' : 5,
+                    'max_new_tokens': 10000
 ```
