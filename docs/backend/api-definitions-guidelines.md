@@ -17,7 +17,7 @@ Service APIs will be defined using [OpenAPI](https://www.openapis.org/) format i
 
 ## Where will service API definitions live?
 
-Service API definitions will live a new repository github.com/instructlab/openapi. This repo will have two primary responsibilities:
+Service API definitions will live a new repository: `instructlab/openapi`. This repo will have two primary responsibilities:
 
 1. House the static service API definitions
 2. Build and publish any language-specific generated packages for consumption by service implementation projects (see below)
