@@ -12,7 +12,7 @@ Since the new ilab CLI will need to not only manage datasets, downloaded models,
 We presently store these paths directly in the config, however this
 isn't sustainable as data is frequently moved around unbeknownst to the program. This leaves the user with two choices: either update
 the config to correctly point to either a relative path in the format
-of `../../uncle-dir/dataset.jsonl`, or worse, have to specify an absolute path.
+of `../../uncle-dir/dataset.jsonl`, or have to specify an absolute path. Both options are equally flexible and inconvenient for the user to produce.
 
 
 ## What's being proposed?
@@ -116,7 +116,7 @@ phase10-dataset-id    skils             500MB   550k           mistralai/mixtral
 An `ilab data delete <ref>` command would be added as well
 so that the user can easily delete generated datasets.
 
-Additionally, The `ilab model train` command would be able
+Additionally, the `ilab model train` command would be able
 to receive a ref to a dataset for easy access.
 
 
@@ -125,6 +125,7 @@ to receive a ref to a dataset for easy access.
 When we run evaluations, we expect to receive a certain value which is tied to a model checkpoint.
 
 Under this new framework, the evaluation outputs could be saved under the `eval_data` subdirectory, where `ilab` could later use to get the score for a particular model.
+This has already been partly implemented in [PR#1369](https://github.com/instructlab/instructlab/pull/1369).
 
 When we evaluate a particular model with `ilab eval <model-ref>`, we would then save the corresponding score in this new directory and link it back to the model that was evaluated and the metric.
 
@@ -143,23 +144,7 @@ fghij       ibm-granite/granite-7b-base   7.89        MT-Bench   2024-06-22
 Since this would be JSON data, we don't expect it to be very expensive or consume a lot of space, so clearing it should not be a priority. 
 
 
-
 We could provide an `ilab eval clear` function that erases all of the evaluation data. We could also generate refs for the eval runs as well, and clear them using `ilab eval clear <eval-ref>`.
-
-The output would look something like
-
-
-## Evolving configs
-
-
-Since the instructlab CLI is an evolving community project, we expect the schemas and methods we use to change over time To maintain compatibility, we should have schema versions for our configs.
-
-For instance, our current one would be a `v1` and if we decide
-to add something in the future we would update it to a `v2`.
-
-
-In the future, we will also want to have config migration as we evolve the library to avoid breaking things for existing users.
-
 
 
 ## Scope of this proposal
@@ -182,3 +167,7 @@ One approach here could be removing these paths from the default and forcing the
 
 Another approach would be implementing the list commands at the same time as #1 and setting it up so that the relative paths passed to `ilab` are relative ***to the `~/.local/share/instructlab` directory***
 
+
+## Follow-up work
+
+In the future, we may want to have config migration and evolution so that we can be forward-compatible.
