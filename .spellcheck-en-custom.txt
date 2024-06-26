@@ -26,6 +26,7 @@ cuBLAS
 CUDA
 customizations
 CWD
+Cynefin
 dataset
 DCO
 Dependabot
@@ -56,6 +57,7 @@ ilab
 impactful
 Inferencing
 instructlab
+io
 ISA
 Jie
 JIT
@@ -87,18 +89,20 @@ NVidia
 Nvidia
 Ollama
 ollama
+OpenStax
 orchestrator
 ots
 Pareja
 PEFT
 Pereira
 PlantUML
+PLOS
 PNG
 Podman
 podman
+PR's
 pre
 preprint
-PR's
 pyenv
 PyPI
 PyTorch
@@ -126,6 +130,7 @@ Shivchander
 Signoff
 Sigstore
 Srivastava
+Standup
 subcommand
 subcommands
 subdirectory
@@ -139,8 +144,8 @@ tl
 tox
 traigers
 triager
-Triagers
 triager's
+Triagers
 triagers
 UI
 ui
