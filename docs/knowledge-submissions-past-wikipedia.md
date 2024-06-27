@@ -42,7 +42,7 @@ Status:
 ### Next steps
 
 1. We have to find the correct legal person to find a way to be the correct point person for this project.
-1. Collect suggested places from the community and add them to the above table
+1. Collect [suggested data source domains from the community](https://github.com/instructlab/dev-docs/issues/59) and add them to the above table.
 1. Work with our legal team to get approvals and denials.
 1. Inform the triage team and triagers of the new locations we can or can not accept.
 
