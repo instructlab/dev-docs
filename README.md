@@ -1,8 +1,8 @@
 # InstructLab Developer Documentation
 
 This repository contains design artifacts that define the architecture and
-design of cross-component interactions in the InstructLab project. The repo
-also serves as a home for technical policies that apply across all components.
+design of components in the InstructLab project. The repo also serves as a home
+for technical policies that apply across all components.
 
 ## Governance
 
