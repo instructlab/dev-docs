@@ -13,7 +13,7 @@ The `InstructLab APIs` are essential for hosting `InstructLab` as a service in a
 
 ## How will service APIs be defined?
 
-Service APIs will be defined using [OpenAPI](https://www.openapis.org/) format in [YAML](https://yaml.org/).
+Service APIs will be defined using the [OpenAPI Specification (OAS)](https://www.openapis.org/) written in [YAML](https://yaml.org/).
 
 ## Where will service API definitions live?
 
@@ -24,7 +24,7 @@ Service API definitions will live in a new repository: `instructlab/openapi`. Th
 
 ## How will service implementations reference shared APIs?
 
-When a project chooses to implement one or more service APIs, there are three acceptable methods for doing so, listed in order of preference:
+When a project chooses to implement one or more service APIs, there are two acceptable methods for doing so, listed in order of preference:
 
 1. Consume a supported language-specific package. The `openapi` repo will build/publish/tag consumable packages with generated code for supported languages based on standard package distribution channels for the given language. This is the preferred method of consumption as it avoids repository references and code duplication.
 2. For languages without a supported package, the `openapi` repo may be held as a [git submodule](https://www.git-scm.com/book/en/v2/Git-Tools-Submodules).
