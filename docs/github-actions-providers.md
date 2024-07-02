@@ -3,8 +3,10 @@
 ## Approved Providers
 
 * `actions/*@*` - GitHub created actions
+* `aws-actions/*@*` - AWS actions
 * `DavidAnson/markdownlint-cli2-action@*` - Markdownlint-cli2 action
 * `docker/*@*` - Docker actions
+* `machulav/ec2-github-runner@*` - EC2 GitHub Runner action
 * `pypa/*@*` - Python Packaging actions
 * `rojopolis/spellcheck-github-actions@*` - Spellcheck action
 * `sigstore/gh-action-sigstore-python@*` - Sigstore Python action
