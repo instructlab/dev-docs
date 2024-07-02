@@ -24,7 +24,7 @@ Status:
 - `denied`: Denied by the legal team, and posted on the [avoided list][avoided].
 - `submitted`: Sent to the legal team for review
 - `proposed`: The community would like to propose this as a possible place to take knowledge submissions from.
-- `reviewed - manually verify`: Legal team has reviewed this domain and while much of its source material meets our open licensing criteria, not all of it does. Each submission from this source must be manually verified to actually be under an appropriate content license or e.g. definitively in the public domain.
+- `reviewed - manually verify`: Legal team has reviewed this domain and while much of its source material meets our open licensing criteria, not all of it does. Each submission from this source must be manually verified to actually be under an appropriate content license or definitively in the public domain.
 
 For the purposes of Knowledge submissions to the InstructLab project, data sourced from items in the `approved` category require no further vetting from the Triage and/or other Maintainer teams. Items in the `reviewed - manually verify` category will require vetting before the submission can be accepted.
 
@@ -57,8 +57,8 @@ To ensure that the data you would like to include in your knowledge submission m
 1. Work with our legal team to adjudicate. [@lhawthorn](https://github.com/lhawthorn) is currently the owner of this step, but is happy to educate & empower other folks to do this work.
 1. Inform the triage team and triagers of the new locations we can or can not accept. This is currently done via an announcement in the [daily Triager Standup](https://github.com/instructlab/community/blob/main/Collaboration.md#triager-standup) and via a pull request to update the Knowledge Guide in one of the two locations listed below.
 
-- Approved sources: <https://github.com/instructlab/taxonomy/blob/main/docs/KNOWLEDGE_GUIDE.md#accepted-knowledge>
-- Rejected sources: <https://github.com/instructlab/taxonomy/blob/main/docs/KNOWLEDGE_GUIDE.md#avoid-these-topics>
+- [Approved sources][approved]
+- [Rejected sources][avoided]
 
 [approved]: https://github.com/instructlab/taxonomy/blob/main/docs/KNOWLEDGE_GUIDE.md#accepted-knowledge
 [avoided]: https://github.com/instructlab/taxonomy/blob/main/docs/KNOWLEDGE_GUIDE.md#avoid-these-topics
