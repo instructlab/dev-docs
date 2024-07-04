@@ -28,7 +28,7 @@ please ping the Oversight Committee for help.
   adequate opportunity and attention has been given by the affected parties.
   * Examples of non-trivial changes include approving proposal for new repositories,
     creation of new repositories, changes to organization level GitHub settings, archiving
-    or deleting repositories, etc.
+    or deleting repositories, design proposals, etc.
 * Any maintainer or oversight committee member may request that a change receive
   a full vote from the Oversight Committee. More substantial policy changes or a
   proposed new project under InstructLab are examples of when this may be
