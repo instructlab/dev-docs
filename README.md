@@ -19,7 +19,7 @@ please ping the Oversight Committee for help.
 
 * Trivial changes may be merged with 1 review from any InstructLab maintainer.
   * Examples of trivial changes include minor wording adjustments or typo fixes in
-    documentation, changes to CI fixes, CI dependency updates, etc. 
+    documentation, changes to CI fixes, CI dependency updates, etc.
 * Non-trivial changes have more loosely defined requirements. Input should be sought
   out from maintainers of relevant components. The broader the scope or more
   controversial the change, the more broad the consensus should be required for
