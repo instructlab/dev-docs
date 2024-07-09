@@ -20,6 +20,7 @@ Colab
 compositional
 Conda
 config
+configs
 Containerfile
 cpp
 cuBLAS
@@ -28,6 +29,7 @@ customizations
 CWD
 Cynefin
 dataset
+datasets
 DCO
 Dependabot
 dev
@@ -100,9 +102,9 @@ PLOS
 PNG
 Podman
 podman
-PR's
 pre
 preprint
+PR's
 pyenv
 PyPI
 PyTorch
@@ -117,6 +119,7 @@ Ren
 repo
 ROCm
 RTX
+runtime
 RX
 SaaS
 safetensors
@@ -144,8 +147,8 @@ tl
 tox
 traigers
 triager
-triager's
 Triagers
+triager's
 triagers
 UI
 ui
