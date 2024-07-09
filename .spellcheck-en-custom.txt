@@ -4,8 +4,12 @@ Abhishek
 Akash
 AMDGPU
 Anil
+API
+API's
+api
 arge
 arXiv
+ascii
 backend
 backends
 benchmarking
@@ -42,6 +46,7 @@ eval
 Excalidraw
 exfiltrate
 exfiltrating
+extensibility
 Finetuning
 formedness
 GFX
@@ -134,7 +139,9 @@ Standup
 subcommand
 subcommands
 subdirectory
+submodule
 Sudalairaj
+sync'ed
 Taj
 tatsu
 TBD
@@ -151,6 +158,7 @@ UI
 ui
 unquantized
 USM
+utf
 UX
 venv
 Vishnoi
@@ -165,3 +173,4 @@ XT
 XTX
 Xu
 YAML
+yaml

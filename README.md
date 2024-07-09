@@ -36,7 +36,7 @@ please ping the Oversight Committee for help.
 
 ## Formatting Guidelines
 
-Design documents should be placed in `docs/`.
+Design documents should be placed in [docs/](./docs).
 
 ### Text
 
@@ -50,3 +50,7 @@ easily updated in the future as needed. Some options include:
 * [Mermaid](https://github.com/mermaid-js/mermaid#readme)
 * [Excalidraw](https://excalidraw.com/)
 ** Be sure to leave "Embed Scene" turned on when exporting the PNG.
+
+### API Specifications
+
+API definitions use the [OpenAPI Specification](https://www.openapis.org/) (OAS) written in [YAML](https://yaml.org/).
