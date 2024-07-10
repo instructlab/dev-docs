@@ -1,0 +1,100 @@
+# Serve Config for `data generate` command
+
+`ilab` currently automates model serving under the following conditions:
+
+* `ilab model serve`
+* `ilab model chat` without a custom API endpoint and without `ilab
+  model serve` already running.
+* `ilab data generate` without a custom API endpoint and without `ilab
+  model serve` already running.
+* `ilab model evaluate`
+
+As features are added to the `instructlab-sdg` library, the configuration
+requirements are growing beyond what is currently available through the `ilab`
+CLI's `data generate` command. This document reviews the requirements and makes
+a proposal for how to configure `ilab` for the expanded SDG use cases.
+
+## Requirements
+
+In all other cases of automatically serving a model, `ilab` is only serving a
+single model.  We now have a need to serve both a model, as well as that model
+with custom adapters. This is [supported by
+vllm](https://docs.vllm.ai/en/latest/models/lora.html#serving-lora-adapters),
+one of our model serving backends for `ilab`.
+
+In addition to specifying which lora adapter(s) to serve, we must also be able
+to configure the model ID that is used for it in the OpenAI API. There is a related design
+that is [proposing a configuration format for SDG flows](https://github.com/instructlab/sdg/pull/86).
+A flow configuration file will include an expectation of one or more model IDs
+to be accessible, so we need a way to ensure our config matches the flow
+expectations.
+
+## Proposal
+
+### Use Case
+
+`ilab data generate` with a custom workflow that requires a custom model adapter
+in addition to the model without an adapter.
+
+### Configuration
+
+First, let's put the custom adapter aside and review how we would configure the
+teacher model today.
+
+The `serve:` section of `config.yaml` includes a `model_path` field. The model
+path is also used as the model ID used to request this model via the OpenAI API.
+This same model ID must be in the `generate.model` configuration option for this
+same ID to be used as the default teacher model.
+
+```yaml
+serve:
+  model_path: "path/to/model_directory" # both a path and the model ID used in the API
+...
+generate:
+  model: "path/to/model_directory" # the default model ID to request from the API
+...
+```
+
+If we want to serve a model with a custom adapter, we can do so using custom
+`vllm_args` in the configuration file.
+
+```yaml
+serve:
+  model_path: "path/to/model_directory" # both a path and the model ID used in the API
+  backend: "vllm"
+  backend_args:
+    vllm_args:
+      - ...
+      - "--lora-modules"
+      - "my_custom_adapter=path/to/my_custom_adapter"
+      - ...
+...
+generate:
+  model: "path/to/model_directory" # the default model ID to request from the API
+...
+
+In this example, we have added another model ID, `my_custom_adapter`, to the
+OpenAI API endpoint served by `vllm`. This model ID can match the expectation of
+a custom flow configuration file. Using a potential configuration example from
+[an open PR](https://github.com/instructlab/sdg/pull/86), here is how the
+expectation of `my_custom_adapter` could be expressed. Note that the details
+of this configuration format are pending the resoltuion of the [corresponding
+design proposal](https://github.com/instructlab/dev-docs/pull/109).
+
+```yaml
+version: "1.0"
+models:
+  - name: my_custom_adapter
+    description: a funky adaptor for generating questions
+block_configs:
+  - block_type: LLMBlock
+    block_config:
+      block_name: gen_questions
+      config_path: configs/skills/freeform_questions.yaml
+      add_num_samples: True
+      model: my_custom_adapter
+      output_cols:
+        - question
+    drop_duplicates:
+      - question
+```
