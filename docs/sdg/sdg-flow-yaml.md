@@ -108,7 +108,7 @@ For now, we assume that the `LLMBlock` class will choose the appropriate model p
 
 Every LLMBlock references a separate prompt config file, and presumably a custom pipeline will provide custom prompt configs too.
 
-These prompt config files are quite simple YAML files - they contain a single object with system, introduction, principles, examples, and generation keys. See e.g. src/instructlab/sdg/configs/skills/freeform_questions.yaml
+These prompt config files are quite simple YAML files - they contain a single object with system, introduction, principles, examples, and generation keys. See e.g. [src/instructlab/sdg/configs/skills/freeform_questions.yaml](https://github.com/instructlab/sdg/blob/main/src/instructlab/sdg/configs/skills/freeform_questions.yaml)
 
 We will continue to use these config files unchanged, and custom files can be specified with an absolute path. Relative paths are assumed to be relative to the Python package e.g. `configs/skills/...`.
 
