@@ -21,3 +21,4 @@ we propose as. As in example I'll comment on the first one with the name I'm sug
 - Ruffles
 - Pedro
 - Alan Turing (Alan for short)
+- Specs (per J. Jenkins)
