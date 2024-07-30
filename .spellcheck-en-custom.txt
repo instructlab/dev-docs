@@ -30,6 +30,7 @@ customizations
 CWD
 Cynefin
 dataset
+datasets
 DCO
 Dependabot
 dev
