@@ -27,6 +27,8 @@ cpp
 cuBLAS
 CUDA
 customizations
+CVE
+CVEs
 CWD
 Cynefin
 dataset
@@ -120,6 +122,7 @@ preprint
 PR's
 pyenv
 PyPI
+pyproject
 PyTorch
 qlora
 quantized
