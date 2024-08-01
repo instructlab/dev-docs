@@ -58,6 +58,7 @@ GGUF
 GGUFs
 GiB
 Gmail
+GPTDolomite
 gpu
 Guang
 hardcode
