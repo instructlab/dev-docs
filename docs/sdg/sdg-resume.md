@@ -40,6 +40,7 @@ is just an example, and the exact flag/CLI invocation to trigger this
 should be discussed.
 
 The following types of interruption should be handled:
+
 * user-triggered interruptions (e.g. CTRL-c)
 * SIGINT interruptions (e.g. when running on a spot instance of Pod
   which receives SIGINT)
@@ -91,6 +92,6 @@ state files. After a successful generation run, we'll delete this
 
 ## References
 
-* https://github.com/instructlab/sdg/issues/267
+* [SDG Issue 267](https://github.com/instructlab/sdg/issues/267)
 
 ## Reviews
