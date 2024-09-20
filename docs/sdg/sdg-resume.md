@@ -78,6 +78,38 @@ called `intermediate_state` where we'll write all of our intermediate
 state files. After a successful generation run, we'll delete this
 `intermediate_state` subdirectory.
 
+A diagram of the proposed flow for a pipeline that contains two
+blocks:
+
+```mermaid
+flowchart TD
+    datagen[Data Generation] --> is_resuming{Resuming?}
+    is_resuming -- No --> write_gen_config[Write Generation Config]
+    is_resuming -- Yes --> load_gen_config[Load Generation Config]
+    write_gen_config --> start_all_nodes[/For Each Leaf Node\]
+    load_gen_config --> start_all_nodes
+    start_all_nodes --> found_leaf_samples{Found Taxonomy Node Input Samples?}
+    subgraph For Each Leaf Node
+    found_leaf_samples -- No --> write_leaf_samples[Write Taxonomy Node Input Samples]
+    found_leaf_samples -- Yes --> load_leaf_samples[Load Taxonomy Node Input Samples]
+    write_leaf_samples --> found_block1_samples{Found Pipeline Block 1 Samples?} 
+    load_leaf_samples --> found_block1_samples
+    found_block1_samples -- No --> write_block1_samples[Generate Pipeline Block1 Samples]
+    found_block1_samples -- Yes --> load_block1_samples[Load Pipeline Block 1 Samples]
+    write_block1_samples --> found_block2_samples{Found Pipeline Block 2 Samples?}
+    load_block1_samples --> found_block2_samples
+    found_block2_samples -- No --> write_block2_samples[Generate Pipeline Block2 Samples]
+    found_block2_samples -- Yes --> load_block2_samples[Load Pipeline Block 2 Samples]
+    write_block2_samples --> found_eval_task_data{Found Eval Task Data?}
+    load_block2_samples --> found_eval_task_data
+    found_eval_task_data -- No --> write_eval_task_data[Generate Eval Task Data]
+    found_eval_task_data -- Yes --> load_eval_task_data[Load Eval Task Data]
+    end
+    write_eval_task_data --> wait_all_nodes[\Wait For All Leaf Nodes to Finish/]
+    load_eval_task_data --> wait_all_nodes
+    wait_all_nodes --> clean_state[Clean Intermediate State]
+    clean_state --> finished[Generation Complete]
+
 ## Open Questions
 
 * What's the format of the metadata config file?
