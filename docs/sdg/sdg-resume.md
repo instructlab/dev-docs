@@ -66,12 +66,12 @@ start by writing a new yaml file here containing the metadata of this
 generation run. This will include anything we need to know to resume
 the run, which may non-exhaustively include the taxonomy-path,
 taxonomy-base, model, chunk-word-count, sdg-scale-factor, pipeline
-(simple vs full vs path), batch-size, and perhaps even an entire copy
-of the pipeline config in use. We need enough metadata so that an
-`ilab data generate --resume` can resume everything exactly as it was
-before, without the need to pass in each set of original
-parameters. We will retain this metadata file even after the
-generation run completes.
+(simple vs full vs path), batch-size, leaf nodes being generated, and
+perhaps even an entire copy of the pipeline config in use. We need
+enough metadata so that an `ilab data generate --resume` can resume
+everything exactly as it was before, without the need to pass in each
+set of original parameters. We will retain this metadata file even
+after the generation run completes.
 
 Next, we'll create a subdirectory under `node_datasets_<datetime>`
 called `intermediate_state` where we'll write all of our intermediate
@@ -79,6 +79,22 @@ state files. After a successful generation run, we'll delete this
 `intermediate_state` subdirectory.
 
 ## Open Questions
+
+* What's the format of the metadata config file?
+* Can a user resume any interrupted run? Or only the latest?
+* What do we do if the user explicitly passes in some CLI args that
+  don't match what they initially used to start the generation run the
+  first time? Log a warning? Error out?
+* What are all the intermediate state files we need?
+  * The list of all taxonomy leaf nodes in this run and their content?
+  * Initial samples from each leaf node (not generated samples, but
+    input samples)
+  * The output from each pipeline step
+* Should resume be explicit? Or implicit if we detect you have an
+  unfinished generate run that used the same set of parameters?
+  (Thinking about a K8s pod that gets killed and restarted by
+  Kubernetes - it will get restarted with the exact same parameters vs
+  knowing it explicitly needs to "resume" the second time)
 
 ## Alternatives
 
