@@ -109,6 +109,7 @@ flowchart TD
     load_eval_task_data --> wait_all_nodes
     wait_all_nodes --> clean_state[Clean Intermediate State]
     clean_state --> finished[Generation Complete]
+```
 
 ## Open Questions
 
