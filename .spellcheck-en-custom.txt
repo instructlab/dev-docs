@@ -54,6 +54,8 @@ Finetuning
 formedness
 freeform
 GFX
+gguf
+ggufs
 GGUF
 GGUFs
 GiB
@@ -102,6 +104,7 @@ Nakamura
 num
 NVidia
 Nvidia
+OCI
 Ollama
 ollama
 OpenStax
@@ -138,6 +141,7 @@ RTX
 runtime
 RX
 SaaS
+safetensor
 safetensors
 Salawu
 SDG
@@ -181,6 +185,7 @@ vllm
 watsonx
 Wikisource
 wikisql
+WIP
 WSL
 xcode
 XNACK
