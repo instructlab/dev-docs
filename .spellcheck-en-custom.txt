@@ -53,6 +53,7 @@ filesystem
 Finetuning
 formedness
 freeform
+funnelling
 GFX
 gguf
 ggufs
@@ -84,12 +85,14 @@ Kai
 Kubernetes
 Kumar
 lignment
+linux
 LLM
 llms
 LLVM
 lora
 Markdownlint
 md
+mdl
 Mergify
 Merlinite
 merlinite
