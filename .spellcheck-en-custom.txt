@@ -11,7 +11,9 @@ backend
 backends
 benchmarking
 Bhandwaldar
+brainer
 Cappi
+checkpointing
 CLI
 CLI
 cli
@@ -53,15 +55,17 @@ filesystem
 Finetuning
 formedness
 freeform
+FSDP
 GFX
-gguf
-ggufs
 GGUF
+gguf
 GGUFs
+ggufs
 GiB
 Gmail
 gpu
 Guang
+hacky
 hardcode
 hardcoded
 hipBLAS
@@ -107,7 +111,9 @@ Nvidia
 OCI
 Ollama
 ollama
+onboarding
 OpenStax
+optimizers
 orchestrator
 ots
 Params
@@ -116,6 +122,7 @@ PEFT
 Pereira
 PlantUML
 PLOS
+pluggable
 PNG
 POC
 Podman
@@ -136,6 +143,8 @@ README
 rebase
 Ren
 repo
+repos
+RHEL
 ROCm
 RTX
 runtime
@@ -148,6 +157,7 @@ SDG
 sdg
 sexualized
 SHA
+sharding
 Shellcheck
 Shivchander
 Signoff
