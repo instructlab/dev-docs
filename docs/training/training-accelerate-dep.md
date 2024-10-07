@@ -1,8 +1,3 @@
----
-title: Design Doc - HF Accelerate
-
----
-
 # Design Proposal - HF Accelerate
 
 ## Overview
@@ -19,19 +14,19 @@ With all this in mind, in order to maintain a simple common codebase, an abstrac
 
 Accelerate usage consists of a single import:
 
-```
+```python
 from accelerate import Accelerator
 ```
 
 We begin by setting up our accelerator object via our `setup_accelerator` function:
 
-```
+```python
 accelerator = setup_accelerator(args, model, grad_accum)
 ```
 
 This checks the selected sharding framework, and sets up the appropriate config:
 
-```
+```python
 def setup_accelerator(args, model, grad_accum):
     if args.distributed_training_framework == "deepspeed":
         # Third Party
@@ -57,7 +52,7 @@ def setup_accelerator(args, model, grad_accum):
 
 Now this Accelerator object can act as a universal sharding framework config, and we can prepare our training objects accordingly:
 
-```
+```python
 model, optimizer, _, lr_scheduler = accelerator.prepare(
     model,
     optimizer,
@@ -68,7 +63,7 @@ model, optimizer, _, lr_scheduler = accelerator.prepare(
 
 As an additional bonus, the accelerator object allows us to do universal checkpoint saving and resuming as well. For saving model checkpoints, we can simply use:
 
-```
+```python
 accelerator.save_model(
     model,
     save_directory=output_dir,
@@ -79,7 +74,7 @@ accelerator.save_model(
 
 and to save full state for resuming training, we can use:
 
-```
+```python
 accelerator.save_state(
     output_dir=output_dir,
     safe_serialization=True,
