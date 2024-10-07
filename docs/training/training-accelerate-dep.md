@@ -18,14 +18,19 @@ With all this in mind, in order to maintain a simple common codebase, an abstrac
 ### How it is implemented in code
 
 Accelerate usage consists of a single import:
+
 ```
 from accelerate import Accelerator
 ```
+
 We begin by setting up our accelerator object via our `setup_accelerator` function:
+
 ```
 accelerator = setup_accelerator(args, model, grad_accum)
 ```
+
 This checks the selected sharding framework, and sets up the appropriate config:
+
 ```
 def setup_accelerator(args, model, grad_accum):
     if args.distributed_training_framework == "deepspeed":
@@ -49,7 +54,9 @@ def setup_accelerator(args, model, grad_accum):
     accelerator.even_batches = False
     return accelerator
 ```
+
 Now this Accelerator object can act as a universal sharding framework config, and we can prepare our training objects accordingly:
+
 ```
 model, optimizer, _, lr_scheduler = accelerator.prepare(
     model,
@@ -60,6 +67,7 @@ model, optimizer, _, lr_scheduler = accelerator.prepare(
 ```
 
 As an additional bonus, the accelerator object allows us to do universal checkpoint saving and resuming as well. For saving model checkpoints, we can simply use:
+
 ```
 accelerator.save_model(
     model,
@@ -68,7 +76,9 @@ accelerator.save_model(
     safe_serialization=True,
 )
 ```
+
 and to save full state for resuming training, we can use:
+
 ```
 accelerator.save_state(
     output_dir=output_dir,
@@ -77,31 +87,36 @@ accelerator.save_state(
 ```
 
 ## The immediate benefit
+
 The inclusion of Accelerate in this manner drastically simplifies the process of supporting multiple sharding frameworks. Rather than having diverging code paths for model setup, optimizer setup, sharding configuration, distributed initialization, state saving, and model checkpointing, all of these training steps can be supported with the same code. The common abstraction allows us to maintain both DeepSpeed and FSDP, and prepares us for inclusion of additional sharding frameworks.
 
-
 ## Impact on overhead
+
 ### Performance
+
 There has been no noticeable performance impact observed during development, but we will defer to the Performance and Scale team for final measurements.
 
 ### Usability
+
 This makes the library easier to read, but also requires knowledge of an additional package. While there exists [documentation](https://huggingface.co/docs/accelerate/v1.0.0rc1/en/index), it does require some additional code exploration to actually understand what some functions (like `prepare`, `save_model`, etc.) are doing behind the scenes, making some processes less transparent than if implemented directly with `torch`.
 
 While sharding framework code will not need to be reviewed as thoroughly, this does not change the fact that one still needs to understand the configuration options per framework and how they behave.
 
 ### Package Management
+
 This inclusion requires one additional python package to be managed as a dependency. Currently, that package is `accelerate==0.34.2` but we plan to immediately upgrade to `accelerate==1.0.0` once it is moved from pre-release to official release.
 
-
 ## Long-Term Bonuses and Risks
+
 The two clearest long-term bonuses are:
- - Simplifies the process of onboarding additional sharding frameworks in the future, as well as deprecating existing sharding frameworks
- - Vastly improves the readability and maintenance of our code by avoiding diverging paths for various sharding frameworks
+
+- Simplifies the process of onboarding additional sharding frameworks in the future, as well as deprecating existing sharding frameworks
+- Vastly improves the readability and maintenance of our code by avoiding diverging paths for various sharding frameworks
 
 There are, however, important risks to be considered. Ultimately, if we are confident that we wish to eventually stick with a single sharding framework in the future and contribute directly to that project, the risks of including Accelerate may outweigh the benefits. Please read the next section carefully to understand why, if Accelerate no longer provides a significant benefit to us, should be removed.
 
-
 ### Why Stop There?
+
 With the inclusion of a Hugging Face abstraction library, this begs the question "why not keep going and pull in more of the HF stack? Won't it simplify things further then?"
 
 It is important to reiterate here the clear downsides of HF Accelerate, and what we wish to avoid moving forward. Accelerate makes our code more opaque, and hinders our ability to easily understand and customize as needed without being reliant upon a third-party dependency. We become reliant upon HF bug fixes, release cycles, and documentation, and without an explicit member of the HF community to manage these for us, this introduces risk that has to be heavily considered.
@@ -111,4 +126,3 @@ For example, if we wanted to change how model saving worked, or a user wanted to
 This expands well into the wider topic of dependency management. A package like Accelerate will have frequent updates and changes moving forward, and we will need to ensure consistent compatibility between our training library releases and the required Accelerate versions. A new dependency also means shipping with another package, with a large set of code. While in most cases this is harmless, a package that is used directly on top of our work in place of our existing code, adds a significant amount of bloat for developers and users alike. The requirement shifts from understanding a line of code, to understanding a full code path behind a line of code, the quality of which cannot be guaranteed by our engineers.
 
 Ultimately, these risks and overhead management costs make sense for Accelerate, because the package provides significant benefit that far outweigh our concerns. When considering additional HF packages, however, there is currently **no obvious benefit** to their inclusion, which only further annunciates the risks associated. It must be made clear that the risks of Accelerate are non-negligible, and that the conveniences and positive impact provided are what push it over the line of inclusion. It is by no means a "no brainer" to further include any additional HF packages at this time, unless they afford us a similar benefit.
-
