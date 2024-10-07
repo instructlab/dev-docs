@@ -7,9 +7,9 @@ title: Design Doc - HF Accelerate
 
 ## Overview
 
-InstructLab training is currently being required to support two distributed sharding frameworks: DeepSpeed and FSDP1. Additionally, there is a future plan to adopt FSDP2 once the project matures. Each of these framworks has its own process for preparing models, optimizers, sharding, and all of their own custom options.
+InstructLab training is currently being required to support two distributed sharding frameworks: DeepSpeed and FSDP1. Additionally, there is a future plan to adopt FSDP2 once the project matures. Each of these frameworks has its own process for preparing models, optimizers, sharding, and all of their own custom options.
 
-With all this in mind, in order to maintain a simple common codebase, an abstraction for sharding frameworks is required. This is why we have pulled in Hugging Face Accelerate as a lightweight sharding abstraction, to enable a common interface for sharding frameworks with pluggable configs, and to avoid overly-branching codepaths.
+With all this in mind, in order to maintain a simple common codebase, an abstraction for sharding frameworks is required. This is why we have pulled in Hugging Face Accelerate as a lightweight sharding abstraction, to enable a common interface for sharding frameworks with pluggable configs, and to avoid overly-branching code paths.
 
 ## How it is being used
 
@@ -77,7 +77,7 @@ accelerator.save_state(
 ```
 
 ## The immediate benefit
-The inclusion of Accelerate in this manner drastically simplifies the process of supporting multiple sharding frameworks. Rather than having diverging codepaths for model setup, optimizer setup, sharding configuration, distributed initialization, state saving, and model checkpointing, all of these training steps can be supported with the same code. The common abstraction allows us to maintain both DeepSpeed and FSDP, and prepares us for inclusion of additional sharding frameworks.
+The inclusion of Accelerate in this manner drastically simplifies the process of supporting multiple sharding frameworks. Rather than having diverging code paths for model setup, optimizer setup, sharding configuration, distributed initialization, state saving, and model checkpointing, all of these training steps can be supported with the same code. The common abstraction allows us to maintain both DeepSpeed and FSDP, and prepares us for inclusion of additional sharding frameworks.
 
 
 ## Impact on overhead
@@ -108,7 +108,7 @@ It is important to reiterate here the clear downsides of HF Accelerate, and what
 
 For example, if we wanted to change how model saving worked, or a user wanted to simply understand how model saving worked, they would no longer be able to do so through our library directly, but instead would need to read HF documentation, and contribute back to HF repos with the hope that the customization is considered generally useful and approved. More niche or experimental customizations may not be approved at all, and would have to be patched in directly or overwritten in a rather hacky manner within our library. This as described is not the most dire of circumstances, as one could argue that if it is not ready to be included upstream, it may not be ready to be included in our library. Where things get more serious, however, is with the introduction of bugs. At this very moment, there is a bug in `v0.34.2` that means FSDP model saving does not behave as expected. This fix is resolved in `v1.0.0rc1`, but there is no official release yet that can be pulled in with this fix. So for RHEL AI 1.2, we are currently maintaining a patch directly in our library to fix the bug while working with `v0.34.2`, and it will sit there temporarily until Accelerate has a new official release.
 
-This expands well into the wider topic of dependency management. A package like Accelerate will have frequent updates and changes moving forward, and we will need to ensure consistent compatibility between our training library releases and the required Accelerate versions. A new dependency also means shipping with another package, with a large set of code. While in most cases this is harmless, a package that is used directly on top of our work in place of our existing code, adds a significant amount of bloat for developers and users alike. The requirement shifts from understanding a line of code, to understanding a full codepath behind a line of code, the quality of which cannot be guaranteed by our engineers.
+This expands well into the wider topic of dependency management. A package like Accelerate will have frequent updates and changes moving forward, and we will need to ensure consistent compatibility between our training library releases and the required Accelerate versions. A new dependency also means shipping with another package, with a large set of code. While in most cases this is harmless, a package that is used directly on top of our work in place of our existing code, adds a significant amount of bloat for developers and users alike. The requirement shifts from understanding a line of code, to understanding a full code path behind a line of code, the quality of which cannot be guaranteed by our engineers.
 
 Ultimately, these risks and overhead management costs make sense for Accelerate, because the package provides significant benefit that far outweigh our concerns. When considering additional HF packages, however, there is currently **no obvious benefit** to their inclusion, which only further annunciates the risks associated. It must be made clear that the risks of Accelerate are non-negligible, and that the conveniences and positive impact provided are what push it over the line of inclusion. It is by no means a "no brainer" to further include any additional HF packages at this time, unless they afford us a similar benefit.
 
