@@ -89,7 +89,7 @@ The inclusion of Accelerate in this manner drastically simplifies the process of
 
 ### Performance
 
-There has been no noticeable performance impact observed during development, but we will defer to the Performance and Scale team for final measurements.
+There has been no noticeable performance impact observed during development, but we will defer to the final measurements seen from comprehensive performance testing and benchmarking.
 
 ### Usability
 
@@ -120,4 +120,4 @@ For example, if we wanted to change how model saving worked, or a user wanted to
 
 This expands well into the wider topic of dependency management. A package like Accelerate will have frequent updates and changes moving forward, and we will need to ensure consistent compatibility between our training library releases and the required Accelerate versions. A new dependency also means shipping with another package, with a large set of code. While in most cases this is harmless, a package that is used directly on top of our work in place of our existing code, adds a significant amount of bloat for developers and users alike. The requirement shifts from understanding a line of code, to understanding a full code path behind a line of code, the quality of which cannot be guaranteed by our engineers.
 
-Ultimately, these risks and overhead management costs make sense for Accelerate, because the package provides significant benefit that far outweigh our concerns. When considering additional HF packages, however, there is currently **no obvious benefit** to their inclusion, which only further annunciates the risks associated. It must be made clear that the risks of Accelerate are non-negligible, and that the conveniences and positive impact provided are what push it over the line of inclusion. It is by no means a "no brainer" to further include any additional HF packages at this time, unless they afford us a similar benefit.
+Ultimately, these risks and overhead management costs make sense for Accelerate, because the package provides significant benefit that far outweigh our concerns. When considering additional HF packages, however, there is currently **no obvious benefit** to their inclusion, which only further enunciates the risks associated. It must be made clear that the risks of Accelerate are non-negligible, and that the conveniences and positive impact provided are what push it over the line of inclusion. It is by no means a "no brainer" to further include any additional HF packages at this time, unless they afford us a similar benefit.
