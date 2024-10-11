@@ -7,7 +7,7 @@ for technical policies that apply across all components.
 ## Governance
 
 Governance for InstructLab overall is documented in the [community
-repository](https://github.com/instructlab/community/blob/main/governance.md).
+repository](https://github.com/instructlab/community/blob/main/GOVERNANCE.md).
 
 The [InstructLab Oversight
 Committee](https://github.com/instructlab/community/blob/main/MAINTAINERS.md) is
