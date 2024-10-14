@@ -26,6 +26,7 @@ config
 configs
 Containerfile
 cpp
+CTRL
 cuBLAS
 CUDA
 customizations
@@ -160,6 +161,7 @@ SHA
 sharding
 Shellcheck
 Shivchander
+SIGINT
 Signoff
 Sigstore
 specifiying
