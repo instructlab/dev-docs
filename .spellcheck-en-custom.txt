@@ -63,6 +63,7 @@ GGUFs
 ggufs
 GiB
 Gmail
+GPTDolomite
 gpu
 Guang
 hacky
@@ -155,6 +156,7 @@ safetensors
 Salawu
 SDG
 sdg
+semvar
 sexualized
 SHA
 sharding
