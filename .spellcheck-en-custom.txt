@@ -65,6 +65,8 @@ GiB
 Gmail
 GPTDolomite
 gpu
+GPU
+GPUs
 Guang
 hacky
 hardcode
@@ -131,6 +133,7 @@ podman
 pre
 preprint
 PR's
+Pydantic
 pyenv
 PyPI
 pyproject
@@ -180,6 +183,7 @@ Tesla
 th
 tl
 TODO
+TOML
 tox
 traigers
 triager
@@ -194,10 +198,12 @@ UX
 venv
 Vishnoi
 vllm
+VRAM
 watsonx
 Wikisource
 wikisql
 WIP
+workspaces
 WSL
 xcode
 XNACK
