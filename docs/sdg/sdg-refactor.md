@@ -1,0 +1,136 @@
+# Refactor preprocessing and postprocessing in SDG
+
+## Context
+
+The existing synthetic data generation (SDG) repository includes several related pieces of functionality:
+
+- Traverse an InstructLab taxonomy to identify unstaged qna.yaml files to generate data from.
+- From each qna.yaml file, extract the example context/question/answer tuples for use as seed data.
+- From each *knowledge* qna.yaml file, also fetch the document referenced by this file.  Use [Docling](https://github.com/DS4SD/docling) to convert the file to a JSON format and then split the file into chunks that are small enough to be used as contexts for synthetic data generation.
+- *Given the seed data and the document chunks if any, generate additional synthetic context/question/answer tuples.*
+- Mix the outputs with some pre-computed data sets when applicable
+- Split the data into train and test
+
+Of all of these, only the one emphasized (*Given the seed data ... generate ... tuples*) is core SDG functionality.  The others are essentially preprocessing and postprocessing steps to enable the core SDG functionality and produce outputs useable for future steps.  In the current flow, preprocessing has a taxonomy with some new seed data added to it as input.  The output of preprocessing includes a set of context/question/answer tuples for both knowledge and skill taxonomy nodes.  For knowledge taxonomy nodes it also includes a set of document chunks.  SDG uses the context/question/answer tuples as seed examples, and it uses the document chunks (if there are any) as example contexts from which to generate additional data.  That additional data is then sent to the postprocessing step to produce the final outputs.
+
+We have heard that some users want a stand-alone SDG capability that includes only the core SDG functionality.  Specifically, they already have a set of seed context/question/answer tuples and optionallly a set of document chunks.  All they want from SDG is to take that input and produce an new sythetic data set as output without doing any mixing into pre-computed data or splitting into train and test.  The preprocessing and postprocessing capabilities currently in SDG are not relevant to those users.
+
+Also as context, in the near future we are absorbing a set of updates to the core SDG functionality to make it more modularized and flexible.  That might turn out to be irrelevant to this document which is focused on what to do with the non-core functionality (preprocessing and postprocessing).  However, it is mentioned here in the context section in case that context winds up being useful.
+
+Furthermore, in 2025 we are hoping to have some sort of retrieval-augmented generation (RAG) capability that is either part of or tightly integrated with InstructLab.  Such a capability would have signficant overlap with the functionality of the preprocessing for SDG.  As noted above, when a taxonomy has a knowledge qna.yaml file that references a document, SDG uses Docling to convert the file to JSON and then splits the file into chunks of appropriate size for SDG.  The RAG capability would _also_ want the same Docling JSON output but would need to split it into chunks that are sized appropriately for vector retrieval (i.e., that fit within the context window of the semantic encoding model).
+
+## Question 1: What user flows should be supported?
+
+Here are some user flows that seem like they might be valuable:
+
+1. User installs the full InstructLab (CLI and/or GUI).  They want any of the following using CLI or GUI interactions:
+    - 1.1. They have a taxonomy with some new seed data they added to it.  They want to run the full pipeline including SDG and model training and evaluation.
+    - 1.2. They have a taxonomy with some new seed data they added to it.  They want to run SDG and then evaluate an existing model on the outputs of that SDG.
+    - 1.3. They have a taxonomy with some new seed data they added to it.  They want to run SDG only.
+        - 1.3.1. They also want to see the _inputs_ to SDG that get extracted from the taxonomy (i.e., a set of seed context/question/answer tuples and optionallly a set of document chunks).
+        - 1.3.2. Alternatively, maybe they _only_ want to see the _inputs_ to SDG -- they don't actually want to run SDG.
+    - 1.4. They have a set of seed context/question/answer tuples and optionallly a set of document chunks.  They want to run the full pipeline including SDG and model training and evaluation.
+    - 1.5. They have a set of seed context/question/answer tuples and optionallly a set of document chunks.  They want to run SDG and then evaluate an existing model on the outputs of that SDG.
+    - 1.6. They have a set of seed context/question/answer tuples and optionallly a set of document chunks.  They want to run SDG only.
+2. User installs the SDG library only.  They want to invoke any of the following as a library call from code they write:
+    - 2.1. They have a taxonomy with some new seed data they added to it.  They want to run SDG only without any postprocessing.
+    - 2.2. They have a set of seed context/question/answer tuples and optionallly a set of document chunks.  They want to run SDG only without any postprocessing.
+
+If I understand the guidance from our PM (William Caban), the flows we are being asked to support here are 1.1., 1.2., 1.3, 1.3.1, and 2.2.  However, I am not sure that I understand the guidance.  Are we confident that we _do_ want to support those flows and do not want to support any of the others?  More specifically, do we think the users who want 2.2 might be satisfied with 1.6 instead?  Both of those are SDG-only flows, but the latter is more developer focused and the former is more business-user focused.  Also, are we really confident that all of the "SDG only" customers really want to do their own document chunking?  Might there be some customers that have seed context/question/answer tuples and _documents_ and want us to chunk the documents for them?
+
+Also note, that for all of the flows above that start with "they have a taxonomy", there are open questions around the complexity of the taxonomy format.  Some users want to be able to provide seed data and documents without explicitly or implicitly extending some sort of base taxonomy.  If we had something simpler than the existing taxonomy format that still included some way to specify context/question/answer tuples and references to full documents (i.e., not _chunks_), would we even call that a taxonomy or would it be something else?  If we call it something else, then some or all of the flows that take in a taxonomy might also be applicable for that something else.  For the remainder of this document, however, we will assume that any sort of simplified/easier-to-use variant of a taxonomy will also be called a "taxonomy".
+
+## Question 2: What should the commands be in the CLI?
+
+One way to support both 1.3.1 and 1.3.2 would be to have separate CLI commands for the preprocessing, core SDG, and postprocessing step .  Alternatively, a single CLI command that does all of these and also saves the outputs of preprocessing to disk would support 1.3.1 but _not_ 1.3.2.  Even if we only want to support 1.3.1, having separate CLI commands for each step might be desirable because it is just more intuitive that if a user wants to save the outputs of preprocessing to disk to have a command to do that instead of having it be a "side effect" of an omnibus SDG command.  Here is a rough outline of what the separate commands would be:
+
+- `ilab data prep` would handle all the preprocessing (the first three bullets in the Context section above, plus any additional preprocessing we add in the future).
+- `ilab data generate` would take as input some data in the same format that `ilab data prep` produces and would run the core synthetic data generation *only*.  Note that this is a breaking change from the current behavior of `ilab data generate`, but that may be acceptable because the user base is still small.
+- `ilab data process` would take as input some data in the same format that `ilab data generate` produces and would run the postprocessing (the last two bullets in the Context section above, plus any additional postprocessing we add in the future).
+
+Detailed technical specifications for these commands are outside the scope of this document and should appear in a future document instead.
+
+## Question 3: Where should the preprocessing and postprocessing code go?
+
+As noted earlier, currently the preprocessing and postprocessing code is in the SDG library.  Here are some options for what to do with it.
+
+### Option 1: Leave preprocessing and postprocessing in SDG
+
+Currently there is no documentation that I know of that explains how to do 2.1 or 2.2 (or anything else, really) with the SDG library by itself.  However, with some additional documenting and _maybe_ some refactoring, it should be feasible to support both 2.1 and 2.2 in SDG.  With that said, if 2.1 is not needed and 2.2 is, then it would _also_ be possible to move the preprocessing and postprocessing code out of SDG.  Some pros and cons of leaving in SDG:
+
+Pro:
+
+- Future changes to the input format for preprocessing and/or the output format for postprocessing (e.g., adding more expressive power to the taxonomy format) require changes to the core SDG *and* the preprocssing/postprocessing.  That's easier to do if they are in the same repository because they can be done in a single PR instead of multiple PRs that need to be coordinated.
+- It is simpler to leave things where they are.
+- If we're not totally sure which of the options we want, then it might make more sense to stick with this option for now since it avoids doing a work to move preprocessing and postprocessing *now* that could then be followed by more work to move preprocessing and postprocessing *again* after we decide where it goes.
+
+Con:
+
+- The core logic of SDG is inherently complex and represents some of the most sophisticated and differentiating elements of InstructLab.  For that reason, it would be nice to have it in its own repository by itself.  New contributors to that core logic find it challenging enough to navigate the core functionality without having to also figure out where the core logic starts and the preprocessing and postprocessing capabilities end.  This could be mitigated by having better technical documentation (README, comments) for the SDG library.
+- As noted in the Context section earlier, in the near future we are absorbing a set of updates to the core SDG functionality.  Absorbing those updates is somewhat simpler if the core SDG logic is all alone in a repository of its own.
+- Keeping interconnected components in the same repository provides less pressure to consistently document the API contracts between them.  We certainly _could_ have well documented API contracts for preprocessing and postprocessing and core SDG functionality that makes it clear how they interact even when both of these exist in the same repository, but it is probably more likely that we _will_ do so if they are separated.
+- The logic behind the core SDG algorithms are mainly developed and maintained by the Red Hat AI Innovations team (commonly referred to as the "research" team because many people on that team used to work for IBM Research) while the logic behind the preprocessing and postprocessing is mainly developed and maintained by the Red Hat AI engineering "data" team.  Having multiple teams working on a component increases the amount of coordination required.  Note, however, that preprocessing, postprocessing and core SDG all belong to the entire InstructLab commmunity and *not* Red Hat (much less any one team in Red Hat).  So the teams really need to keep collaborating with the entire community at all times and not get into a mindset of "owning" a single piece of code.
+- The ezxpected RAG functionality in 2025 will have some complex interactions with both preprocessing and postprocessing, perhaps even involving user flows in which the core SDG functionality is not needed.  In that case, it would be confusing to have the code path for RAG include a call out to the SDG library for doing preprocessing but not actually doing the core SDG.
+- It would just be simpler to explain to all stakeholders if the functionality that I've been calling "core SDG" was really just called "SDG".  We can't do that now because the SDG library has preprocessing and postprocessing in it too.
+
+Conclusion:
+
+- While the cons here are substantial, so are the pros.  None of the cons really seem disqualifying.  The first pro (future changes to the formats can be more self-contained) seems particularly compelling because this is a rapidly evolving field and adding new expressive power seems like something we will want frequently.
+
+### Option 2: Move preprocessing and postprocessing into a new repository
+
+We could have a new repository for preprocessing and postprocessing and move all the preprocessing and postprocessing code there.
+
+Pro:
+
+- Avoids all the cons of Option 1.
+- Preprocessing and postprocessing are a coherent pieces of functionality that *could* have their own library (or libraries, FWIW).
+
+Cons:
+
+- Avoids all the pros of Option 1.
+- Having a separate repository with its own library brings in an enormous amount of overhead in maintaining that repository (e.g., CI/CD).
+- Having a separate repository with its own library also brings in an enormous amount of overhead in maintaining the CLI repository's dependency on all of those libraries.
+- Does not allow user flow 2.1 but maybe that's OK because it is not a priority and anyway the users could approximate that flow by also installing the ingestion library.
+
+Conclusion:
+
+- The cost of having a separate reposity is so high that we would only consider this option as a last resort.
+
+### Option 3: Move preprocessing and postprocessing into the CLI repository
+
+Pro:
+
+- The CLI already has a lot of "supporting" (non-core) functionality, so it would respect established precedent to include preprocessing and/or postprocessing here.
+- Supporting user flow 1.3.2 requires separate CLI commands for preprocessing and core SDG.  This is slightly simpler if preprocessing is implemented in CLI.  If preprocessing remains in the SDG library instead then the CLI would need to make _separate_ calls to the SDG library for preprocessing and core SDG to support user flow 1.3.2.  That adds a little complexity. 
+- Avoids some of the cons of Option 1, but see below for some overlap.
+- Avoids some of the cons of Option 2, but see below for some overlap.
+
+Con:
+
+- Avoids the pros of both Option 1 and Option 2.
+- As with Option 1, this approach involves a lot of coordination.  There are a lot of stakehoders involved in the CLI and locating preprocessing and postprocessing there drags those stakeholders into issues relating to preprocessing and postprocessing.  However, as with Option 1, coordinating across stakeholders is something an open source project needs to do well anyway to remain engaged with the community. 
+- As with Option 1, this approach suffers from the fact that keeping interconnected components in the same repository provides less pressure to consistently document the API contracts between them.  In the case of Option 1, the interconnected components that would not have as much pressure to be documented would be preprocessing/postprocessing and core SDG.  In the case of Option 3, the interconnected components that would not have as much pressure to be documented would be the CLI and preprocessing/postprocessing.  However, in both cases, this con could be alleviated by just having the discipline to document the APIs well even without such pressure.
+- As with Option 2, this approach would not enable user flow 2.1.  Maybe that's fine since it is not on our requirements list.
+
+Conclusion:
+
+- This seems like a reasonable option.  The cons are mostly manageable.  However, overall the pros of Option 1 seem more compelling.
+
+### Option 4: Preprocessing and postprocessing go to different locations
+
+We could also mix and match any of the above options separately for preprocessing and postprocessing.  For example, preprocessing could move to the CLI repo and postprocessing could stay in the SDG repo.  Or preprocessing could move to a new repository and postprocessing could move to a different new repository or the _same_ new repository.  Enumerating all possible permutations of where each could go and enumerating pros and cons of each of them would make this document unbearably long.  If anyone wants to advocate for a small number of specific permutations, we will add them to this document.
+
+## Question 4: Should preprocessing, postprocessing, and core SDG be separate Python packages?
+
+If we choose Option 1 (leave preprocessing and postprocessing in SDG) then we still have the option to separate them into distinct Python packages.  That would get us some of the benefits of Option 2 (moving them to a different repository) while avoiding *some* of the costs of Option 2.  In particular, it would make the boundaries clearer and put more pressure on the developers of preprocessing, postprocessing, and core SDG to have well documented contracts for how each of these elements interact.  With that said, it would also bring in some additional complexity and increase the amount of work involved.
+
+## Decisions
+
+Since this is a draft, no decisions are made yet.  However, here are the current draft decisions:
+
+- We will support the following user flows: 1.1., 1.2., 1.3, 1.3.1, 1.3.2, 2.1, and 2.1 as documented in the Question 1 section above.
+- We will adopt the updates to the CLI that will be documented in Question 2 above.
+- We will leave the preprocessing in SDG as described in Question 3: Option 1.
+- We will leave the postprocessing in SDG as described in Question 3: Option 1.
+- We will not separate preprocessing, postprocessing, and SDG into separate packages.
