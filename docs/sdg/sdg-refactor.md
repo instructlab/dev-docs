@@ -142,6 +142,6 @@ Since this is a draft, no decisions are made yet.  However, here are the current
 
 - We will support the following user flows: 1.1., 1.2., 1.3, 1.3.1, 1.3.2, 2.1, and 2.1 as documented in the Question 1 section above.
 - We will adopt the updates to the CLI that will be documented in Question 2 above.
-- We will leave the preprocessing in SDG as described in Question 3: Option 1.
-- We will leave the postprocessing in SDG as described in Question 3: Option 1.
+- We will move preprocessing to the CLI repository as described in Question 3: Option 3.
+- We will move preprocessing to the CLI repository as described in Question 3: Option 3.
 - We will not separate preprocessing, postprocessing, and SDG into separate packages.
