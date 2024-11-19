@@ -28,6 +28,7 @@ Containerfile
 cpp
 cuBLAS
 CUDA
+ctrl
 customizations
 CVE
 CVEs
@@ -121,6 +122,7 @@ Params
 Pareja
 PEFT
 Pereira
+PID
 PlantUML
 PLOS
 pluggable
@@ -171,7 +173,9 @@ Standup
 subcommand
 subcommands
 subdirectory
+subprocess
 Sudalairaj
+systemd
 Taj
 tatsu
 TBD
@@ -190,6 +194,8 @@ UI
 ui
 unquantized
 USM
+UUID
+UUIDs
 UX
 venv
 Vishnoi
