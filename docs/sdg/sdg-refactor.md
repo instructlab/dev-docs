@@ -138,8 +138,6 @@ If we choose Option 1 (leave preprocessing and postprocessing in SDG) then we st
 
 ## Decisions
 
-Since this is a draft, no decisions are made yet.  However, here are the current draft decisions:
-
 - The SDG codebase will be refactored in order to modularize based on pre-processing, data generation, and post-processing steps.
 - We will support the following user flows: 1.1., 1.2., 1.3, 1.3.1, 1.3.2, 2.1, and 2.1 as documented in the Question 1 section above.
 - We will adopt the updates to the command-line interface that will be documented in Question 2 above.
@@ -156,6 +154,6 @@ Since this is a draft, no decisions are made yet.  However, here are the current
 
 Some of the consequences are covered earlier in the pros and cons for Option 3.  Here is a brief recap of the most important of those:
 
-- SDG preprocessing and postprocessing will join a wide variety of glue/data-format capablities in that repository, increasing consistency.
+- SDG preprocessing and postprocessing will join a wide variety of glue/data-format capabilities in that repository, increasing consistency.
 - In the future changes to the kinds of content that SDG takes as inputs will require changes across both the SDG repository and the `instructlab/instructlab` repository.
 - There will be less pressure to have a clear and well documented separation between the library APIs and the command-line interface for these functions because both are located in the same repository.  We will mitigate this consequence by being disciplined about the separation.
