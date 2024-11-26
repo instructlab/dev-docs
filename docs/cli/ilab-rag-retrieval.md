@@ -82,7 +82,7 @@ which translates to the following dictionary in the retrieval request (*):
 {
   'operator': '==',
   'field': 'url',
-  'value': 'https://en.wikipedia.org/wiki/Mausoleum_at_Halicarnassus'}```
+  'value': 'https://en.wikipedia.org/wiki/Mausoleum_at_Halicarnassus'
 }
 ```
 (*) This is for `milvuslite`, other DB can have a different implementation
