@@ -132,7 +132,7 @@ Answer:
 
 
 ### 3.5 Workflow Visualization
-<!-- https://excalidraw.com/#json=XOQDPUR1geqsDvJxlIxjA,gf7kQirzFzG1vZr7kg0Gdw -->
+<!-- https://excalidraw.com/#json=Esp339ny8AR4yBK7sJYU6,L5k4iyS3M2aRasgR4U1Y0A -->
 Ingestion pipeline:
 ![ingestion-mvp](../images/ingestion-mvp.png)
 Chat pipeline enriched by RAG context:
