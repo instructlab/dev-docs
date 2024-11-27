@@ -2,28 +2,33 @@
 
 **Author**: Daniele Martinoli
 
-**Version**: 0.1 (intentionally "naked" until we agree on the high-level design)
+**Version**: 0.1
 
 ## 1. Introduction
-Goal is to describe how we can extend the InstructLab CLI to include options to ingest a local RAG from pre-processed customer documentation, that we assume to be generated from docling output.
-
-References:<br/>
-**They will be removed later as they can't stay in a public repo**
-* [RAG Artifacts with RHEL AI](https://docs.google.com/document/d/1nALKAawvvNKlTnbeQIXmpIXbo2Lxm2vIw1euxW96TgE)
-* [Productization RHEL AI RAG Atifacts](https://docs.google.com/document/d/13lU1bKlqmihEyZDcYCnv4fiv4WUKFELNRXucDgm1d9M)
+Purpose of this document is to propose `ilab` CLI changes to extend the InstructLab flow to generate and utilize RAG artifacts
+in the customer workflows. The proposal includes new commands to ingest a local RAG from pre-processed customer documentation, that we assume to be generated from docling output, and updates to the existing commands to utilize these RAG artifacts.
 
 ## 2. Use Case
-TODO
+* Accelerate POCs of fine-tuning LLMs + RAG.
+* Generate artifacts that data scientists can use to build custom solutions in their development environment:
+  * Jupyter Notebooks & Python Scripts
+  * Podman Desktop
+  * Red Hat OpenShift AI
+  * Internal Red Hat CI systems for products or services (e.g., Lightspeed products)
 
 ## 3. Proposed Commands
+**Note**: In the context of version 1.4, currently under development, no changes to the command-line interface should be
+allowed. Therefore, we also propose alternative approaches to run the same RAG pipelines using existing `ilab` commands or
+other provided tools.
+
 ### 3.1 RAG Ingestion Pipeline Command
 The proposal is to add a `rag` subgroup under the `data` group, with an `ingest` command, like:
 ```
-ilab data rag ingest DOCS
+ilab data rag ingest /path/to/docs/folder
 ```
 
 #### Command Purpose
-This command processes embeddings generated from documents located in the *DOCS* folder and stores them in a vector database. These embeddings are intended to be used as augmented context in a Retrieval-Augmented Generation (RAG) chat pipeline.
+This command processes embeddings generated from documents located in the */path/to/docs/folder* folder and stores them in a vector database. These embeddings are intended to be used as augmented context in a Retrieval-Augmented Generation (RAG) chat pipeline.
 
 #### Assumptions
 The documents must be in JSON format and pre-processed using the docling tool.
@@ -35,7 +40,17 @@ The command supports multiple vector database types. By default, it uses a local
 #### Usage
 The generated embeddings can later be retrieved to enrich the context for RAG-based chat pipelines.
 
+#### Running the pipeline with v1.4
+Currently, there is no `ilab data rag` command available to execute the RAG ingestion pipeline. As a result, it is not possible
+to address the limitations of version 1.4 using the configuration options detailed below. 
+Alternatively, we propose providing a Jupyter notebook or a standalone script to run the pipeline with default settings.
+
+The script should guide users in overriding default options and generating the RAG artifacts in the configured vector database instance. By default, support for MilvusLite will be included.
+
+
 ### 3.2 RAG Ingestion Pipeline Options
+**Planned for post v1.4 (apart changes required for the `chat` command)**
+
 | Option full name | Description | Default | CLI option |
 |------------------|-------------|---------|------------|
 | rag.splitter.split_by | One of `page`, `passage`, `sentence`, `word`, `line` | `word` | `--split-by` |
@@ -60,13 +75,24 @@ ilab model chat --rag
 #### Command Purpose
 This command enhances the existing `ilab model chat` functionality by integrating contextual information retrieved from user-provided documents, enriching the conversational experience with relevant insights.
 
+#### Running the pipeline with v1.4
+To address the limitations of version 1.4, we propose introducing a configuration option to enable the RAG pipeline without any changes to the CLI:
+```
+chat.rag.enabled=true
+```
+This approach allows the chat pipeline to utilize the desired RAG artifacts by relying on configuration options and maintaining
+compatibility with the existing CLI. Consequently, corresponding CLI options (e.g.,` --retriever-top-k` and similar) will not be
+introduced in this version.
+
 ### 3.4 RAG Chat Pipeline Options
+**Also required in v1.4**
 Notes:
 * All the `rag.vectordb.*` options previously defined are also used to locate the vector DB.
-* 
+
 
 | Option full name | Description | Default | CLI option |
 |------------------|-------------|---------|------------|
+| chat.rag.enabled | Boolean flag to enable or disable the RAG pipeline | `false` | `--rag`, `--no-rag` |
 | chat.rag.retriever.top_k | The maximum number of documents to retrieve | `10` | `--retriever-top-k` |
 | chat.rag.retriever.min_score_threshold | The minimum score threshold for chunks to be considered | `0.5` | `--retriever-min-score-threshold` |
 | chat.rag.retriever.filters | Comma separated key-value pairs filters to restrict the search space | | `--retriever-filters` |
