@@ -31,8 +31,10 @@ ilab data rag ingest /path/to/docs/folder
 This command processes embeddings generated from documents located in the */path/to/docs/folder* folder and stores them in a vector database. These embeddings are intended to be used as augmented context in a Retrieval-Augmented Generation (RAG) chat pipeline.
 
 #### Assumptions
-The documents must be in JSON format and pre-processed using the docling tool.
-**TODO** what exact schema we expect and to document how to generate these formatted documents
+The documents must be in JSON format and pre-processed using the `docling` tool.
+
+**Note**: The expected JSON schema is the same that we have when we generate knowledge data with `ilab data generate` and we
+add a reference document to the `qna.yaml` document(s).
 
 #### Supported Databases
 The command supports multiple vector database types. By default, it uses a local `MilvusLite` instance stored at `./rag-output.db`.
@@ -47,6 +49,7 @@ Alternatively, we propose providing a Jupyter notebook or a standalone script to
 
 The script should guide users in overriding default options and generating the RAG artifacts in the configured vector database instance. By default, support for MilvusLite will be included.
 
+**TODO** Introduce the evaluation framework
 
 ### 3.2 RAG Ingestion Pipeline Options
 **Planned for post v1.4 (apart changes required for the `chat` command)**
@@ -75,6 +78,13 @@ ilab model chat --rag
 #### Command Purpose
 This command enhances the existing `ilab model chat` functionality by integrating contextual information retrieved from user-provided documents, enriching the conversational experience with relevant insights.
 
+#### Revised chat pipeline
+* Start with the user's input, `user_query`.
+• Refine the `user_query` using the configured LLM to generate a semantically enriched `context_query`.
+* Use the `context_query` to retrieve relevant contextual information from the embedding database.
+* Append the retrieved context to the original LLM request.
+* Send the augmented request to the LLM and return the response to the user.
+
 #### Running the pipeline with v1.4
 To address the limitations of version 1.4, we propose introducing a configuration option to enable the RAG pipeline without any changes to the CLI:
 ```
@@ -93,6 +103,7 @@ Notes:
 | Option full name | Description | Default | CLI option |
 |------------------|-------------|---------|------------|
 | chat.rag.enabled | Boolean flag to enable or disable the RAG pipeline | `false` | `--rag`, `--no-rag` |
+| chat.rag.context_prompt | Prompt template for query refinement | See **Notes** | `--rag-context-prompt` |
 | chat.rag.retriever.top_k | The maximum number of documents to retrieve | `10` | `--retriever-top-k` |
 | chat.rag.retriever.min_score_threshold | The minimum score threshold for chunks to be considered | `0.5` | `--retriever-min-score-threshold` |
 | chat.rag.retriever.filters | Comma separated key-value pairs filters to restrict the search space | | `--retriever-filters` |
@@ -113,7 +124,24 @@ which translates to the following dictionary in the retrieval request (*):
 ```
 (*) This is for `milvuslite`, other DB can have a different implementation
 
-* Example of default RAG prompt:
+* Example of query refinement prompt:
+```python
+"""
+You are an assistant helping refine user queries for retrieval from a vector database. 
+The goal is to extract the most relevant information for answering the user's request. 
+
+Given the user's query:
+'{user_query}'
+
+Rewrite this query to focus on the key concepts and details that will retrieve the most contextually 
+relevant results from the database. 
+Make it concise and specific, avoiding conversational context or ambiguity.
+
+Return the refined query in a single sentence.
+"""
+```
+
+* Example of context-enriched RAG prompt:
 ```python
 """
 Given the following information, answer the question.
@@ -132,7 +160,7 @@ Answer:
 
 
 ### 3.5 Workflow Visualization
-<!-- https://excalidraw.com/#json=Esp339ny8AR4yBK7sJYU6,L5k4iyS3M2aRasgR4U1Y0A -->
+<!-- https://excalidraw.com/#json=jELWv0OTL6aPhX4OQdio6,Eo641qsbeSUtNM8gz2ywsQ -->
 Ingestion pipeline:
 ![ingestion-mvp](../images/ingestion-mvp.png)
 Chat pipeline enriched by RAG context:
