@@ -97,13 +97,6 @@ ilab model chat --rag
 #### Command Purpose
 This command enhances the existing `ilab model chat` functionality by integrating contextual information retrieved from user-provided documents, enriching the conversational experience with relevant insights.
 
-#### Refining the user query for semantic search purposes
-To improve semantic search on the embeddings database, the user query can be refined using the same or a different LLM. 
-This step reduces ambiguity, filters irrelevant details, and aligns the query more closely with the database’s semantic structure, 
-increasing retrieval accuracy.
-
-To minimize LLM query costs, this refinement can be configured as an optional step in the chat pipeline.
-
 #### Revised chat pipeline
 * Start with the user's input, `user_query`.
 * (optional) Refine the `user_query` using the configured LLM to generate a semantically enriched `context_query`.
@@ -111,6 +104,16 @@ To minimize LLM query costs, this refinement can be configured as an optional st
   embedding database.
 * Append the retrieved context to the original LLM request.
 * Send the augmented request to the LLM and return the response to the user.
+
+#### Refining the user query for semantic search purposes
+To improve semantic search on the embeddings database, the user query can be refined using the same or a different LLM. 
+This step reduces ambiguity, filters irrelevant details, and aligns the query more closely with the database’s semantic structure, 
+increasing retrieval accuracy.
+
+To minimize LLM query costs, this refinement can be configured as an optional step in the chat pipeline.
+
+Another strategy to reduce costs could be to perform the refinement query only when the embedding retrieval step fails to return 
+sufficient contextual information to meet a configured score threshold.
 
 #### Running the pipeline with v1.4
 To address the limitations of version 1.4, we propose introducing a configuration option to enable the RAG pipeline without any changes to the CLI:
