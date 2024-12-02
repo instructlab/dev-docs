@@ -70,6 +70,25 @@ The script should guide users in overriding default options and generating the R
 | rag.embedding_model.token | The token to download private models | | `--model-token` |
 | **TODO** evaluation framework options | | | |
 
+Equivalent YAML document for the newly proposed options:
+```yaml
+rag:
+  splitter:
+    split_by: word
+    split_length: 200
+    split_overlap: 0
+    split_threshold: 0
+  vectordb:
+    type: milvuslite
+    uri: ./rag-output.db
+    token: _DB_TOKEN_
+    username: _DB_USERNAME_
+    password: _DB_PASSWORD_
+  embedding_model:
+    name: sentence-transformers/all-MiniLM-L6-v2
+    token: _MODEL_TOKEN_
+```
+
 ### 3.3 RAG Chat Pipeline Command
 The proposal is to add a `rag` option under the `model chat` command, like:
 ```
@@ -78,10 +97,18 @@ ilab model chat --rag
 #### Command Purpose
 This command enhances the existing `ilab model chat` functionality by integrating contextual information retrieved from user-provided documents, enriching the conversational experience with relevant insights.
 
+#### Refining the user query for semantic search purposes
+To improve semantic search on the embeddings database, the user query can be refined using the same or a different LLM. 
+This step reduces ambiguity, filters irrelevant details, and aligns the query more closely with the database’s semantic structure, 
+increasing retrieval accuracy.
+
+To minimize LLM query costs, this refinement can be configured as an optional step in the chat pipeline.
+
 #### Revised chat pipeline
 * Start with the user's input, `user_query`.
-• Refine the `user_query` using the configured LLM to generate a semantically enriched `context_query`.
-* Use the `context_query` to retrieve relevant contextual information from the embedding database.
+* (optional) Refine the `user_query` using the configured LLM to generate a semantically enriched `context_query`.
+* Use the `context_query` (or the `user_query`, if the previous step was disabled) to retrieve relevant contextual information from the 
+  embedding database.
 * Append the retrieved context to the original LLM request.
 * Send the augmented request to the LLM and return the response to the user.
 
@@ -94,7 +121,37 @@ This approach allows the chat pipeline to utilize the desired RAG artifacts by r
 compatibility with the existing CLI. Consequently, corresponding CLI options (e.g.,` --retriever-top-k` and similar) will not be
 introduced in this version.
 
-### 3.4 RAG Chat Pipeline Options
+### 3.4 RAG Chat Commands
+The `/r` command may be added to the `ilab model chat` command to dynamically toggle the execution of the RAG pipeline.
+
+The current status could be displayed with an additional marker on the chat status bar, as in:
+```console
+>>> /h                                                                                                              [RAG][S][default]
+╭───────────────────────────────────────────────────────────── system ──────────────────────────────────────────────────────────────╮
+│ Help / TL;DR                                                                                                                      │
+│                                                                                                                                   │
+│  • /q: quit                                                                                                                       │
+│  • /h: show help                                                                                                                  │
+│  • /a assistant: amend assistant (i.e., model)                                                                                    │
+│  • /c context: change context (available contexts: default, cli_helper)                                                           │
+│  • /lc: list contexts                                                                                                             │
+│  • /m: toggle multiline (for the next session only)                                                                               │
+│  • /M: toggle multiline                                                                                                           │
+│  • /n: new session                                                                                                                │
+│  • /N: new session (ignoring loaded)                                                                                              │
+│  • /d <int>: display previous response based on input, if passed 1 then previous, if 2 then second last response and so on.       │
+│  • /p <int>: previous response in plain text based on input, if passed 1 then previous, if 2 then second last response and so on. │
+│  • /r: toggle the status of the RAG pipeline.                                                                                     │
+│  • /md <int>: previous response in Markdown based on input, if passed 1 then previous, if 2 then second last response and so on.  │
+│  • /s filepath: save current session to filepath                                                                                  │
+│  • /l filepath: load filepath and start a new session                                                                             │
+│  • /L filepath: load filepath (permanently) and start a new session                                                               │
+│                                                                                                                                   │
+│ Press Alt (or Meta) and Enter or Esc Enter to end multiline input.                                                                │
+╰───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
+```
+
+### 3.5 RAG Chat Options
 **Also required in v1.4**
 Notes:
 * All the `rag.vectordb.*` options previously defined are also used to locate the vector DB.
@@ -102,12 +159,42 @@ Notes:
 
 | Option full name | Description | Default | CLI option |
 |------------------|-------------|---------|------------|
-| chat.rag.enabled | Boolean flag to enable or disable the RAG pipeline | `false` | `--rag`, `--no-rag` |
-| chat.rag.context_prompt | Prompt template for query refinement | See **Notes** | `--rag-context-prompt` |
+| chat.rag.enabled | Boolean flag to enable or disable the RAG pipeline | `false` | `--rag` (boolean)|
+| chat.rag.context_refinement.enabled | Whether to enable the query refinement request to the LLM | `false` | `--rag-context-refinement` (boolean) |
+| chat.rag.context_refinement.prompt | Prompt template for query refinement | See examples below | `--rag-context-prompt` |
 | chat.rag.retriever.top_k | The maximum number of documents to retrieve | `10` | `--retriever-top-k` |
 | chat.rag.retriever.min_score_threshold | The minimum score threshold for chunks to be considered | `0.5` | `--retriever-min-score-threshold` |
-| chat.rag.retriever.filters | Comma separated key-value pairs filters to restrict the search space | | `--retriever-filters` |
-| chat.rag.prompt | Prompt template for RAG-based queries | See **Notes** | `--rag-prompt` |
+| chat.rag.retriever.filters | Comma separated key-value pairs filters to restrict the search space | See **Notes** | `--retriever-filters` |
+| chat.rag.prompt | Prompt template for RAG-based queries | See examples below | `--rag-prompt` |
+
+Equivalent YAML document for the newly proposed options:
+```yaml
+chat:
+  rag:
+    enabled: false
+    context_refinement:
+      enabled: true
+      prompt: |
+        You are an assistant helping refine user queries for retrieval from a vector database. 
+        The goal is to extract the most relevant information for answering the user's request. 
+        Rewrite this query to focus on the key concepts and details that will retrieve the most contextually 
+        relevant results from the database. 
+        Make it concise and specific, avoiding conversational context or ambiguity.
+        Return the refined query in a single sentence. Avoid any undesired comment or consideration.
+        User query:
+        {{user_query}}
+        Refined query:
+    retriever:
+      top_k: 10
+      min_score_threshold: 0.5
+      filters: 'url=doc.pdf'
+    prompt: |
+      Given the following information, answer the question.
+      Context:
+      {{context}}
+      Question: {{question}}
+      Answer:
+```
 
 **Notes**:
 * Example of `filters` for a `milvuslite` DB:
@@ -124,49 +211,19 @@ which translates to the following dictionary in the retrieval request (*):
 ```
 (*) This is for `milvuslite`, other DB can have a different implementation
 
-* Example of query refinement prompt:
-```python
-"""
-You are an assistant helping refine user queries for retrieval from a vector database. 
-The goal is to extract the most relevant information for answering the user's request. 
-
-Given the user's query:
-'{user_query}'
-
-Rewrite this query to focus on the key concepts and details that will retrieve the most contextually 
-relevant results from the database. 
-Make it concise and specific, avoiding conversational context or ambiguity.
-
-Return the refined query in a single sentence.
-"""
-```
-
-* Example of context-enriched RAG prompt:
-```python
-"""
-Given the following information, answer the question.
-
-Context:
-{{context}}
-
-Question: {{question}}
-Answer:
-"""
-```
-
-### 3.5 References
+### 3.6 References
 * [Haystack-DocumentSplitter](https://github.com/deepset-ai/haystack/blob/f0c3692cf2a86c69de8738d53af925500e8a5126/haystack/components/preprocessors/document_splitter.py#L55)
 * [MilvusEmbeddingRetriever](https://github.com/milvus-io/milvus-haystack/blob/77b27de00c2f0278e28b434f4883853a959f5466/src/milvus_haystack/milvus_embedding_retriever.py#L18)
 
 
-### 3.5 Workflow Visualization
+### 3.7 Workflow Visualization
 <!-- https://excalidraw.com/#json=jELWv0OTL6aPhX4OQdio6,Eo641qsbeSUtNM8gz2ywsQ -->
 Ingestion pipeline:
 ![ingestion-mvp](../images/ingestion-mvp.png)
 Chat pipeline enriched by RAG context:
 ![rag-chat](../images/rag-chat.png)
 
-### 3.6 Proposed Implementation Stack
+### 3.8 Proposed Implementation Stack
 The following technologies form the foundation of the proposed solution:
 
 * [Haystack](https://haystack.deepset.ai/): Framework for implementing RAG pipelines and applications.
