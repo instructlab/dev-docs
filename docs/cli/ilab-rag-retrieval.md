@@ -217,7 +217,7 @@ which translates to the following dictionary in the retrieval request (*):
 
 
 ### 3.7 Workflow Visualization
-<!-- https://excalidraw.com/#json=jELWv0OTL6aPhX4OQdio6,Eo641qsbeSUtNM8gz2ywsQ -->
+<!-- https://excalidraw.com/#json=hyDopdXaChbf6TNuLGYE0,WkLQBF84vypx0JwAL5iwzA -->
 Ingestion pipeline:
 ![ingestion-mvp](../images/ingestion-mvp.png)
 Chat pipeline enriched by RAG context:
