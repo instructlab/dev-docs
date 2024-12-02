@@ -239,9 +239,6 @@ The following technologies form the foundation of the proposed solution:
 Integrate the RAG ingestion pipeline with the [Knowledge Document Ingestion Pipeline](https://github.com/instructlab/dev-docs/pull/148):
 ![ingestion-future](../images/ingestion-future.png)
 
-### 4.2 Fine-Tuning of Text Embedding Model
-**TODO**
-
-### 4.3. Agentic RAG and Advanced Retrieval artifacts
+### 4.2 Agentic RAG and Advanced Retrieval artifacts
 **TODO**
 ...
