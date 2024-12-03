@@ -49,6 +49,26 @@ Alternatively, we propose providing a Jupyter notebook or a standalone script to
 
 The script should guide users in overriding default options and generating the RAG artifacts in the configured vector database instance. By default, support for MilvusLite will be included.
 
+> **ℹ️ CLI-based alternative:** This is an alternative to run both the document transformation and the document ingestion in 
+> could be to run the document ingestion pipeline as part of the existing
+> `ilab data generate` command, with additional options to:
+> * overcome the limitation of starting from `qna.yaml` documents
+> * define an input and output locations
+> Example:
+> ```yaml
+> generate:
+>   rag: 
+>     enabled: true
+>     input: /path/to/source-docs/folder
+>     output: /path/to/processed-docs/folder
+> rag:
+>   ...
+> ```
+> When `generate.rag.enabled` is set to `true`, the `ilab data generate command` executes the document ingestion pipeline, transforming 
+> the source documents in the `generate.rag.input` folder into the configured vector database:
+> * Step 1: Transform the documents using the existing `SDG` modules (powered by `docling`).
+> * Step 2: Ingest the pre-processed artifacts from `generate.rag.output` into the configured database.
+
 **TODO** Introduce the evaluation framework
 
 ### 3.2 RAG Ingestion Pipeline Options
