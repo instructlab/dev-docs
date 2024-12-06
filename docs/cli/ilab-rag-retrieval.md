@@ -1,153 +1,123 @@
-# Ingesting and Utilizing RAG Artifacts Design Proposal
+# Design Proposal - Embedding Ingestion Pipeline And RAG-Based Chat
 
 **Author**: Daniele Martinoli
 
 **Version**: 0.1
 
 ## 1. Introduction
-Purpose of this document is to propose `ilab` CLI changes to extend the InstructLab flow to generate and utilize RAG artifacts
-in the customer workflows. The proposal includes new commands to ingest a local RAG from pre-processed customer documentation, that we assume to be generated from docling output, and updates to the existing commands to utilize these RAG artifacts.
+This document proposes enhancements to the `ilab` CLI to support workflows utilizing Retrieval-Augmented Generation
+(RAG) artifacts within `InstructLab`. The proposed changes introduce new commands and options for the embedding ingestion
+and RAG-based chat pipelines:
+* A new embedding ingestion command to process customer documentation, generate embeddings, and ingest them into a configured vector store.
+* An option to enhance the chat pipeline by using the stored embeddings to augment the context of conversations, improving relevance and accuracy.
 
-## 2. Use Case
-* Accelerate POCs of fine-tuning LLMs + RAG.
-* Generate artifacts that data scientists can use to build custom solutions in their development environment:
-  * Jupyter Notebooks & Python Scripts
-  * Podman Desktop
-  * Red Hat OpenShift AI
-  * Internal Red Hat CI systems for products or services (e.g., Lightspeed products)
+## 2. Proposed Commands
+### 2.1 Working Assumption
+This proposal aims to serve as a reference design to develop a Proof of Concept for RAG workflows, while
+also laying the foundation for future implementations of state-of-the-art RAG artifacts tailored to specific use
+cases.
 
-## 3. Proposed Commands
-**Note**: In the context of version 1.4, currently under development, no changes to the command-line interface should be
-allowed. Therefore, we also propose alternative approaches to run the same RAG pipelines using existing `ilab` commands or
-other provided tools.
+To minimize impact on current and future users, the following boundaries are defined:
+* Existing commands will only be updated to add flags or configurations that are maintainable in future versions.
+  * Configuration parameters will be marked as `Optional` to not affect existing runtimes.
+* New commands will be added using flags (e.g., `--abc`) or environment variables (e.g., `ILAB_ABC`) to avoid any configuration changes. 
+  This approach ensures configuration compatibility even if the commands are deprecated later.
 
-### 3.1 RAG Ingestion Pipeline Command
-The proposal is to add a `rag` subgroup under the `data` group, with an `ingest` command, like:
+### 2.2 Embedding Ingestion Pipeline Command
+The proposal is to add a `process`  command to the `data` command group, with an explicit `--rag` flag to trigger
+the executions:
 ```
-ilab data rag ingest /path/to/docs/folder
+ilab data process --rag /path/to/docs/folder
 ```
+
+The rationale behind this choice is that the `data process` command can support future workflows, making its
+introduction an investment to anticipate other needs.
+
+Since the RAG behavior is the only functionality of this new command, executions without the `--rag` option will result
+in no output for now.
 
 #### Command Purpose
-This command processes embeddings generated from documents located in the */path/to/docs/folder* folder and stores them in a vector database. These embeddings are intended to be used as augmented context in a Retrieval-Augmented Generation (RAG) chat pipeline.
+Generate the embeddings from the documents at */path/to/docs/folder* folder and store them in the
+configured vector database. These embeddings are intended to be used as augmented context in a RAG-based chat pipeline.
 
 #### Assumptions
-The documents must be in JSON format and pre-processed using the `docling` tool.
+The provided documents must be in JSON format according to the InstructLab schema: this is the schema generated
+when transforming knowledge documents with the `ilab data generate` command (see 
+[Getting Started with Knowledge Contributions][1]).
 
-**Note**: The expected JSON schema is the same that we have when we generate knowledge data with `ilab data generate` and we
-add a reference document to the `qna.yaml` document(s).
+To simplify the execution of the transformation step, we introduce a `--transform` option which also includes the documents
+transformation, leveraging on the `instructlab-sdg` modules. 
+
+### Why We Need It
+This command streamlines the `ilab data generate` pipeline and eliminates the requirement to define a `qna` document,
+which typically includes:
+* A minimum of 5×3 question-and-answer pairs.
+* Reference documents stored in Git.
+
+The goal is not to generate training data for InstructLab-trained models but to utilize the documents for RAG 
+workflows with pre-tuned models.
 
 #### Supported Databases
-The command supports multiple vector database types. By default, it uses a local `MilvusLite` instance stored at `./rag-output.db`.
+The command may support various vector database types. A default configuration will align with the selected 
+InstructLab technology stack.
 
 #### Usage
 The generated embeddings can later be retrieved to enrich the context for RAG-based chat pipelines.
 
-#### Running the pipeline with v1.4
-Currently, there is no `ilab data rag` command available to execute the RAG ingestion pipeline. As a result, it is not possible
-to address the limitations of version 1.4 using the configuration options detailed below. 
-Alternatively, we propose providing a Jupyter notebook or a standalone script to run the pipeline with default settings.
+#### Defining Command Options
+To maintain compatibility and simplicity, no new configurations will be introduced for this command. Instead,
+the settings will be defined using the following hierarchy (options higher in the list overriding those below):
+* CLI flags (e.g., `--rag`).
+* Environment variables following a consistent naming convention, such as `ILAB_<UPPERCASE_ARGUMENT_NAME>`.
+* Default values, for all the applicable use cases.
 
-The script should guide users in overriding default options and generating the RAG artifacts in the configured vector database instance. By default, support for MilvusLite will be included.
-
-> **ℹ️ CLI-based alternative:** This is an alternative to run both the document transformation and the document ingestion in 
-> could be to run the document ingestion pipeline as part of the existing
-> `ilab data generate` command, with additional options to:
-> * overcome the limitation of starting from `qna.yaml` documents
-> * define an input and output locations
-> Example:
-> ```yaml
-> generate:
->   rag: 
->     enabled: true
->     input: /path/to/source-docs/folder
->     output: /path/to/processed-docs/folder
-> rag:
->   ...
-> ```
-> When `generate.rag.enabled` is set to `true`, the `ilab data generate command` executes the document ingestion pipeline, transforming 
-> the source documents in the `generate.rag.input` folder into the configured vector database:
-> * Step 1: Transform the documents using the existing `SDG` modules (powered by `docling`).
-> * Step 2: Ingest the pre-processed artifacts from `generate.rag.output` into the configured database.
-
-**TODO** Introduce the evaluation framework
-
-### 3.2 RAG Ingestion Pipeline Options
-**Planned for post v1.4 (apart changes required for the `chat` command)**
-
-| Option full name | Description | Default | CLI option |
-|------------------|-------------|---------|------------|
-| rag.splitter.split_by | One of `page`, `passage`, `sentence`, `word`, `line` | `word` | `--split-by` |
-| rag.splitter.split_length | The maximum number of units in each split | `200` | `--split-length` |
-| rag.splitter.split_overlap | The number of overlapping units for each split | `0` | `--split-overlap` |
-| rag.splitter.split_threshold | The minimum number of units per split | `0` | `--split-threshold` |
-| The vector DB implementation, one of: milvuslite, milvus, ... | `milvuslite` | `--vectordb-type` |
-| rag.vectordb.type | The vector DB implementation, one of: milvuslite, milvus, ... | `milvuslite` | `--vectordb-type` |
-| rag.vectordb.uri | The vector DB service URI | `./rag-output.db` | `--vectordb-uri` |
-| rag.vectordb.token | The vector DB connection token | | `--vectordb-token` |
-| rag.vectordb.username | The vector DB connection username | | `--vectordb-username` |
-| rag.vectordb.password | The vector DB connection password | | `--vectordb-password` |
-| rag.embedding_model.name | The embedding model name | `sentence-transformers/all-minilm-l6-v2` | `--model` |
-| rag.embedding_model.token | The token to download private models | | `--model-token` |
-| **TODO** evaluation framework options | | | |
-
-Equivalent YAML document for the newly proposed options:
-```yaml
-rag:
-  splitter:
-    split_by: word
-    split_length: 200
-    split_overlap: 0
-    split_threshold: 0
-  vectordb:
-    type: milvuslite
-    uri: ./rag-output.db
-    token: _DB_TOKEN_
-    username: _DB_USERNAME_
-    password: _DB_PASSWORD_
-  embedding_model:
-    name: sentence-transformers/all-MiniLM-L6-v2
-    token: _MODEL_TOKEN_
+For example, the `splitter_split_by` argument can be implemented using the `click` module like this:
+```py
+@click.option(
+    "--splitter-split-by",
+    default='word',
+    envvar="ILAB_SPLITTER_SPLIT_BY",
+)
 ```
 
-### 3.3 RAG Chat Pipeline Command
-The proposal is to add a `rag` option under the `model chat` command, like:
+### 2.3 Embedding Ingestion Pipeline Options
+
+| Option Description | Default Value | CLI Flag | Environment Variable |
+|--------------------|---------------|----------|----------------------|
+| Whether to include a transformation step. | `False` | `--transform` (boolean) | `ILAB_TRANSFORM` |
+| The output path of transformed documents (serve as input for the embedding ingestion pipeline). Mandatory when `--transform` is used. |  | `--transform-output` | `ILAB_TRANSFORM_OUTPUT` |
+| How to split the documents. One of `page`, `passage`, `sentence`, `word`, `line` | `word` | `--splitter-split-by` | `ILAB_SPLITTER_SPLIT_BY` |
+| Maximum number of units in each split. | `200` | `--splitter-split-length` | `ILAB_SPLITTER_SPLIT_LENGTH` |
+| Number of overlapping units for each split. | `0` | `--splitter-split-overlap` | `ILAB_SPLITTER_SPLIT_OVERLAP` |
+| Minimum number of units per split. | `0` | `--splitter-split-threshold` | `ILAB_SPLITTER_SPLIT_THRESHOLD` |
+| Vector DB implementation, one of: `milvuslite`, **TBD** | `milvuslite` | `--vectordb-type` | `ILAB_VECTORDB_TYPE` |
+| Vector DB service URI. | `./rag-output.db` | `--vectordb-uri` | `ILAB_VECTORDB_URI` |
+| Vector DB connection token. | | `--vectordb-token` | `ILAB_VECTORDB_TOKEN` |
+| Vector DB connection username. | | `--vectordb-username` | `ILAB_VECTORDB_USERNAME` |
+| Vector DB connection password. | | `--vectordb-password` | `ILAB_VECTORDB_PASSWORD` |
+| Name of the embedding model. | `sentence-transformers/all-minilm-l6-v2` | `--model` | `ILAB_EMBEDDING_MODEL_NAME` |
+| Token to download private models. |  | `--model-token` | `ILAB_EMBEDDING_MODEL_TOKEN` |
+
+### 2.4 RAG Chat Pipeline Command
+The proposal is to add a `--rag` flag to the `model chat` command, like:
 ```
 ilab model chat --rag
 ```
+
 #### Command Purpose
-This command enhances the existing `ilab model chat` functionality by integrating contextual information retrieved from user-provided documents, enriching the conversational experience with relevant insights.
+This command enhances the existing `ilab model chat` functionality by integrating contextual information retrieved from user-provided documents, 
+enriching the conversational experience with relevant insights.
 
 #### Revised chat pipeline
 * Start with the user's input, `user_query`.
-* (optional) Refine the `user_query` using the configured LLM to generate a semantically enriched `context_query`.
-* Use the `context_query` (or the `user_query`, if the previous step was disabled) to retrieve relevant contextual information from the 
-  embedding database.
+* Use the given `user_query` to retrieve relevant contextual information from the embedding database (semantic search).
 * Append the retrieved context to the original LLM request.
-* Send the augmented request to the LLM and return the response to the user.
+* Send the context augmented request to the LLM and return the response to the user.
 
-#### Refining the user query for semantic search purposes
-To improve semantic search on the embeddings database, the user query can be refined using the same or a different LLM. 
-This step reduces ambiguity, filters irrelevant details, and aligns the query more closely with the database’s semantic structure, 
-increasing retrieval accuracy.
-
-To minimize LLM query costs, this refinement can be configured as an optional step in the chat pipeline.
-
-Another strategy to reduce costs could be to perform the refinement query only when the embedding retrieval step fails to return 
-sufficient contextual information to meet a configured score threshold.
-
-#### Running the pipeline with v1.4
-To address the limitations of version 1.4, we propose introducing a configuration option to enable the RAG pipeline without any changes to the CLI:
-```
-chat.rag.enabled=true
-```
-This approach allows the chat pipeline to utilize the desired RAG artifacts by relying on configuration options and maintaining
-compatibility with the existing CLI. Consequently, corresponding CLI options (e.g.,` --retriever-top-k` and similar) will not be
-introduced in this version.
-
-### 3.4 RAG Chat Commands
+### 2.5 RAG Chat Commands
 The `/r` command may be added to the `ilab model chat` command to dynamically toggle the execution of the RAG pipeline.
 
-The current status could be displayed with an additional marker on the chat status bar, as in:
+The current status could be displayed with an additional marker on the chat status bar, as in (top right corner):
 ```console
 >>> /h                                                                                                              [RAG][S][default]
 ╭───────────────────────────────────────────────────────────── system ──────────────────────────────────────────────────────────────╮
@@ -174,43 +144,28 @@ The current status could be displayed with an additional marker on the chat stat
 ╰───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────╯
 ```
 
-### 3.5 RAG Chat Options
-**Also required in v1.4**
-Notes:
-* All the `rag.vectordb.*` options previously defined are also used to locate the vector DB.
+### 2.6 RAG Chat Options
+As we stated in [3.1 Working Assumptions](#31-working-assumption), we will introduce new configuration options for the spceific `chat` command,
+but we'll use flags and environment variables for the options that come from the embedding ingestion pipeline command.
 
-
-| Option full name | Description | Default | CLI option |
-|------------------|-------------|---------|------------|
-| chat.rag.enabled | Boolean flag to enable or disable the RAG pipeline | `false` | `--rag` (boolean)|
-| chat.rag.context_refinement.enabled | Whether to enable the query refinement request to the LLM | `false` | `--rag-context-refinement` (boolean) |
-| chat.rag.context_refinement.prompt | Prompt template for query refinement | See examples below | `--rag-context-prompt` |
-| chat.rag.retriever.top_k | The maximum number of documents to retrieve | `10` | `--retriever-top-k` |
-| chat.rag.retriever.min_score_threshold | The minimum score threshold for chunks to be considered | `0.5` | `--retriever-min-score-threshold` |
-| chat.rag.retriever.filters | Comma separated key-value pairs filters to restrict the search space | See **Notes** | `--retriever-filters` |
-| chat.rag.prompt | Prompt template for RAG-based queries | See examples below | `--rag-prompt` |
+| Configuration FQN | Description | Default Value | CLI Flag | Environment Variable |
+|-------------------|-------------|---------------|----------|----------------------|
+| chat.rag.enabled | Enable or disable the RAG pipeline. | `false` | `--rag` (boolean)| `ILAB_CHAT_RAG_ENABLED` |
+| chat.rag.retriever.top_k | The maximum number of documents to retrieve. | `10` | `--retriever-top-k` | `ILAB_CHAT_RAG_RETRIEVER_TOP_K` |
+| chat.rag.prompt | Prompt template for RAG-based queries. | Examples below | `--rag-prompt` | `ILAB_CHAT_RAG_PROMPT` |
+| | Vector DB implementation, one of: `milvuslite`, **TBD** | `milvuslite` | `--vectordb-type` | `ILAB_VECTORDB_TYPE` |
+| | Vector DB service URI. | `./rag-output.db` | `--vectordb-uri` | `ILAB_VECTORDB_URI` |
+| | Vector DB connection token. | | `--vectordb-token` | `ILAB_VECTORDB_TOKEN` |
+| | Vector DB connection username. | | `--vectordb-username` | `ILAB_VECTORDB_USERNAME` |
+| | Vector DB connection password. | | `--vectordb-password` | `ILAB_VECTORDB_PASSWORD` |
 
 Equivalent YAML document for the newly proposed options:
 ```yaml
 chat:
   rag:
     enabled: false
-    context_refinement:
-      enabled: true
-      prompt: |
-        You are an assistant helping refine user queries for retrieval from a vector database. 
-        The goal is to extract the most relevant information for answering the user's request. 
-        Rewrite this query to focus on the key concepts and details that will retrieve the most contextually 
-        relevant results from the database. 
-        Make it concise and specific, avoiding conversational context or ambiguity.
-        Return the refined query in a single sentence. Avoid any undesired comment or consideration.
-        User query:
-        {{user_query}}
-        Refined query:
     retriever:
       top_k: 10
-      min_score_threshold: 0.5
-      filters: 'url=doc.pdf'
     prompt: |
       Given the following information, answer the question.
       Context:
@@ -219,46 +174,48 @@ chat:
       Answer:
 ```
 
-**Notes**:
-* Example of `filters` for a `milvuslite` DB:
-```
---retriever-filters "url=https://en.wikipedia.org/wiki/Mausoleum_at_Halicarnassus"
-```
-which translates to the following dictionary in the retrieval request (*):
-```json
-{
-   "operator":"==",
-   "field":"url",
-   "value":"https://en.wikipedia.org/wiki/Mausoleum_at_Halicarnassus"
-}
-```
-(*) This is for `milvuslite`, other DB can have a different implementation
-
-### 3.6 References
+### 2.7 References
 * [Haystack-DocumentSplitter](https://github.com/deepset-ai/haystack/blob/f0c3692cf2a86c69de8738d53af925500e8a5126/haystack/components/preprocessors/document_splitter.py#L55)
 * [MilvusEmbeddingRetriever](https://github.com/milvus-io/milvus-haystack/blob/77b27de00c2f0278e28b434f4883853a959f5466/src/milvus_haystack/milvus_embedding_retriever.py#L18)
 
 
-### 3.7 Workflow Visualization
-<!-- https://excalidraw.com/#json=hyDopdXaChbf6TNuLGYE0,WkLQBF84vypx0JwAL5iwzA -->
-Ingestion pipeline:
+### 2.8 Workflow Visualization
+<!-- https://excalidraw.com/#json=PN2h_LM-Wd2WZYBJfZMDs,WQCq5NDbRXUH2qr8maFFNg -->
+Embedding ingestion pipeline:
 ![ingestion-mvp](../images/ingestion-mvp.png)
-Chat pipeline enriched by RAG context:
+RAG-based Chat pipeline:
 ![rag-chat](../images/rag-chat.png)
 
-### 3.8 Proposed Implementation Stack
+### 2.9 Proposed Implementation Stack
+> **ℹ️ Note:** This stack is still under review. The proposed list represents potential candidates based on the current state of discussions.
+
 The following technologies form the foundation of the proposed solution:
 
 * [Haystack](https://haystack.deepset.ai/): Framework for implementing RAG pipelines and applications.
 * [MilvusLite](https://milvus.io/docs/milvus_lite.md): The default vector database for efficient storage and retrieval of embeddings.
 * [Docling](https://github.com/DS4SD/docling): Document processing tool. For more details, refer to William’s blog, [Docling: The missing document processing companion for generative AI](https://www.redhat.com/en/blog/docling-missing-document-processing-companion-generative-ai).
-[Ragas](https://docs.ragas.io/en/latest/concepts): Framework for evaluating and optimizing retrieval-augmented generation pipelines.
 
-## 4. Future Enhancements
-### 4.1 Integrate the Knowledge Document Ingestion Pipeline
-Integrate the RAG ingestion pipeline with the [Knowledge Document Ingestion Pipeline](https://github.com/instructlab/dev-docs/pull/148):
-![ingestion-future](../images/ingestion-future.png)
-
-### 4.2 Agentic RAG and Advanced Retrieval artifacts
+## 3. Future Enhancements
+### 3.1 Model Evaluation 
 **TODO**
-...
+
+### 3.2 Additional RAG chat steps
+- [Ranking retriever's result][ranking]: 
+```bash
+ilab model chat --rag --ranking --ranking-top-k=5 --ranking-model=cross-encoder/ms-marco-MiniLM-L-12-v2
+```
+- [Query expansion][expansion]:
+```bash
+ilab model chat --rag --query-expansion --query-expansion-prompt="$QUERY_EXPANSION_PROMPT" --query-expansion-num-of-queries=5
+```
+- ...
+
+### 3.3 Containerized Index
+Generate a containerized RAG artifact to expose a `/query` endpoint:
+```bash
+ilab data process --rag --build-image --image-name=docker.io/user/my_rag_artifacts:1.0
+```
+
+[1]: https://github.com/instructlab/taxonomy?tab=readme-ov-file#getting-started-with-knowledge-contributions
+[ranking]: https://docs.haystack.deepset.ai/v1.21/reference/ranker-api
+[expansion]: https://haystack.deepset.ai/blog/query-expansion
