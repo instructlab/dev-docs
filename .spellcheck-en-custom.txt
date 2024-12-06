@@ -41,6 +41,7 @@ dev
 disambiguating
 ditaa
 docstring
+downstreams
 dr
 Dropdown
 env
@@ -93,6 +94,7 @@ LLM
 llms
 LLVM
 lora
+Makefiles
 Markdownlint
 md
 Mergify
@@ -130,7 +132,9 @@ Podman
 podman
 pre
 preprint
+prereqs
 PR's
+Pydantic
 pyenv
 PyPI
 pyproject
@@ -146,6 +150,7 @@ Ren
 repo
 repos
 RHEL
+roadmapping
 ROCm
 RTX
 runtime
@@ -172,6 +177,7 @@ subcommand
 subcommands
 subdirectory
 Sudalairaj
+supportability
 Taj
 tatsu
 TBD

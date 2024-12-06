@@ -3,6 +3,7 @@
 config:
   line-length: false
   no-emphasis-as-header: false
+  no-emphasis-as-heading: false
   first-line-heading: false
   code-block-style: false
   no-duplicate-header: false
