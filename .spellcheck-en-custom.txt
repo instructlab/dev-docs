@@ -66,6 +66,8 @@ GiB
 Gmail
 GPTDolomite
 gpu
+GPU
+GPUs
 Guang
 hacky
 hardcode
@@ -186,6 +188,7 @@ Tesla
 th
 tl
 TODO
+TOML
 tox
 traigers
 triager
@@ -200,10 +203,12 @@ UX
 venv
 Vishnoi
 vllm
+VRAM
 watsonx
 Wikisource
 wikisql
 WIP
+workspaces
 WSL
 xcode
 XNACK
