@@ -62,7 +62,8 @@ The command may support various vector database types. A default configuration w
 InstructLab technology stack.
 
 #### Usage
-The generated embeddings can later be retrieved to enrich the context for RAG-based chat pipelines.
+The generated embeddings can later be retrieved from a vector database and converted to text, enriching the 
+context for RAG-based chat pipelines.
 
 #### Defining Command Options
 To maintain compatibility and simplicity, no new configurations will be introduced for this command. Instead,
@@ -71,12 +72,12 @@ the settings will be defined using the following hierarchy (options higher in th
 * Environment variables following a consistent naming convention, such as `ILAB_<UPPERCASE_ARGUMENT_NAME>`.
 * Default values, for all the applicable use cases.
 
-For example, the `splitter_split_by` argument can be implemented using the `click` module like this:
+For example, the `vectordb-uri` argument can be implemented using the `click` module like this:
 ```py
 @click.option(
-    "--splitter-split-by",
-    default='word',
-    envvar="ILAB_SPLITTER_SPLIT_BY",
+    "--vectordb-uri",
+    default='rag-output.db',
+    envvar="ILAB_VECTORDB_URI",
 )
 ```
 
@@ -86,17 +87,16 @@ For example, the `splitter_split_by` argument can be implemented using the `clic
 |--------------------|---------------|----------|----------------------|
 | Whether to include a transformation step. | `False` | `--transform` (boolean) | `ILAB_TRANSFORM` |
 | The output path of transformed documents (serve as input for the embedding ingestion pipeline). Mandatory when `--transform` is used. |  | `--transform-output` | `ILAB_TRANSFORM_OUTPUT` |
-| How to split the documents. One of `page`, `passage`, `sentence`, `word`, `line` | `word` | `--splitter-split-by` | `ILAB_SPLITTER_SPLIT_BY` |
-| Maximum number of units in each split. | `200` | `--splitter-split-length` | `ILAB_SPLITTER_SPLIT_LENGTH` |
-| Number of overlapping units for each split. | `0` | `--splitter-split-overlap` | `ILAB_SPLITTER_SPLIT_OVERLAP` |
-| Minimum number of units per split. | `0` | `--splitter-split-threshold` | `ILAB_SPLITTER_SPLIT_THRESHOLD` |
 | Vector DB implementation, one of: `milvuslite`, **TBD** | `milvuslite` | `--vectordb-type` | `ILAB_VECTORDB_TYPE` |
 | Vector DB service URI. | `./rag-output.db` | `--vectordb-uri` | `ILAB_VECTORDB_URI` |
-| Vector DB connection token. | | `--vectordb-token` | `ILAB_VECTORDB_TOKEN` |
+| Vector DB collection name. | `IlabEmbeddings` | `--vectordb-collection-name` | `ILAB_VECTORDB_COLLECTION_NAME` |
 | Vector DB connection username. | | `--vectordb-username` | `ILAB_VECTORDB_USERNAME` |
 | Vector DB connection password. | | `--vectordb-password` | `ILAB_VECTORDB_PASSWORD` |
-| Name of the embedding model. | `sentence-transformers/all-minilm-l6-v2` | `--model` | `ILAB_EMBEDDING_MODEL_NAME` |
+| Name of the embedding model. | **TBD** | `--model` | `ILAB_EMBEDDING_MODEL_NAME` |
 | Token to download private models. |  | `--model-token` | `ILAB_EMBEDDING_MODEL_TOKEN` |
+
+**TODO**: review authentication options.
+**TODO**: define possible integration with `ilab model download` function and use local embedding models.
 
 ### 2.4 RAG Chat Pipeline Command
 The proposal is to add a `--rag` flag to the `model chat` command, like:
@@ -155,9 +155,14 @@ but we'll use flags and environment variables for the options that come from the
 | chat.rag.prompt | Prompt template for RAG-based queries. | Examples below | `--rag-prompt` | `ILAB_CHAT_RAG_PROMPT` |
 | | Vector DB implementation, one of: `milvuslite`, **TBD** | `milvuslite` | `--vectordb-type` | `ILAB_VECTORDB_TYPE` |
 | | Vector DB service URI. | `./rag-output.db` | `--vectordb-uri` | `ILAB_VECTORDB_URI` |
-| | Vector DB connection token. | | `--vectordb-token` | `ILAB_VECTORDB_TOKEN` |
+| | Vector DB collection name. | `IlabEmbeddings` | `--vectordb-collection-name` | `ILAB_VECTORDB_COLLECTION_NAME` |
 | | Vector DB connection username. | | `--vectordb-username` | `ILAB_VECTORDB_USERNAME` |
 | | Vector DB connection password. | | `--vectordb-password` | `ILAB_VECTORDB_PASSWORD` |
+| | Name of the embedding model. | **TBD** | `--model` | `ILAB_EMBEDDING_MODEL_NAME` |
+| | Token to download private models. |  | `--model-token` | `ILAB_EMBEDDING_MODEL_TOKEN` |
+
+**TODO**: review authentication options.
+**TODO**: define possible integration with `ilab model download` function and use local embedding models.
 
 Equivalent YAML document for the newly proposed options:
 ```yaml
@@ -173,9 +178,11 @@ chat:
       Question: {{question}}
       Answer:
 ```
+**TODO**: unify prompt management in InstructLab
 
 ### 2.7 References
-* [Haystack-DocumentSplitter](https://github.com/deepset-ai/haystack/blob/f0c3692cf2a86c69de8738d53af925500e8a5126/haystack/components/preprocessors/document_splitter.py#L55)
+* [Haystack-DocumentSplitter](https://github.com/deepset-ai/haystack/blob/f0c3692cf2a86c69de8738d53af925500e8a5126/haystack/components/preprocessors/document_splitter.py#L55) is temporarily adopted with default settings  until a splitter based on the [docling chunkers][chunkers] is integrated
+ in Haystack.
 * [MilvusEmbeddingRetriever](https://github.com/milvus-io/milvus-haystack/blob/77b27de00c2f0278e28b434f4883853a959f5466/src/milvus_haystack/milvus_embedding_retriever.py#L18)
 
 
@@ -197,7 +204,7 @@ The following technologies form the foundation of the proposed solution:
 
 ## 3. Future Enhancements
 ### 3.1 Model Evaluation 
-**TODO**
+**TODO** A separate ADR will be defined.
 
 ### 3.2 Additional RAG chat steps
 - [Ranking retriever's result][ranking]: 
@@ -219,3 +226,4 @@ ilab data process --rag --build-image --image-name=docker.io/user/my_rag_artifac
 [1]: https://github.com/instructlab/taxonomy?tab=readme-ov-file#getting-started-with-knowledge-contributions
 [ranking]: https://docs.haystack.deepset.ai/v1.21/reference/ranker-api
 [expansion]: https://haystack.deepset.ai/blog/query-expansion
+[chunkers]: https://github.com/DS4SD/docling/blob/main/docs/concepts/chunking.md
