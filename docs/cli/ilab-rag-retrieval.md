@@ -61,6 +61,16 @@ workflows with pre-tuned models.
 The command may support various vector database types. A default configuration will align with the selected 
 InstructLab technology stack.
 
+### Local embedding models
+The embedding model used to generate the text embeddings must be downloaded locally before executing the pipeline.
+
+For example, this can be used to download the `sentence-transformers/all-minilm-l6-v2` model to the local models cache:
+```bash
+ilab model download -rp sentence-transformers/all-minilm-l6-v2
+```
+
+If the configured embedding model has not been cached, the execution will terminate with an error.
+
 #### Usage
 The generated embeddings can later be retrieved from a vector database and converted to text, enriching the 
 context for RAG-based chat pipelines.
@@ -92,11 +102,11 @@ For example, the `vectordb-uri` argument can be implemented using the `click` mo
 | Vector DB collection name. | `IlabEmbeddings` | `--vectordb-collection-name` | `ILAB_VECTORDB_COLLECTION_NAME` |
 | Vector DB connection username. | | `--vectordb-username` | `ILAB_VECTORDB_USERNAME` |
 | Vector DB connection password. | | `--vectordb-password` | `ILAB_VECTORDB_PASSWORD` |
-| Name of the embedding model. | **TBD** | `--model` | `ILAB_EMBEDDING_MODEL_NAME` |
-| Token to download private models. |  | `--model-token` | `ILAB_EMBEDDING_MODEL_TOKEN` |
+| Base directories where models are stored. | `$HOME/.cache/instructlab/models`  | `--model-dir` | `ILAB_MODEL_DIR` |
+| Name of the embedding model. | **TBD** | `--embedding-model` | `ILAB_EMBEDDING_MODEL_NAME` |
+| Token to download private models. |  | `--embedding-model-token` | `ILAB_EMBEDDING_MODEL_TOKEN` |
 
-**TODO**: review authentication options.
-**TODO**: define possible integration with `ilab model download` function and use local embedding models.
+**TODO**: vector store authentication options.
 
 ### 2.4 RAG Chat Pipeline Command
 The proposal is to add a `--rag` flag to the `model chat` command, like:
@@ -113,6 +123,10 @@ enriching the conversational experience with relevant insights.
 * Use the given `user_query` to retrieve relevant contextual information from the embedding database (semantic search).
 * Append the retrieved context to the original LLM request.
 * Send the context augmented request to the LLM and return the response to the user.
+
+### Local embedding models
+Similar to the embedding ingestion pipeline, the embedding model required for generating text embeddings must be downloaded locally 
+before running the pipeline.
 
 ### 2.5 RAG Chat Commands
 The `/r` command may be added to the `ilab model chat` command to dynamically toggle the execution of the RAG pipeline.
@@ -158,11 +172,11 @@ but we'll use flags and environment variables for the options that come from the
 | | Vector DB collection name. | `IlabEmbeddings` | `--vectordb-collection-name` | `ILAB_VECTORDB_COLLECTION_NAME` |
 | | Vector DB connection username. | | `--vectordb-username` | `ILAB_VECTORDB_USERNAME` |
 | | Vector DB connection password. | | `--vectordb-password` | `ILAB_VECTORDB_PASSWORD` |
+| | Base directories where models are stored. | `$HOME/.cache/instructlab/models`  | `--model-dir` | `ILAB_MODEL_DIR` |
 | | Name of the embedding model. | **TBD** | `--model` | `ILAB_EMBEDDING_MODEL_NAME` |
 | | Token to download private models. |  | `--model-token` | `ILAB_EMBEDDING_MODEL_TOKEN` |
 
-**TODO**: review authentication options.
-**TODO**: define possible integration with `ilab model download` function and use local embedding models.
+**TODO**: vector store authentication options.
 
 Equivalent YAML document for the newly proposed options:
 ```yaml
