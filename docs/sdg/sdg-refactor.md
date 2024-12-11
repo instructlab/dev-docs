@@ -1,5 +1,9 @@
 # Refactor preprocessing and postprocessing in SDG
 
+## Goals
+
+We want to modularize the parts of the codebase that deal with the data augmentation phase of the end to end workflow. In order to modularize it effectively, we need to identify and distinguish pre-processing, data generation, and post-processing.  Each of these elements need to be located somewhere.  This document discusses pros and cons of different options and proposes specific conclusions.
+
 ## Context
 
 The existing synthetic data generation (SDG) repository includes several related pieces of functionality:
@@ -126,7 +130,7 @@ Con:
 
 Conclusion:
 
-- This seems like a reasonable option.  The cons are mostly manageable.  However, overall the pros of Option 1 seem more compelling.
+- This seems like a reasonable option.  The cons are mostly manageable.
 
 ### Option 4: Preprocessing and postprocessing go to different locations
 
