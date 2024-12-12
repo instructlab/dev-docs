@@ -59,7 +59,7 @@ A downstream should be generated of the [https://github.com/deepset-ai/haystack]
 
 ## Alternatives
 
-- Langchain/Langgraph. Drawbacks include:
+- Langchain/Langgraph
   - A generalist framework (as opposed to a RAG-focused solution)
   - Complicated as compared to the alternatives, steep learning curve
   - Lower performance in large-scale production environments than LlamaIndex and Haystack
@@ -73,9 +73,23 @@ A downstream should be generated of the [https://github.com/deepset-ai/haystack]
   - Limited support for many of the mainstream vector DB providers
   - Limited scalability as compared to the alternatives
 
+- Do not use a framework; write everything directly in Python or some other programming language
+  - This would take longer to get started.
+  - This would make it a lot more work to add more vector DBs since we'd need to add additional code for each vector DB we want to support. We would hide that work behind an abstraction layer the same way the frameworks do, but it is work to build and maintain the abstraction layer, and the frameworks do that for us (and have put a lot of time and effort into doing it well).
+  - This would make it harder to bring in advanced functionality that the frameworks already provide. For example, Haystack provides support for RAG self-correction loops which we might want some day.
+  - This might make it easier to bring in advanced functionality that the frameworks do not already provide. Frameworks provide an abstraction layer that is generally useful when you want to do things that the framework developers support but often counterproductive when you want to do things that the frameworks do not support. For example, if there is a call to the framework that collapses multiple atomic steps into a single function call, that generally makes it harder to insert your own logic in between those atomic steps.
+
 ## Risks
 
-N/A
+Future versions of Haystack can potentially introduce new dependencies, that could be:
+1. Distributed under a non-permissive license (or not open source at all)
+2. Not regularly and/or properly maintained
+
+If such a situation arises, the following actions can be taken on our end:
+
+1. Pin to the old version that doesn't have that dependency. That's often OK for a while, but eventually we're likely to run into updates that we need (e.g., critical fixes, compatibility with new vectordbs, etc.).
+2. Fork the project to avoid the problematic dependencies.
+3. Move off of Haystack completely.
 
 ## References
 
