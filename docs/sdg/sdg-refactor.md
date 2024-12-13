@@ -2,7 +2,13 @@
 
 ## Goals
 
-We want to modularize the parts of the codebase that deal with the data augmentation phase of the end to end workflow. In order to modularize it effectively, we need to identify and distinguish pre-processing, data generation, and post-processing.  Each of these elements need to be located somewhere.  This document discusses pros and cons of different options and proposes specific conclusions.
+We want to modularize the parts of the codebase that deal with the data augmentation phase of the end to end workflow. In order to modularize it effectively, we need to identify and distinguish pre-processing, data generation, and post-processing.  Each of these elements need to be located somewhere.  This document discusses pros and cons of different options and proposes specific conclusions.  Specifically, it concludes:
+
+- The synthetic data generation will remain in the SDG repository.
+- The preprocessing that is used for synthetic data generation (e.g., document conversion) will move to the core repository.
+- The postprocessing that is used for synthetic data generation (e.g., data mixing) will move to the core repository.
+
+Ensuring that *only* synthetic data generation is in the SDG repository ensures that this component has a clear, well-defined mission.  Furthermore, moving preprocessing and postprocessing to core will make it easier for those capabilities to be used by other components in the future.  For example, some of the same preprocessing that is done for SDG (e.g., document conversion) is also useful for indexing content for RAG.
 
 ## Context
 
