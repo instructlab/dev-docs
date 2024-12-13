@@ -17,7 +17,7 @@ Many InstructLab users want to train a model and then use it to RAG.  Often they
 - Building their own RAG is extra work.
 - Users who are not experts on RAG might not build a RAG that provides outstanding results.
 
-There is a very simple RAG capability at <https://github.com/instructlab/rag> .  It is not tightly integrated with InstructLab and it does not use any advanced RAG capabilities.  However, we have a directive from product management to not just unilaterally delete it or replace it with something radically different.
+There is a very simple RAG capability at <https://github.com/instructlab/rag> .  It is not tightly integrated with InstructLab and it does not use any advanced RAG capabilities.  However, we have a request from a stakeholder to not just unilaterally delete it or replace it with something radically different.
 
 ## Goals
 
@@ -92,12 +92,12 @@ Evaluation of RAG will be addressed in one or more other development documents. 
   - Pro: It already exists.
   - Pro: It avoids the confusion of having two different RAG repositories in <https://github.com/instructlab/>.
   - Pro: It avoids the confusion of having two different RAG solutions since we'd be eliminating the old one.
-  - Con: There is still some interest from product management in keeping this around.
+  - Con: There is still some interest in keeping this around.
 
 ## Risks
 
 - Putting the RAG functionality in the core repository requires any application that wants to use this functionality to bring in the entire core which then brings in all of the libraries it depend on, so this becomes an enormous dependency.  This discourages reuse in other applications.  It *encourages* either of the following behaviors that would be unfortunate:
-  - Other applications pull directly from <https://github.com/redhat-et/PaRAGon> and in doing so duplicate the ongoing effort to harden/productize that code base.
+  - Other applications pull directly from <https://github.com/redhat-et/PaRAGon> and in doing so duplicate the ongoing effort to harden that code base.
   - Other applications may implement their own RAG solutions or pull from some other upstream unrelated to ours.
 - As noted earlier, putting the capability inside <https://github.com/instructlab/> signals that this is a component of InstructLab and not a generally useful feature.  That creates a risk that the work could miss out on additional opportunities for impact.  We hope to mitigate that risk by spinning it off to its own open source project when it is mature enough, but there is a risk that we will get distracted by other things and never get around to this.
 - The flow for document processing for InstructLab winds up being quite complicated in this proposal.  Since the existing document processing is in SDG, the flow for indexing for RAG winds up being a bit complicated (i.e., it starts with a CLI call handled by the core repo then goes to SDG for some of the document processing and then back to the core `/data` directory which then calls out the the `core/rag` directory for chunking and vector database indexing).  Having the document processing move from core to SDG and back to core and forward to RAG makes that capability more difficult to understand and maintain.  This complexity will be partially mitigated when the preprocessing code moves from SDG to core.  It will be further mitigated by having a clear, well-documented contract between core and the RAG repository indicating the responsibilities of each.
