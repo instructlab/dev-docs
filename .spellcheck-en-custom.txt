@@ -82,6 +82,7 @@ instantiation
 instructlab
 io
 ISA
+init
 iters
 Jie
 JIT
