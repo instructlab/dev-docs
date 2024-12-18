@@ -13,6 +13,7 @@ backends
 benchmarking
 Bhandwaldar
 brainer
+Callouts
 Cappi
 checkpointing
 CLI
@@ -20,6 +21,7 @@ CLI
 cli
 CLI's
 codebase
+Codecov
 Colab
 compositional
 Conda
@@ -95,6 +97,7 @@ Kaggle's
 Kai
 Kubernetes
 Kumar
+lcov
 lignment
 LLM
 llms
@@ -153,6 +156,8 @@ pyenv
 PyPI
 pyproject
 PyTorch
+pytest
+pytest's
 qlora
 qna
 quantized
@@ -184,6 +189,7 @@ Shellcheck
 Shivchander
 Signoff
 Sigstore
+SonarQube
 specifiying
 src
 Srivastava
@@ -201,6 +207,7 @@ TBD
 templating
 Tesla
 th
+tiering
 tl
 TODO
 tox
