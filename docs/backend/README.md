@@ -42,6 +42,8 @@ Communication among the group occurs in the following ways:
   the [InstructLab Community
   Calendar](https://calendar.google.com/calendar/embed?src=c_23c2f092cd6d147c45a9d2b79f815232d6c3e550b56c3b49da24c4b5d2090e8f%40group.calendar.google.com).
 
+- **Discord**: The group has various channels for corresponding components such as `#core`, `#sdg`, `#sdg`, `#eval`, and `#infra`, which can all be found in the [InstructLab Discord](https://instructlab.ai/discord).
+
 - **Slack**: The group uses the `#backend` channel in the InstructLab Slack.
 
 - **Mailing Lists**: There is a [development mailing

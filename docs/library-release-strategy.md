@@ -33,4 +33,4 @@ following tenants remain consistent:
 1. Packages **must** have GitHub tagged releases named `vX.Y.Z`
 1. Packages **must** use release branches for Y-Streams of the form `release-vX.Y`
 1. Packages **must** maintain a `CHANGELOG.md`
-1. Maintainer teams **must** publicly communicate Y-Stream releases through official InstructLab channels such as Slack or Mailing Lists. Z-Stream release communication is up to Maintainer discretion.
+1. Maintainer teams **must** publicly communicate Y-Stream releases through official InstructLab channels such as Discord, Slack or Mailing Lists. Z-Stream release communication is up to Maintainer discretion.
