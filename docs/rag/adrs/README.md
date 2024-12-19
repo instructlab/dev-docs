@@ -11,22 +11,21 @@ This simple format, which is described below, has a surprising number of functio
 * **Knowledge sharing**: The peer review phase allows sharing of expertise between team members.
 * **Fewer meetings**: As decision making becomes asynchronous and as the team forms its social norms around the process, there should be less time required in meetings.
 
-# When to write an ADR
+## When to write an ADR
 
 * A decision is being made that required discussion between two or more people.
 * A decision is being made that required significant investigation.
 * A decision is being proposed for feedback / discussion.
 * A decision is being proposed that affects multiple teams.
 
-# Template
+## Template
 
 [Here](template.md).
 
-# Related Reading
+## Related Reading
 
 * [Suggestions for writing good ADRs](https://github.com/joelparkerhenderson/architecture-decision-record?tab=readme-ov-file#suggestions-for-writing-good-adrs)
 * [ADRs at RedHat](https://www.redhat.com/architect/architecture-decision-records)
 * [ADRs at Amazon](https://docs.aws.amazon.com/prescriptive-guidance/latest/architectural-decision-records/adr-process.html)
 * [ADRs at GitHub](https://adr.github.io/)
 * [ADRs at Google](https://cloud.google.com/architecture/architecture-decision-records)
-
