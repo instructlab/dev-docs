@@ -1,4 +1,4 @@
-# ADR 001: Initial InstructLab Vector Store
+# Initial InstructLab Vector Store
 
 ## Context
 
