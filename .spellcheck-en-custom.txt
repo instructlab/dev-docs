@@ -2,6 +2,7 @@
 # Please keep this file sorted:
 Abhishek
 ADR
+agentic
 Akash
 AMDGPU
 Anil
@@ -96,7 +97,7 @@ itertools
 Jie
 jinja
 JIT
-json
+JSON
 Jupyter
 KAGGLE
 Kaggle's
@@ -107,7 +108,6 @@ Kumar
 Langchain
 Langgraph
 leaderboard
-lignment
 LLM
 llms
 LLVM
@@ -143,6 +143,8 @@ Ollama
 onboarding
 openai
 OpenStax
+openai
+OpenAI
 optimizers
 orchestrator
 ots
@@ -212,6 +214,7 @@ src
 Srivastava
 Staar
 Standup
+Staar
 subcommand
 subcommands
 subdirectory
