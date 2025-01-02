@@ -36,7 +36,7 @@ Out of those, we propose to use Haystack for the following reasons:
 5. **Ease of use and documentation.** Being strictly focused on RAG as opposed to taking a generalist approach, the learning curve of Haystack is less steep than that of Langchain. At the same time, Haystack offers extensive documentation and tutorials which are more well-organized and easy to use than those of LlamaIndex.
 
 6. **Architecture.** Extending the previous point, Haystack can be seen as a middle ground between Langchain and LlamaIndex, sharing their benefits while only partially inheriting their drawbacks. Like the former, Haystack enables building custom flows and pipelines. Unlike Langchain though, Haystack does not try to be too abstract and general, strictly focusing on RAG and document search instead. As a result, Haystack is more straightforward to use, especially for users looking to implement custom and highly non-standard scenarios. On the other hand, like LlamaIndex, Haystack's performance is optimized towards data retrieval and indexing, but it offers a higher degree of flexibility and better interfaces for custom use cases.
-   
+
 7. **Actively maintained open source project under permissive license.** Haystack is very [actively](https://github.com/deepset-ai/haystack/pulse/monthly) [maintained](https://github.com/deepset-ai/haystack/issues?q=is%3Aissue+is%3Aclosed) and [supported](https://github.com/deepset-ai/haystack/discussions). [Tagged versions](https://github.com/deepset-ai/haystack/releases) are released on a regular basis and [trusted publishing automation](https://github.com/deepset-ai/haystack/actions/workflows/pypi_release.yml) is used. Haystack is licensed under Apache 2.0, and all of its dependencies (jinja2, lazy-imports, more-itertools, networkx, numpy, openai, pandas, posthog, python-dateutil, pyyaml, requests, tenacity, tqdm, typing-extensions) are licensed under Apache, MIT, BSD or PSFL.
 
 ## Goals
@@ -82,6 +82,7 @@ A downstream should be generated of the [https://github.com/deepset-ai/haystack]
 ## Risks
 
 Future versions of Haystack can potentially introduce new dependencies, that could be:
+
 1. Distributed under a non-permissive license (or not open source at all)
 2. Not regularly and/or properly maintained
 

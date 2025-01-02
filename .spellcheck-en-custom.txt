@@ -1,6 +1,7 @@
 # make spellcheck-sort
 # Please keep this file sorted:
 Abhishek
+ADR
 Akash
 AMDGPU
 Anil
@@ -35,6 +36,8 @@ CWD
 Cynefin
 dataset
 datasets
+dateutil
+DBs
 DCO
 Dependabot
 dev
@@ -70,8 +73,10 @@ Guang
 hacky
 hardcode
 hardcoded
+Hema
 hipBLAS
 ilab
+Ilya
 impactful
 Inferencing
 instantiation
@@ -79,16 +84,22 @@ instructlab
 io
 ISA
 iters
+itertools
 Jie
 JIT
+jinja
 JSON
 Jupyter
 KAGGLE
 Kaggle
 Kaggle's
 Kai
+Kolchinsky
 Kubernetes
 Kumar
+Langchain
+langchain
+Langgraph
 lignment
 LLM
 llms
@@ -100,6 +111,7 @@ md
 Mergify
 Merlinite
 merlinite
+Milvus
 mimimum
 Miniforge
 Mixtral
@@ -108,7 +120,10 @@ MLX
 mlx
 MMLU
 Nakamura
+natively
+networkx
 num
+numpy
 NVidia
 Nvidia
 OCI
@@ -116,6 +131,8 @@ Ollama
 ollama
 onboarding
 OpenStax
+openai
+OpenAI
 optimizers
 orchestrator
 ots
@@ -130,15 +147,20 @@ PNG
 POC
 Podman
 podman
+posthog
 pre
 preprint
+preprocessing
 prereqs
+productized
 PR's
+PSFL
 Pydantic
 pyenv
 PyPI
 pyproject
 PyTorch
+pyyaml
 qlora
 quantized
 Quantizing
@@ -173,6 +195,7 @@ specifiying
 src
 Srivastava
 Standup
+Staar
 subcommand
 subcommands
 subdirectory
@@ -187,6 +210,7 @@ th
 tl
 TODO
 tox
+tqdm
 traigers
 triager
 Triagers
@@ -197,7 +221,9 @@ ui
 unquantized
 USM
 UX
+vectordbs
 venv
+Veeradhi
 Vishnoi
 vllm
 watsonx
