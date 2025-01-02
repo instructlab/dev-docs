@@ -8,9 +8,9 @@
 
 ## What
 
-This ADR defines the decision on the framework used to support the RAG pipeline for InstructLab. The Emerging Technologies team is pushing for the adoption of Haystack to be used for the framework of the RAG offering. Haystack will handle the data ingestion and retrieval processes for the to be productized RAG solution.
+This ADR defines the decision on the framework used to support the RAG pipeline for InstructLab. The Red Hat Emerging Technologies team is pushing for the adoption of Haystack to be used for the framework of the RAG offering. Haystack will handle the data ingestion and retrieval processes for this to be productized RAG solution.
 
-NOTE: Speaking with Peter Staar on Dec 3, 2025 the Docling team is aware of the efforts to potentially use Haystack and are already looking into adding the functionality for support of Haystack.
+NOTE: Speaking with Peter Staar on Dec 3, 2025 [the Docling team](https://github.com/DS4SD/docling) is aware of the efforts to potentially use Haystack and are already looking into adding the functionality for [support of Haystack](https://github.com/DS4SD/docling-haystack).
 
 ## Why
 
@@ -25,7 +25,7 @@ All of the above offer a variation of a modular pipeline architecture, where use
 
 Out of those, we propose to use Haystack for the following reasons:
 
-1. **Focus on RAG.** Haystack is a framework specifically targeting RAG use cases and sophisticated RAG indexing and retrieval pipelines. While Langchain and LlamaIndex shine in their own areas, the former is a generalist framework and the latter has a different focus, namely building custom indices over data. Haystack provides functionality that is strongly tailored for RAG and includes a comprehensive library of out-of-the-box solutions for advanced RAG scenarios. As a result, many essential or soon-to-be-essential RAG capabilities can be implemented in a few lines in Haystack but require considerable work to be supported over Langchain or LlamaIndex. Some examples include hybrid retrieval, iterative RAG, HyDE, combining multiple ingestion sources, custom data preprocessing and metadata augmentation. As the decision discussed in this document involves only the RAG component of RHEL AI, we believe that choosing the best RAG framework, as opposed to the best general LLM serving framework, would be more strategically correct.
+1. **Focus on RAG.** Haystack is a framework specifically targeting RAG use cases and sophisticated RAG indexing and retrieval pipelines. While Langchain and LlamaIndex shine in their own areas, the former is a generalist framework and the latter has a different focus, namely building custom indices over data. Haystack provides functionality that is strongly tailored for RAG and includes a comprehensive library of out-of-the-box solutions for advanced RAG scenarios. As a result, many essential or soon-to-be-essential RAG capabilities can be implemented in a few lines in Haystack but require considerable work to be supported over Langchain or LlamaIndex. Some examples include hybrid retrieval, iterative RAG, HyDE, combining multiple ingestion sources, custom data preprocessing and metadata augmentation. As the decision discussed in this document involves only the RAG component of Instructlab, we believe that choosing the best RAG framework, as opposed to the best general LLM serving framework, would be more strategically correct.
 
 2. **Maturity and stability.** Haystack is the most mature, established and stable product among the considered alternatives. It has been around for more time overall (since 2017) and accumulated more mileage. Haystack has an active, sizable and steadily growing community.
 
@@ -39,9 +39,12 @@ Out of those, we propose to use Haystack for the following reasons:
 
 7. **Actively maintained open source project under permissive license.** Haystack is very [actively](https://github.com/deepset-ai/haystack/pulse/monthly) [maintained](https://github.com/deepset-ai/haystack/issues?q=is%3Aissue+is%3Aclosed) and [supported](https://github.com/deepset-ai/haystack/discussions). [Tagged versions](https://github.com/deepset-ai/haystack/releases) are released on a regular basis and [trusted publishing automation](https://github.com/deepset-ai/haystack/actions/workflows/pypi_release.yml) is used. Haystack is licensed under Apache 2.0, and all of its dependencies (jinja2, lazy-imports, more-itertools, networkx, numpy, openai, pandas, posthog, python-dateutil, pyyaml, requests, tenacity, tqdm, typing-extensions) are licensed under Apache, MIT, BSD or PSFL.
 
+8. **Published to PyPI via Trusted Publishing.**
+See [trusted-publishers](https://docs.pypi.org/trusted-publishers/) for more information on trusted publishing. Haystack satisfies the requirements for trusted publishing with this [Github Actions workflow](https://github.com/deepset-ai/haystack/actions/workflows/pypi_release.yml).
+
 ## Goals
 
-- We need to identify a framework that will be used to help support the RAG work stream. This is one of many pieces involved in the RAG work stream but identifying the framework used to index and retrieve data is step 1 of the larger picture.
+- The primary goal here is to provide a framework optimized for RAG specifically and that the decision isn't focused on optimizing the choice on the best agentic pattern solution. However, Haystack can potentially implement many [agentic patterns](https://docs.haystack.deepset.ai/v1.22/docs/agent). Since Haystack provides the functionality [to build arbitrarily complex pipelines](https://docs.haystack.deepset.ai/docs/pipelines), it is possible to extend our RAG architecture to introduce nodes for tools, reasoning and agentic actions.
 
 ## Non-goals
 
