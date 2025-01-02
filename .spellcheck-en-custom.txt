@@ -45,7 +45,7 @@ Dependabot
 dev
 disambiguating
 ditaa
-docling
+Docling
 docstring
 DocumentSplitter
 downstreams
@@ -66,7 +66,7 @@ formedness
 FQN
 freeform
 FSDP
-gb
+GB
 GFX
 GGUF
 GGUFs
@@ -74,7 +74,7 @@ GiB
 github
 Gmail
 GPTDolomite
-gpu
+GPU
 Guang
 hacky
 hardcode
@@ -109,7 +109,7 @@ Langchain
 Langgraph
 leaderboard
 LLM
-llms
+LLMs
 LLVM
 lora
 Makefiles
@@ -248,7 +248,7 @@ vectordbs
 Veeradhi
 venv
 Vishnoi
-vllm
+vLLM
 watsonx
 Wikisource
 wikisql
