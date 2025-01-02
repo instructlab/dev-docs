@@ -29,6 +29,7 @@ Containerfile
 cpp
 cuBLAS
 CUDA
+ctrl
 customizations
 CVE
 CVEs
@@ -43,6 +44,7 @@ Dependabot
 dev
 disambiguating
 ditaa
+Docling
 docstring
 downstreams
 dr
@@ -66,6 +68,7 @@ gguf
 GGUFs
 ggufs
 GiB
+github
 Gmail
 GPTDolomite
 gpu
@@ -79,10 +82,12 @@ ilab
 Ilya
 impactful
 Inferencing
+init
 instantiation
 instructlab
 io
 ISA
+init
 iters
 itertools
 Jie
@@ -119,6 +124,9 @@ mixtral
 MLX
 mlx
 MMLU
+modularize
+modularized
+Murdock
 Nakamura
 natively
 networkx
@@ -136,10 +144,12 @@ OpenAI
 optimizers
 orchestrator
 ots
+PaRAGon
 Params
 Pareja
 PEFT
 Pereira
+PID
 PlantUML
 PLOS
 pluggable
@@ -148,10 +158,12 @@ POC
 Podman
 podman
 posthog
+postprocessing
 pre
 preprint
 preprocessing
 prereqs
+productize
 productized
 PR's
 PSFL
@@ -162,6 +174,7 @@ pyproject
 PyTorch
 pyyaml
 qlora
+qna
 quantized
 Quantizing
 Radeon
@@ -199,8 +212,10 @@ Staar
 subcommand
 subcommands
 subdirectory
+subprocess
 Sudalairaj
 supportability
+systemd
 Taj
 tatsu
 TBD
@@ -219,7 +234,10 @@ triagers
 UI
 ui
 unquantized
+unstaged
 USM
+UUID
+UUIDs
 UX
 vectordbs
 venv
