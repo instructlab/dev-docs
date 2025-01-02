@@ -78,6 +78,7 @@ hardcode
 hardcoded
 Hema
 hipBLAS
+HyDE
 ilab
 Ilya
 impactful

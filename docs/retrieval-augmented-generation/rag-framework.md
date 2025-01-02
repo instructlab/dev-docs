@@ -10,7 +10,7 @@
 
 This ADR defines the decision on the framework used to support the RAG pipeline for InstructLab. The Emerging Technologies team is pushing for the adoption of Haystack to be used for the framework of the RAG offering. Haystack will handle the data ingestion and retrieval processes for the to be productized RAG solution.
 
-NOTE: Speaking with Peter Staar on Dec 3, 2025 the docling team is aware of the efforts to potentially use Haystack and are already looking into adding the functionality for support of Haystack.
+NOTE: Speaking with Peter Staar on Dec 3, 2025 the Docling team is aware of the efforts to potentially use Haystack and are already looking into adding the functionality for support of Haystack.
 
 ## Why
 
