@@ -2,7 +2,6 @@
 # Please keep this file sorted:
 Abhishek
 ADR
-agentic
 Akash
 AMDGPU
 Anil
@@ -18,6 +17,8 @@ Cappi
 checkpointing
 chunkers
 CLI
+cli
+cli
 CLI's
 codebase
 Colab
@@ -45,7 +46,7 @@ Dependabot
 dev
 disambiguating
 ditaa
-Docling
+docling
 docstring
 DocumentSplitter
 downstreams
@@ -57,24 +58,28 @@ embeddings
 env
 EP
 Eval
+eval
 Excalidraw
 exfiltrate
 exfiltrating
 Filesystem
+filesystem
 Finetuning
 formedness
 FQN
 freeform
 FSDP
-GB
+gb
+gb
 GFX
 GGUF
+gguf
 GGUFs
 GiB
 github
 Gmail
 GPTDolomite
-GPU
+gpu
 Guang
 hacky
 hardcode
@@ -97,7 +102,7 @@ itertools
 Jie
 jinja
 JIT
-JSON
+json
 Jupyter
 KAGGLE
 Kaggle's
@@ -108,8 +113,9 @@ Kumar
 Langchain
 Langgraph
 leaderboard
+lignment
 LLM
-LLMs
+llms
 LLVM
 lora
 Makefiles
@@ -118,6 +124,7 @@ Martinoli
 md
 Mergify
 Merlinite
+merlinite
 Milvus
 MilvusEmbeddingRetriever
 MilvusLite
@@ -125,6 +132,7 @@ mimimum
 Miniforge
 MiniLM
 Mixtral
+mixtral
 MLX
 MMLU
 modularize
@@ -140,11 +148,10 @@ numpy
 NVidia
 OCI
 Ollama
+ollama
 onboarding
 openai
 OpenStax
-openai
-OpenAI
 optimizers
 orchestrator
 ots
@@ -161,6 +168,7 @@ pluggable
 PNG
 POC
 Podman
+podman
 posthog
 postprocessing
 pre
@@ -200,6 +208,7 @@ safetensors
 Salawu
 scalable
 SDG
+sdg
 semvar
 sexualized
 SHA
@@ -214,7 +223,6 @@ src
 Srivastava
 Staar
 Standup
-Staar
 subcommand
 subcommands
 subdirectory
@@ -236,7 +244,9 @@ tqdm
 traigers
 triager
 Triagers
+triagers
 UI
+ui
 unquantized
 unstaged
 URI
@@ -248,7 +258,8 @@ vectordbs
 Veeradhi
 venv
 Vishnoi
-vLLM
+vllm
+vllm
 watsonx
 Wikisource
 wikisql
@@ -260,3 +271,4 @@ XT
 XTX
 Xu
 YAML
+yaml
