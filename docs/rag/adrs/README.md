@@ -29,4 +29,3 @@ This simple format, which is described below, has a surprising number of functio
 * [ADRs at Amazon](https://docs.aws.amazon.com/prescriptive-guidance/latest/architectural-decision-records/adr-process.html)
 * [ADRs at GitHub](https://adr.github.io/)
 * [ADRs at Google](https://cloud.google.com/architecture/architecture-decision-records)
-

@@ -2,7 +2,7 @@
 
 ## Context
 
-One of the first choices to make in implementing RAG is to choose an initial vector store to develop against. Though the usage of frameworks like LangChain or Haystack make it easy to swap vector databases, we need a working end to end implementation for RAG that is tested against and available to install with InstructLab. There are many options (see [here](https://docs.haystack.deepset.ai/docs/choosing-a-document-store)). 
+One of the first choices to make in implementing RAG is to choose an initial vector store to develop against. Though the usage of frameworks like LangChain or Haystack make it easy to swap vector databases, we need a working end to end implementation for RAG that is tested against and available to install with InstructLab. There are many options (see [here](https://docs.haystack.deepset.ai/docs/choosing-a-document-store)).
 
 Our main long-term requirements are that our chosen store have fully-developed document update (and thus some sort of notion of primary key), that it be scalable to cluster size, and that it have a permissive license (Apache, MIT, or similar). Among the available choices, [Milvus](https://milvus.io/) provides strategic advantage due to its [investment from watsonx](https://www.ibm.com/new/announcements/ibm-watsonx-data-vector-database-ai-ready-data-management).
 
