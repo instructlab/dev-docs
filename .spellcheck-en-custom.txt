@@ -2,6 +2,7 @@
 # Please keep this file sorted:
 Abhishek
 ADR
+agentic
 Akash
 AMDGPU
 Anil
@@ -17,7 +18,6 @@ Cappi
 checkpointing
 chunkers
 CLI
-cli
 cli
 CLI's
 codebase
@@ -46,6 +46,7 @@ Dependabot
 dev
 disambiguating
 ditaa
+Docling
 docling
 docstring
 DocumentSplitter
@@ -69,7 +70,7 @@ formedness
 FQN
 freeform
 FSDP
-gb
+GB
 gb
 GFX
 GGUF
@@ -79,6 +80,7 @@ GiB
 github
 Gmail
 GPTDolomite
+GPU
 gpu
 Guang
 hacky
@@ -102,6 +104,7 @@ itertools
 Jie
 jinja
 JIT
+JSON
 json
 Jupyter
 KAGGLE
@@ -115,6 +118,7 @@ Langgraph
 leaderboard
 lignment
 LLM
+LLMs
 llms
 LLVM
 lora
@@ -150,6 +154,7 @@ OCI
 Ollama
 ollama
 onboarding
+OpenAI
 openai
 OpenStax
 optimizers
@@ -258,7 +263,7 @@ vectordbs
 Veeradhi
 venv
 Vishnoi
-vllm
+vLLM
 vllm
 watsonx
 Wikisource
