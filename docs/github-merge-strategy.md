@@ -6,6 +6,46 @@ This document describes the merge strategy used for Pull Requests within all rep
 
 Every Pull Request that is made to an InstructLab repository should meet the below requirements - certain repositories such as [taxonomy](https://github.com/instruct-lab/taxonomy) may have additional requirements.
 
+### Commit Messages and PR Description
+
+PRs should be formatted as a series of logical commits that implement the
+overall change proposed in the PR. Each commit should represent a logical step
+in the progression of the change. The commit message for each should clearly
+explain that step of the progression.
+
+Here are a few examples of PRs that contained a series of commits:
+
+- <https://github.com/instructlab/instructlab-bot/pull/125/commits>
+- <https://github.com/instructlab/instructlab/pull/994/commits>
+- <https://github.com/instructlab/instructlab/pull/951/commits>
+
+Here are some external resources that provide guidance on writing good commit messages:
+
+- <https://www.berrange.com/tags/commit-message/>
+- <https://docs.kernel.org/process/submitting-patches.html#separate-your-changes>
+- <https://github.com/kubernetes/community/blob/master/contributors/guide/pull-requests.md#smaller-is-better-small-commits-small-pull-requests>
+
+While not a requirement right now, we may want to consider following a spec like
+[Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) in the
+future. It's worth a look for inspiration, at least.
+
+When your PR contains multiple commits, it is helpful to reuse the work you put
+into crafting high-quality commit messages. Here is a script you can use to generate
+a summary of the commits in your PR. It starts with a list of the commits one
+line at a time and then follows that with the full commit messages. The format works
+for pasting directly into GitHub.
+
+```sh
+#!/bin/bash
+
+git log --reverse --oneline origin/main..HEAD
+echo
+git log --reverse origin/main..HEAD
+```
+
+Here is an example PR that uses a PR description that was generated using this
+script: <https://github.com/instructlab/sdg/pull/67>.
+
 ### CI checks
 
 We should require that all CI checks pass on a Pull Request before it can be considered for merge. Every repository should have at mimimum the following checks:
@@ -28,7 +68,7 @@ There are [three different merge methods offered by GitHub](https://docs.github.
 
 We use the default merge method of creating merge commits for PRs. This is to ensure we retain the full commit history as intentionally structured by the PR author while also retaining metadata about the PR itself in the merge commit.
 
-This requires project maintainers to include commit messages and the overall structure of the commit series as part of their review. When multiple commits are present, they should represent a logical series of changes that implement the overall change proposed in the PR. The commit message for each should clearly explain that step of the progression.
+This requires project maintainers to include commit messages and the overall structure of the commit series as part of their review.
 
 It is common that a PR author may need to do a final rebase to clean up their proposed commit series before a PR can be merged. It is also fine for a project maintainer to perform this step when the changes necessary are straight forward enough to do so.  This includes doing a final rebase on `main` if necessary. The PR itself should NOT include any merge commits of `main` back into the developer's branch. We expect the proposed commit series to be a clean set of commits against `main` without conflicts or merge commit history. We only use a merge commit to record the PR's inclusion into `main`.
 
