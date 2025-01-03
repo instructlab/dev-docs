@@ -1,4 +1,4 @@
-# ADR 00x: Succinct title
+# Succinct title
 
 ## Context
 
