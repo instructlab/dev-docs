@@ -36,6 +36,6 @@ InstructLab RAG will use [IBM Granite-Embedding-125m-English](https://huggingfac
 
 ## Consequences
 
-* We will have consistency with the default options for model training (which are also based on IBM Granite).
-* Users will be able to rely on IBM's outstanding, well-earned reputation for respecting intellectual property rights and careful compliance with legal restrictions.
-* We should consider strategies of offsetting perception of prioritizing IBM models over the needs of the product in addition to the clear motivation described here, such as in documentation.
+- We will have consistency with the default options for model training (which are also based on IBM Granite).
+- Users will be able to rely on IBM's outstanding, well-earned reputation for respecting intellectual property rights and careful compliance with legal restrictions.
+- We should consider strategies of offsetting perception of prioritizing IBM models over the needs of the product in addition to the clear motivation described here, such as in documentation.
