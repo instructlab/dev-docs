@@ -5,3 +5,10 @@ dictionary.dic
 
 # python virtualenv
 venv
+
+# Emacs
+*~
+\#*\#
+.\#*
+.projectile
+.dir-locals.el
