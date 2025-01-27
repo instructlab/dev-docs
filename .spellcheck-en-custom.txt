@@ -6,6 +6,7 @@ agentic
 Akash
 AMDGPU
 Anil
+architected
 arge
 args
 arXiv
@@ -138,6 +139,7 @@ Miniforge
 MiniLM
 Mixtral
 mixtral
+modifiability
 MLX
 MMLU
 modularize
@@ -242,6 +244,7 @@ tatsu
 TBD
 templating
 Tesla
+testability
 th
 tl
 TODO
@@ -253,6 +256,7 @@ Triagers
 triagers
 UI
 ui
+understandability
 unquantized
 unstaged
 URI
