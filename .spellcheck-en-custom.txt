@@ -45,6 +45,7 @@ DCO
 Dependabot
 dev
 disambiguating
+discoverability
 ditaa
 Docling
 docling
@@ -227,6 +228,7 @@ specifiying
 splitter
 src
 Srivastava
+SSL
 Staar
 Standup
 subcommand
