@@ -24,7 +24,11 @@ please ping the Oversight Committee for help.
   out from maintainers of relevant components. The broader the scope or more
   controversial the change, the more broad the consensus should be required for
   merging. The final approval and merge (or action, e.g. deleting a repo)
-  falls to a member of the Oversight Committee. This final review is to ensure that
+  falls to two maintainers of any InstructLab Organization repository as well as
+  an additional third maintainer of any InstructLab Organization repository to
+  merge the PR after verifying that sufficient reviews have been given. If there are
+  disputes on the design document that cannot be resolved, an Oversight Committee
+  member can be consulted as an arbitrator. These approvals ensure that
   adequate opportunity and attention has been given by the affected parties.
   * Examples of non-trivial changes include approving proposal for new repositories,
     creation of new repositories, changes to organization level GitHub settings, archiving
