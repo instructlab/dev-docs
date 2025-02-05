@@ -12,3 +12,6 @@ venv
 .\#*
 .projectile
 .dir-locals.el
+
+# PyCharm/JetBrains
+.idea
