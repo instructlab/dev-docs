@@ -15,7 +15,7 @@ The user experience of working with the `qna.yaml` file is poor for a handful of
 - Most of the fields in the `qna.yaml` file are unnecessary save for use in the upstream taxonomy.
 - YAML is a notoriously complex, loose format with a lot of potholes.
   - YAML files of different specifications parse completely differently (e.g., 1.2 vs 1.1).
-    - Note that PyYAML, our base tool, parses YAML 1.1, not 1.2. There is a long way to go[^PyYAML] to support 1.2, which has been the latest spec since 2009. As such, even if someone were to search the Internet for a solution because they are not familiar with YAML, they likely will stumble across 1.2 solutions that don't work for 1.1.
+    - Note that PyYAML, our base tool [^tooling], parses YAML 1.1, not 1.2. There is a long way to go[^PyYAML] to support 1.2, which has been the latest spec since 2009. As such, even if someone were to search the Internet for a solution because they are not familiar with YAML, they likely will stumble across 1.2 solutions that don't work for 1.1.
   - There are at least 9 different ways to indicate a multi-line string in YAML[^9ways], depending on which block scalar indicator[^blockscalar] is used and which block chomping indicator[^blockchomping] is used (this does **not** count the indentation indicator[^blockindentation]!). Then there are double-quoted flow scalar multilines[^doublequotedflowscalar] and single-quoted flow scalar multilines[^singlequotedflowscalar], which can cause more problems.
 - The linting system, intended to ensure the YAML file is readable by the SDG process, adds more burden on the non-technical user.
   - The linter for YAML enforces an 80-character line length by default. That makes sense if you're working on code read from a terminal, but not to a typical end user used to working with rich text editors for a reading comprehension experience working with paragraphs.
@@ -70,3 +70,4 @@ The process of writing question and answer sets also is more like writing readin
 [^datamixing]: stuff
 [^docling]: https://ds4sd.github.io/docling/supported_formats/ notes docling supports JSON-serialized Docling Documents and Markdown as input and JSON and Markdown as outputs.
 [^PyYAML]: https://github.com/yaml/pyyaml/issues/486
+[^tooling]: https://github.com/instructlab/schema/blob/main/pyproject.toml#L27-L30 and 
