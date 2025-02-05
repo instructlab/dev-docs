@@ -15,6 +15,7 @@ backend
 backends
 benchmarking
 Bhandwaldar
+bikeshedding
 brainer
 Cappi
 checkpointing
@@ -214,6 +215,7 @@ SaaS
 safetensor
 safetensors
 Salawu
+Santamaria
 scalable
 SDG
 sdg
