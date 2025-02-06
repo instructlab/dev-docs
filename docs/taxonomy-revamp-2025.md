@@ -51,7 +51,7 @@ Markdown is very user-friendly, and converters handle a lot of the issues with e
 
 This would also make it a lot easier for the UI to work with contributions. JSON plays well with JavaScript overall without importing more libraries and creating dependency issues, and Python has a very good built-in for working with JSON files.
 
-Users who decide to build it without needing the converter are likely familiar with JSON, and there are fewer pitfalls and less likelihood of tooling choices impacting meaning as JSON's standard has not changed since 2017, and barely changed from the original standard.
+Users who decide to build it without needing the converter are likely familiar with JSON, and there are fewer pitfalls and less likelihood of tooling choices impacting meaning as the JSON standard has not changed since 2017, and barely changed from the original standard.
 
 ### Reframe the Q&A writing process as a reading comprehension process
 
@@ -66,7 +66,7 @@ The issue of needing a git repository for document storage is possibly out of sc
 ∎
 
 [^1]: The story of the bikeshed is a common metaphor. The story goes that a group that is working on the approvals for the construction plan of a nuclear power plant gets stuck on what color to paint the bike shed at one of the entrances to the plant. Multiple meetings are scheduled to hash out the issue of the color of the bike shed, with heated arguments. However, the rest of the plan for the power plant is not examined in detail or critiqued. People have an easier time evaluating and having an opinion on something that is as trivial as a bike shed's color when faced with complex decisions on other systems. [Wiktionary entry](https://en.wiktionary.org/wiki/bikeshedding)
-[^2]: [Our tooling dependencies](https://github.com/instructlab/schema/blob/main/pyproject.toml#L27-L30) 
+[^2]: [Our tooling dependencies](https://github.com/instructlab/schema/blob/main/pyproject.toml#L27-L30)
 [^3]: [yaml/pyyaml#486](https://github.com/yaml/pyyaml/issues/486)
 [^4]: You can experience this issue in action with the interactive experience on [yaml-multiline.info](https://yaml-multiline.info/).
 [^5]: [YAML Spec v1.2.2 on block scalar styles](https://yaml.org/spec/1.2.2/#81-block-scalar-styles)

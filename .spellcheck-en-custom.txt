@@ -15,6 +15,7 @@ backend
 backends
 benchmarking
 Bhandwaldar
+bikeshed
 bikeshedding
 brainer
 Cappi
@@ -121,6 +122,7 @@ Langgraph
 leaderboard
 lifecycle
 lignment
+linter
 LLM
 LLMs
 llms
@@ -146,6 +148,8 @@ MMLU
 modularize
 modularized
 MTEB
+multiline
+multilines
 Murdock
 mvp
 Nakamura
@@ -194,6 +198,7 @@ PyPI
 pyproject
 PyTorch
 pyyaml
+PyYAML
 qlora
 qna
 quantized
@@ -202,6 +207,8 @@ Radeon
 RDNA
 README
 rebase
+Reframe
+reframe
 Ren
 repo
 repos
@@ -273,8 +280,10 @@ Vishnoi
 vLLM
 vllm
 watsonx
+whitespace
 Wikisource
 wikisql
+Wiktionary
 WIP
 WSL
 xcode
