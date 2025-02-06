@@ -8,23 +8,23 @@ status: proposed
 
 Our taxonomy tree structure and knowledge/skill file structure was designed with upstream taxonomy submissions in mind. An end user working with a taxonomy locally using InstructLab has to follow all of those requirements, increasing complexity of their work.
 
-The end user typically gets hung up on where to place the file in a massive file tree where sub-branches are not defined. For someone not working in the upstream taxonomy, this is basically bikeshedding[^bike shed]. The only requirement for the SDG process is sorting things into `knowledge` and `skills`.
+The end user typically gets hung up on where to place the file in a massive file tree where sub-branches are not defined. For someone not working in the upstream taxonomy, this is basically bikeshedding[^1]. The only requirement for the SDG process is sorting things into `knowledge` and `skills`.
 
 The user experience of working with the `qna.yaml` file is poor for a handful of reasons:
 
 - Most of the fields in the `qna.yaml` file are unnecessary save for use in the upstream taxonomy.
 - YAML is a notoriously complex, loose format with a lot of potholes.
   - YAML files of different specifications parse completely differently (e.g., 1.2 vs 1.1).
-    - Note that PyYAML, our base tool [^tooling], parses YAML 1.1, not 1.2. There is a long way to go[^PyYAML] to support 1.2, which has been the latest spec since 2009. As such, even if someone were to search the Internet for a solution because they are not familiar with YAML, they likely will stumble across 1.2 solutions that don't work for 1.1.
-  - There are at least 9 different ways to indicate a multi-line string in YAML[^9 ways], depending on which block scalar indicator[^block scalar] is used and which block chomping indicator[^block chomping] is used (this does **not** count the indentation indicator[^block indentation]!). Then there are double-quoted flow scalar multilines[^double quoted flow scalar] and single-quoted flow scalar multilines[^single quoted flow scalar], which can cause more problems.
+    - Note that PyYAML, our base tool [^2], parses YAML 1.1, not 1.2. There is a long way to go[^3] to support 1.2, which has been the latest spec since 2009. As such, even if someone were to search the Internet for a solution because they are not familiar with YAML, they likely will stumble across 1.2 solutions that don't work for 1.1.
+  - There are at least 9 different ways to indicate a multi-line string in YAML[^4], depending on which block scalar indicator[^5] is used and which block chomping indicator[^6] is used (this does **not** count the indentation indicator[^7]!). Then there are double-quoted flow scalar multilines[^8] and single-quoted flow scalar multilines[^9], which can cause more problems.
 - The linting system, intended to ensure the YAML file is readable by the SDG process, adds more burden on the non-technical user.
   - The linter for YAML enforces an 80-character line length by default. That makes sense if you're working on code read from a terminal, but not to a typical end user used to working with rich text editors for a reading comprehension experience working with paragraphs.
   - The linter also complains about trailing whitespace, another common thing that the typical end user won't understand why everything is failing.
 
 From a code perspective,
 
-- We are already using JSON in the data mixing process in SDG[^data mixing].
-- Docling also exports JSON as input and output[^docling].
+- We are already using JSON in the data mixing process in SDG[^10].
+- Docling also exports JSON as input and output[^11].
 - JSON is also much more friendly to UI work, which is a primary path we would like people to use.
 
 Overall, the `qna.yaml` file needs to have fewer knobs and fewer pitfalls.
@@ -65,13 +65,15 @@ The issue of needing a git repository for document storage is possibly out of sc
 
 ∎
 
-[^bike shed]: The story of the bikeshed is a common metaphor. The story goes that a group that is working on the approvals for the construction plan of a nuclear power plant gets stuck on what color to paint the bike shed at one of the entrances to the plant. Multiple meetings are scheduled to hash out the issue of the color of the bike shed, with heated arguments. However, the rest of the plan for the power plant is not examined in detail or critiqued. People have an easier time evaluating and having an opinion on something that is as trivial as a bike shed's color when faced with complex decisions on other systems. [Wiktionary entry](https://en.wiktionary.org/wiki/bikeshedding)
-[^9 ways]: You can experience this issue in action with the interactive experience on [yaml-multiline.info](https://yaml-multiline.info/).
-[^block scalar]: [YAML Spec v1.2.2 on block scalar styles](https://yaml.org/spec/1.2.2/#81-block-scalar-styles)
+[^1]: The story of the bikeshed is a common metaphor. The story goes that a group that is working on the approvals for the construction plan of a nuclear power plant gets stuck on what color to paint the bike shed at one of the entrances to the plant. Multiple meetings are scheduled to hash out the issue of the color of the bike shed, with heated arguments. However, the rest of the plan for the power plant is not examined in detail or critiqued. People have an easier time evaluating and having an opinion on something that is as trivial as a bike shed's color when faced with complex decisions on other systems. [Wiktionary entry](https://en.wiktionary.org/wiki/bikeshedding)
+[^2]: [Our tooling dependencies](https://github.com/instructlab/schema/blob/main/pyproject.toml#L27-L30) 
+[^3]: [yaml/pyyaml#486](https://github.com/yaml/pyyaml/issues/486)
+[^4]: You can experience this issue in action with the interactive experience on [yaml-multiline.info](https://yaml-multiline.info/).
+[^5]: [YAML Spec v1.2.2 on block scalar styles](https://yaml.org/spec/1.2.2/#81-block-scalar-styles)
     > YAML provides two block scalar styles, literal and folded. Each provides a different trade-off between readability and expressive power.
-[^block chomping]: [YAML Spec v1.2.2 on block chomping indicators](https://yaml.org/spec/1.2.2/#8112-block-chomping-indicator)
+[^6]: [YAML Spec v1.2.2 on block chomping indicators](https://yaml.org/spec/1.2.2/#8112-block-chomping-indicator)
     > Chomping controls how final line breaks and trailing empty lines are interpreted. YAML provides three chomping methods:
-[^block indentation]: [YAML Spec v1.2.2 on block indentation indicators](https://yaml.org/spec/1.2.2/#8111-block-indentation-indicator)
+[^7]: [YAML Spec v1.2.2 on block indentation indicators](https://yaml.org/spec/1.2.2/#8111-block-indentation-indicator)
     > Every block scalar has a content indentation level. The content of the block scalar excludes a number of leading spaces on each line up to the content indentation level.
     >
     > If a block scalar has an indentation indicator, then the content indentation level of the block scalar is equal to the indentation level of the block scalar plus the integer value of the indentation indicator character.
@@ -83,11 +85,9 @@ The issue of needing a git repository for document storage is possibly out of sc
     >It is an error for any of the leading empty lines to contain more spaces than the first non-empty line.
     >
     >A YAML processor should only emit an explicit indentation indicator for cases where detection will fail.
-[^double quoted flow scalar]: [YAML Spec v1.2.2 on the double-quoted flow scalar](https://yaml.org/spec/1.2.2/#double-quoted-style)
+[^8]: [YAML Spec v1.2.2 on the double-quoted flow scalar](https://yaml.org/spec/1.2.2/#double-quoted-style)
     > In a multi-line double-quoted scalar, line breaks are subject to flow line folding, which discards any trailing white space characters. It is also possible to escape the line break character. In this case, the escaped line break is excluded from the content and any trailing white space characters that precede the escaped line break are preserved. Combined with the ability to escape white space characters, this allows double-quoted lines to be broken at arbitrary positions.
-[^single quoted flow scalar]: [YAML Spec v1.2.2 on the single-quoted flow scalar](https://yaml.org/spec/1.2.2/#single-quoted-style)
+[^9]: [YAML Spec v1.2.2 on the single-quoted flow scalar](https://yaml.org/spec/1.2.2/#single-quoted-style)
     > In addition, it is only possible to break a long single-quoted line where a space character is surrounded by non-spaces. [...] All leading and trailing white space characters are excluded from the content. Each continuation line must therefore contain at least one non-space character. Empty lines, if any, are consumed as part of the line folding.
-[^data mixing]: stuff
-[^docling]: [The Docling documentation](https://ds4sd.github.io/docling/supported_formats/) notes docling supports JSON-serialized Docling Documents and Markdown as input and JSON and Markdown as outputs.
-[^PyYAML]: [yaml/pyyaml#486](https://github.com/yaml/pyyaml/issues/486)
-[^tooling]: [Our tooling dependencies](https://github.com/instructlab/schema/blob/main/pyproject.toml#L27-L30) 
+[^10]: stuff
+[^11]: [The Docling documentation](https://ds4sd.github.io/docling/supported_formats/) notes docling supports JSON-serialized Docling Documents and Markdown as input and JSON and Markdown as outputs.
