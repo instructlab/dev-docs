@@ -8,12 +8,12 @@ status: proposed
 
 Our taxonomy tree structure and knowledge/skill file structure was designed with upstream taxonomy submissions in mind. An end user working with a taxonomy locally using InstructLab has to follow all of those requirements, increasing complexity of their work.
 
-The end user typically gets hung up on where to place the file in a massive file tree where sub-branches are not defined. For someone not working in the upstream taxonomy, this is basically bikeshedding[^1]. The only requirement for the SDG process is sorting things into `knowledge` and `skills`.
+The end user gets hung up on where to place the file in a massive file tree where sub-branches are not defined. For someone not working in the upstream taxonomy, this is basically bikeshedding[^1]. The only requirement for the SDG process is sorting things into `knowledge` and `skills`.
 
 The user experience of working with the `qna.yaml` file is poor for a handful of reasons:
 
-- Most of the fields in the `qna.yaml` file are unnecessary save for use in the upstream taxonomy.
-- YAML is a notoriously complex, loose format with a lot of potholes.
+- Many of the fields in the `qna.yaml` file are unnecessary save for use in the upstream taxonomy.
+- YAML is a notoriously complex, loose format with a lot of potholes. As a couple of examples:
   - YAML files of different specifications parse completely differently (e.g., 1.2 vs 1.1).
     - Note that PyYAML, our base tool [^2], parses YAML 1.1, not 1.2. There is a long way to go[^3] to support 1.2, which has been the latest spec since 2009. As such, even if someone were to search the Internet for a solution because they are not familiar with YAML, they likely will stumble across 1.2 solutions that don't work for 1.1.
   - There are at least 9 different ways to indicate a multi-line string in YAML[^4], depending on which block scalar indicator[^5] is used and which block chomping indicator[^6] is used (this does **not** count the indentation indicator[^7]!). Then there are double-quoted flow scalar multilines[^8] and single-quoted flow scalar multilines[^9], which can cause more problems.
@@ -45,13 +45,13 @@ Make `created_by`, `domain`, and `document_outline` optional fields. Enforce tho
 
 ### Switch to JSON and Markdown for the `qna.yaml` document
 
-Allow the user to use Markdown in a WYSIWYG experience, and then use a Markdown-to-JSON converter to handle the conversion to a code-friendly format.
+Allow the user to use Markdown in a WYSIWYG experience, and then use a Markdown-to-JSON converter to handle the conversion to a code-friendly and machine-readable format.
 
 Markdown is very user-friendly, and converters handle a lot of the issues with encoding and special characters that happen in situations like working in other languages. We don't have to worry about a linter arguing about line length with the end user, and we wouldn't have to think about whether the user used tabs or spaces or forgot to strip whitespace at the end of a line.
 
-This would also make it a lot easier for the UI to work with contributions. JSON plays well with JavaScript overall without importing more libraries and creating dependency issues, and Python has a very good built-in for working with JSON files.
+This would also make it a lot easier for the UI to work with contributions. JSON plays well with JavaScript overall without importing more libraries and creating dependency issues, and Python has a very good built-in for working with JSON files. Fewer dependencies means a smaller attack surface, as well.
 
-Users who decide to build it without needing the converter are likely familiar with JSON, and there are fewer pitfalls and less likelihood of tooling choices impacting meaning as the JSON standard has not changed since 2017, and barely changed from the original standard.
+Users who decide to build it without needing the converter are likely familiar with JSON, and there are fewer pitfalls and less likelihood of tooling choices impacting meaning (e.g., where line breaks are for paragraph structures) as the JSON standard has not changed since 2017, and barely changed from the original standard.
 
 ### Reframe the Q&A writing process as a reading comprehension process
 
@@ -61,7 +61,7 @@ Most people can understand reading to learn versus learning to read type questio
 
 ## Unaddressed concerns
 
-The issue of needing a git repository for document storage is possibly out of scope of this document. However, I'm adding it as something that may need its own ADR/dev doc. The end user experience of needing a git repository is needlessly complex and also still follows the idea of the upstream taxonomy and community model build. A user working with InstructLab locally does not need the version tracking provided by git and likely probably already has a document storage system. I propose changing the general idea from a git repository to a simple address, whether that's local storage, remote storage, or a version-controlled repository. Make it more flexible.
+The issue of needing a git repository for document storage is possibly out of scope of this document. However, I'm adding it as something that may need its own ADR/dev doc. The end user experience of needing a git repository is needlessly complex and also still follows the idea of the upstream taxonomy and community model build. A user working with InstructLab locally does not need the version tracking provided by git and likely probably already has a document storage system. I propose changing the general idea from a git repository to a simple address, whether that's local storage, remote storage, or a version-controlled repository. Make it more flexible and extensible to match where someone chooses to store their data, perhaps through an environment variable to set as one implementation example. This could also decouple the documentation process from the SDG process by allowing the end-user subject-matter expert to create and upload content to a central store without ever touching InstructLab's tooling chains and then a end-user operations or development specialist to run the InstructLab tooling separately.
 
 ∎
 
