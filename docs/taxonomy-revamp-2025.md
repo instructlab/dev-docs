@@ -31,19 +31,39 @@ Overall, the `qna.yaml` file needs to have fewer knobs and fewer pitfalls.
 
 The process of writing question and answer sets also is more like writing reading comprehension sets from a standardized exam. It would be better to frame this hands-on part of the process as similar to the passage and question sets from English reading comprehension exams
 
-## Proposed solution
+## Proposed solutions
 
-- Drop the folder structure in favor of a schema field for submission type and even domain, if necessary.
-  - The schema field can be entered automatically via the UI through a user selecting `knowledge` or `skill`.
-- Streamline the schema.
-  - Make `created_by`, `domain`, and `document_outline` optional fields. Enforce those fields for the upstream taxonomy though documentation, CI, and review rather than require them for everyone.
-  - 
-- Switch to JSON and Markdown for the `qna.yaml` document.
-  - Allow the user to use Markdown in a WYSIWYG experience, and then use a Markdown-to-JSON converter to handle the conversion to a code-friendly format.
-  - Markdown is very user-friendly, and converters handle a lot of the issues with encoding and special characters that happen in situations like working in other languages. We don't have to worry about a linter arguing about line length with the end user, and we wouldn't have to think about whether the user used tabs or spaces or forgot to strip whitespace at the end of a line.
-- Frame the Q&A writing process as a reading comprehension process.
-  - Write documentation and tutorials based on existing tutorials on writing reading comprehension questions and example answers for standardized exams.
-  - Most people can understand reading to learn versus learning to read type questions. The new, streamlined schema that matches the most simple needs could help here along with a solid set of docs and tutorials on how to write reading comprehension sets. We could borrow heavily from the standard tutorials for writing standardized exams that are out there for free and already battle-tested.
+To fix the user experience when working with data, I propose the following ideas. In general, the basic idea is "Keep It Simple; Make It Tick."
+
+### Use a schema field rather than directory tree structure
+
+Drop the folder structure in favor of a schema field for submission type and even domain, if necessary. The schema field can be entered automatically via the UI through a user selecting `knowledge` or `skill`.
+
+### Streamline the schema
+
+Make `created_by`, `domain`, and `document_outline` optional fields. Enforce those fields for the upstream taxonomy though documentation, CI, and review rather than require them for everyone.
+
+### Switch to JSON and Markdown for the `qna.yaml` document
+
+Allow the user to use Markdown in a WYSIWYG experience, and then use a Markdown-to-JSON converter to handle the conversion to a code-friendly format.
+
+Markdown is very user-friendly, and converters handle a lot of the issues with encoding and special characters that happen in situations like working in other languages. We don't have to worry about a linter arguing about line length with the end user, and we wouldn't have to think about whether the user used tabs or spaces or forgot to strip whitespace at the end of a line.
+
+This would also make it a lot easier for the UI to work with contributions. JSON plays well with JavaScript overall without importing more libraries and creating dependency issues, and Python has a very good built-in for working with JSON files.
+
+Users who decide to build it without needing the converter are likely familiar with JSON, and there are fewer pitfalls and less likelihood of tooling choices impacting meaning as JSON's standard has not changed since 2017, and barely changed from the original standard.
+
+### Reframe the Q&A writing process as a reading comprehension process
+
+Write documentation and tutorials based on existing tutorials on writing reading comprehension questions and example answers for standardized exams.
+
+Most people can understand reading to learn versus learning to read type questions. The new, streamlined schema that matches the most simple needs could help here along with a solid set of docs and tutorials on how to write reading comprehension sets. We could borrow heavily from the standard tutorials for writing standardized exams that are out there for free and already battle-tested.
+
+## Unaddressed concerns
+
+The issue of needing a git repository for document storage is possibly out of scope of this document. However, I'm adding it as something that may need its own ADR/dev doc. The end user experience of needing a git repository is needlessly complex and also still follows the idea of the upstream taxonomy and community model build. A user working with InstructLab locally does not need the version tracking provided by git and likely probably already has a document storage system. I propose changing the general idea from a git repository to a simple address, whether that's local storage, remote storage, or a version-controlled repository. Make it more flexible.
+
+∎
 
 [^bike shed]: The story of the bikeshed is a common metaphor. The story goes that a group that is working on the approvals for the construction plan of a nuclear power plant gets stuck on what color to paint the bike shed at one of the entrances to the plant. Multiple meetings are scheduled to hash out the issue of the color of the bike shed, with heated arguments. However, the rest of the plan for the power plant is not examined in detail or critiqued. People have an easier time evaluating and having an opinion on something that is as trivial as a bike shed's color when faced with complex decisions on other systems. [Wiktionary entry](https://en.wiktionary.org/wiki/bikeshedding)
 [^9 ways]: You can experience this issue in action with the interactive experience on [yaml-multiline.info](https://yaml-multiline.info/).
