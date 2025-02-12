@@ -13,9 +13,14 @@ args
 arXiv
 backend
 backends
+backport
+backports
+backporting
 benchmarking
 Bhandwaldar
 brainer
+bugfix
+bugfixes
 Cappi
 checkpointing
 chunkers
@@ -201,6 +206,7 @@ Radeon
 RDNA
 README
 rebase
+rebasing
 Ren
 repo
 repos
@@ -215,6 +221,7 @@ safetensor
 safetensors
 Salawu
 scalable
+Schedulable
 SDG
 sdg
 SDK
