@@ -1,0 +1,11 @@
+# Remove DCO Sign-off Check
+
+## Overview
+
+Presently, all repositories under our `instructlab` GitHub org require contributors to add a [Developer Certificate Origin (DCO)](https://developercertificate.org/) sign-off in each commit to indicate that they agree to the DCO legal terms. While these DCO sign-offs can be a great way for us to validate that a contributor agrees to the DCO legal terms, many upstream projects actively use the DCO without explicitly requiring contributors to add "Signed-off-by" to their commits. So in other words, we can still require contributors to agree to the DCO terms, but we don't necessarily _need_ contributors to add DCO sign-offs in each commit.
+
+We can look at the `gnuradio/volk` repository as an example of how to enforce the DCO terms without explicitly requiring contributors to add sign-offs. Essentially, they have added a copy of the DCO text to their repository under [docs/DCO.txt](https://github.com/gnuradio/volk/blob/d9d6abfcc4aaeec2d60abd482f74fded158818b5/docs/DCO.txt) and referenced that file [here in their CONTRIBUTING.md](https://github.com/gnuradio/volk/blob/308948abf8384bb4bf6467e14b585df708789782/docs/CONTRIBUTING.md?plain=1#L22) guide.
+
+## Changes Going Forward
+
+We should mimic how other open source projects implicitly enforce the DCO terms. More specifically, we should make an exact copy of the [DCO agreement document](https://developercertificate.org/) and save that copy to a `DCO.txt` file located at the root of each InstructLab repository (i.e., on the same level as the main `README.md` file in each repository). While some open source repositories opt to place the DCO agreement terms under a `docs/` folder, us placing `DCO.txt` at the root of each repository makes the DCO agreement visible and easily accessible for all contributors. Finally, we can then update each repository's `CONTRIBUTING.md` guide to clearly state that anyone who makes a contribution to InstructLab will be implicitly agreeing to the DCO terms located under `DCO.txt` -- and a relative link to that file shall be provided within each InstructLab repository.
