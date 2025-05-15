@@ -125,6 +125,7 @@ LLMs
 llms
 LLVM
 lora
+LTS
 Makefiles
 Markdownlint
 Martinoli
