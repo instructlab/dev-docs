@@ -15,6 +15,8 @@ backend
 backends
 benchmarking
 Bhandwaldar
+bikeshed
+bikeshedding
 brainer
 Cappi
 checkpointing
@@ -120,6 +122,7 @@ Langgraph
 leaderboard
 lifecycle
 lignment
+linter
 LLM
 LLMs
 llms
@@ -145,6 +148,8 @@ MMLU
 modularize
 modularized
 MTEB
+multiline
+multilines
 Murdock
 mvp
 Nakamura
@@ -193,6 +198,7 @@ PyPI
 pyproject
 PyTorch
 pyyaml
+PyYAML
 qlora
 qna
 quantized
@@ -201,6 +207,8 @@ Radeon
 RDNA
 README
 rebase
+Reframe
+reframe
 Ren
 repo
 repos
@@ -214,6 +222,7 @@ SaaS
 safetensor
 safetensors
 Salawu
+Santamaria
 scalable
 SDG
 sdg
@@ -272,8 +281,10 @@ Vishnoi
 vLLM
 vllm
 watsonx
+whitespace
 Wikisource
 wikisql
+Wiktionary
 WIP
 WSL
 xcode
