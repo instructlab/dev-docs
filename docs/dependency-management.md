@@ -11,7 +11,7 @@ This document describes the policies for adding and updating build and runtime d
 4. Only apply "caps" to dependencies (using `<`) when that dependency has established a pattern of producing new releases with breaking changes.
 5. Pin versions in CI, with frequent automated updates.
 
-Best practices for python dependencies call for using ranges in package requirements and pinning versions only in CI jobs.
+Best practices for python dependencies call for using ranges in package requirements and [pinning versions only in CI jobs](./ci/dependency-constraints.md).
 
 Using pinned versions in a list of constraints used for tests allows us to know and advertise exactly what versions have been tested in CI.
 That information is useful for users and re-packagers to understand which versions of dependencies are compatible with more specificity than the ranges provide.
